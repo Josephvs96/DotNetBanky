@@ -2,7 +2,8 @@
 
 Bank managment system
 
-Uses the N-Tier architecture as folowes:
+## Uses the N-Tier architecture as folowes:
+### Layers
 - DotNetBanky.DAL : The data access layer of the application with repositories 
 - DotNetBanky.BLL : The business layer of the application with all the services for exchaning data between the data layer and the presentation layers
 - DotNetBanky.ADMIN.MVC : First presentation layer, An MVC application for the admins and cashiers to manage the application
