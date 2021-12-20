@@ -1,9 +1,20 @@
+using DotNetBanky.DAL.Context;
+using DotNetBanky.IoC.DIContainer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddBankyDependencyInjection(builder.Configuration);
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var DbInilizer = scope.ServiceProvider.GetService<DbInitilizer>();
+    DbInilizer?.InitilizeDB();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -23,5 +34,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

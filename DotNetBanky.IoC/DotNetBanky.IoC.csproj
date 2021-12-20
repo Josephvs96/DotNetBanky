@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DIContainer\" />
+    <ProjectReference Include="..\DotNetBanky.DAL\DotNetBanky.DAL.csproj" />
+    <ProjectReference Include="..\DotNetBanky.Utility\DotNetBanky.Utility.csproj" />
   </ItemGroup>
 
 </Project>

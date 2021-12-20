@@ -1,7 +1,10 @@
-﻿namespace DotNetBanky.Entity.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DotNetBanky.Entity.Entities
 {
     public class PermenentOrder
     {
+        [Key]
         public int OrderId { get; set; }
         public int AccountId { get; set; }
         public string BankTo { get; set; } = null!;

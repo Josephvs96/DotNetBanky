@@ -6,4 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetBanky.BLL\DotNetBanky.BLL.csproj" />
+    <ProjectReference Include="..\DotNetBanky.DTO\DotNetBanky.DTO.csproj" />
+    <ProjectReference Include="..\DotNetBanky.IoC\DotNetBanky.IoC.csproj" />
+  </ItemGroup>
+
 </Project>

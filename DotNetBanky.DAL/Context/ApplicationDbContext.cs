@@ -15,12 +15,6 @@ namespace DotNetBanky.DAL.Context
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        }
-
         public DbSet<Account> Accounts { get; set; } = null!;
         public DbSet<Card> Cards { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
