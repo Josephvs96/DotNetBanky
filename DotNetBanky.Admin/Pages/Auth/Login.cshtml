@@ -1,0 +1,21 @@
+﻿@page
+@model DotNetBanky.Admin.Pages.Auth.LoginModel
+@{
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="post">
+    <label asp-for="UserLogin.Email">
+        <input class="control" type="text" asp-for="UserLogin.Email" />
+        <span asp-validation-for="UserLogin.Email" class="text-danger"></span>
+    </label>
+    <label asp-for="UserLogin.Password">
+        <input class="control" type="password" asp-for="UserLogin.Password" />
+        <span asp-validation-for="UserLogin.Password" class="text-danger"></span>
+    </label>
+    <button type="submit" class="btn btn-primary">Log in</button>
+</form>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

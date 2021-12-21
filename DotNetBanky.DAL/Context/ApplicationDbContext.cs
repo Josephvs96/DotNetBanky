@@ -1,4 +1,4 @@
-﻿using DotNetBanky.Entity.Entities;
+﻿using DotNetBanky.Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

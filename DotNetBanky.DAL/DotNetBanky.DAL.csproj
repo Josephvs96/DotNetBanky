@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
 			<PrivateAssets>all</PrivateAssets>
@@ -16,8 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DotNetBanky.Entity\DotNetBanky.Entity.csproj" />
-		<ProjectReference Include="..\DotNetBanky.Utility\DotNetBanky.Utility.csproj" />
+		<ProjectReference Include="..\DotNetBanky.Core\DotNetBanky.Core.csproj" />
 	</ItemGroup>
 
 </Project>

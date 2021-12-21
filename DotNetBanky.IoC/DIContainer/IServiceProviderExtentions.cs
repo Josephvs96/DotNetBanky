@@ -1,0 +1,110 @@
+﻿using DotNetBanky.BLL.Services;
+using DotNetBanky.Common.ConfigModels;
+using DotNetBanky.Core.Entities;
+using DotNetBanky.DAL.Context;
+using DotNetBanky.DAL.Repositories;
+using DotNetBanky.DAL.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using static DotNetBanky.Core.AutoMapperProfiles.AutoMapperProfiles;
+
+namespace DotNetBanky.Common.DIContainer
+{
+    public static class IServiceProviderExtentions
+    {
+        public static void AddBankyDatabase(this IServiceCollection services, IConfiguration configuration)
+        {
+            var databaseConfig = configuration.GetSection("Database").Get<DatabaseConfiguration>();
+            if (databaseConfig.UseInMemoryDatabase)
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseInMemoryDatabase("BankyDatabase");
+                    options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+                });
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseSqlServer(databaseConfig.ConnectionString);
+                    options.EnableSensitiveDataLogging();
+                });
+            }
+        }
+
+        public static void AddBankyServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IUserService, UserService>();
+        }
+
+        public static void AddBankyRepositories(this IServiceCollection services)
+        {
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        }
+
+        public static void RegisterAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+        }
+
+        public static void AddBankyIdentity(this IServiceCollection services)
+        {
+            services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+        }
+
+        public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
+        {
+            var secretKey = configuration.GetValue<string>("JwtConfiguration:SecretKey");
+
+            var key = Encoding.ASCII.GetBytes(secretKey);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+        }
+
+    }
+}
