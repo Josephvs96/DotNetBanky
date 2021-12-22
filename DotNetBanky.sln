@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBanky.API", "DotNetBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBanky.TEST", "DotNetBanky.TEST\DotNetBanky.TEST.csproj", "{71B87B8F-B3E6-4032-BD66-EC0945A413CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetBanky.Admin", "DotNetBanky.Admin\DotNetBanky.Admin.csproj", "{99D9FD06-7CE7-42D0-9539-82C44224258E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBanky.Admin", "DotNetBanky.Admin\DotNetBanky.Admin.csproj", "{99D9FD06-7CE7-42D0-9539-82C44224258E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBanky.Core", "DotNetBanky.Core\DotNetBanky.Core.csproj", "{C9946722-AEC4-4020-92B5-19CAF7B6ACF2}"
 EndProject

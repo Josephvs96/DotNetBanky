@@ -1,5 +1,7 @@
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
+using SmartBreadcrumbs.Extensions;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddBankyServices(builder.Configuration);
 builder.Services.RegisterAutoMapper();
 
 builder.Services.AddBankyIdentity();
+
+builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
 
 builder.Services.AddRazorPages();
 

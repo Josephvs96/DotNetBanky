@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages
 {
+    [DefaultBreadcrumb("Home Page")]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
