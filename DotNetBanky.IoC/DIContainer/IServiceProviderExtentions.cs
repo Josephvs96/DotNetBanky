@@ -57,9 +57,17 @@ namespace DotNetBanky.Common.DIContainer
         public static void AddBankyIdentity(this IServiceCollection services)
         {
             services.AddDefaultIdentity<User>()
+
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "BankyCookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Auth/Login";
+            });
 
             services.Configure<IdentityOptions>(options =>
             {

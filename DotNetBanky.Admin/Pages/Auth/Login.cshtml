@@ -4,7 +4,7 @@
 }
 
 <div asp-validation-summary="All" class="text-danger"></div>
-<form asp-action="post">
+<form asp-route-returnUrl="@Model.ReturnUrl" asp-action="post">
     <label asp-for="UserLogin.Email">
         <input class="control" type="text" asp-for="UserLogin.Email" />
         <span asp-validation-for="UserLogin.Email" class="text-danger"></span>

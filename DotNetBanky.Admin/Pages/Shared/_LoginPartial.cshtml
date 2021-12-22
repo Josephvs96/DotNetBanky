@@ -19,7 +19,7 @@
             <a class="nav-link text-dark" asp-page="/Auth/Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-page="/Auth/Login">Login</a>
+            <a class="nav-link text-dark" asp-page="/Auth/Login" asp-route-returnUrl="@Url.RouteUrl(ViewContext.RouteData.Values)">Login</a>
         </li>
     }
 </ul>

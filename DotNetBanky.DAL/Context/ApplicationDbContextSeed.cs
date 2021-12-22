@@ -8,15 +8,6 @@ namespace DotNetBanky.DAL.Context
     {
         public static async Task SeedDatabaseAsync(ApplicationDbContext db, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if (!userManager.Users.Any())
-            {
-                var adminUser = new User { UserName = "StefanAdmin", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
-                var cashierUser = new User { UserName = "StefanCashier", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
-
-                await userManager.CreateAsync(adminUser, "Hejsan123#");
-                await userManager.CreateAsync(cashierUser, "Hejsan123#");
-            }
-
             if (!roleManager.Roles.Any())
             {
                 var adminRole = new IdentityRole
@@ -34,7 +25,19 @@ namespace DotNetBanky.DAL.Context
                 await roleManager.CreateAsync(adminRole);
                 await roleManager.CreateAsync(cashierRole);
             }
+            await db.SaveChangesAsync();
 
+            if (!userManager.Users.Any())
+            {
+                var adminUser = new User { UserName = "StefanAdmin", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
+                var cashierUser = new User { UserName = "StefanCashier", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
+
+                await userManager.CreateAsync(adminUser, "Hejsan123#");
+                await userManager.CreateAsync(cashierUser, "Hejsan123#");
+
+                await userManager.AddToRoleAsync(adminUser, RoleConstants.Admin);
+                await userManager.AddToRoleAsync(cashierUser, RoleConstants.Cahsier);
+            }
 
             await db.SaveChangesAsync();
         }
