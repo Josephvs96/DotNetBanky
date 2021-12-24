@@ -1,5 +1,7 @@
+using AspNetCoreHero.ToastNotification;
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
+using Microsoft.AspNetCore.Authorization;
 using SmartBreadcrumbs.Extensions;
 using System.Reflection;
 
@@ -16,8 +18,20 @@ builder.Services.RegisterAutoMapper();
 builder.Services.AddBankyIdentity();
 
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
+builder.Services.AddNotyf(options =>
+{
+    options.DurationInSeconds = 3;
+    options.IsDismissable = true;
+    options.HasRippleEffect = false;
+    options.Position = NotyfPosition.BottomRight;
+});
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+});
 
 var app = builder.Build();
 

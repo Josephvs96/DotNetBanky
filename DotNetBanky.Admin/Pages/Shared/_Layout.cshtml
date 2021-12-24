@@ -43,7 +43,7 @@
                     <!-- end row -->
                 </div>
                 <!-- ========== title-wrapper end ========== -->
-            @RenderBody()
+                @RenderBody()
             </div>
         </div>
 
@@ -61,5 +61,6 @@
     <script src="~/js/polyfill.js"></script>
     <script src="~/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
 </body>
 </html>

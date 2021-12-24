@@ -1,12 +1,14 @@
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.DTOModels.User;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotNetBanky.Admin.Pages.Auth
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly IUserService _userService;
@@ -16,15 +18,15 @@ namespace DotNetBanky.Admin.Pages.Auth
             _userService = userService;
         }
 
-        public string ReturnUrl { get; set; }
+        public string? ReturnUrl { get; set; }
 
         [BindProperty]
         public UserLoginModel UserLogin { get; set; }
 
         [TempData]
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -39,7 +41,7 @@ namespace DotNetBanky.Admin.Pages.Auth
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
 

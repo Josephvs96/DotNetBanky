@@ -1,9 +1,11 @@
 using DotNetBanky.BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DotNetBanky.Admin.Pages.Auth
 {
+    [AllowAnonymous]
     public class LogoutModel : PageModel
     {
         private readonly IUserService _userService;
