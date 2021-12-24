@@ -7,12 +7,52 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-	  <PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
+		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+		<PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\DotNetBanky.IoC\DotNetBanky.Common.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+
+		<Folder Include="wwwroot\images\" />
+		<Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
+		<Folder Include="wwwroot\lib\jquery-validation\" />
+		<Folder Include="wwwroot\lib\jquery-validation\dist\" />
+		<Folder Include="wwwroot\lib\jquery\" />
+		<Folder Include="wwwroot\lib\jquery\dist\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\css\bootstrap.min.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\fullcalendar.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\lineicons.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\loading-bar.min.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\main.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\materialdesignicons.min.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\morris.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	  <Content Update="wwwroot\css\site.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+
 
 </Project>

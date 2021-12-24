@@ -1,0 +1,130 @@
+﻿@page
+@model DotNetBanky.Admin.Pages.Auth.SignupModel
+@{
+    Layout = "_PublicLayout";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row g-0 auth-row">
+    <div class="d-none col-lg-6 d-lg-block">
+        <div class="auth-cover-wrapper bg-primary-100">
+            <div class="auth-cover">
+                <div class="title text-center">
+                    <h1 class="text-primary mb-10">Get Started</h1>
+                    <p class="text-medium">
+                        Start creating the best possible user experience
+                        <br class="d-sm-block" />
+                        for you customers.
+                    </p>
+                </div>
+                <div class="cover-image">
+                    <img src="~/images/auth/signin-image.svg" alt="" />
+                </div>
+                <div class="shape-image">
+                    <img src="~/images/auth/shape.svg" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+    <div class="col-lg-6">
+        <div class="signup-wrapper">
+            <div class="form-wrapper">
+                <h6 class="mb-15">Sign Up Form</h6>
+                <p class="text-sm mb-25">
+                    Start creating the best possible user experience for you
+                    customers.
+                </p>
+                <form autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.FirstName">Name</label>
+                                <input asp-for="InputModel.FirstName" type="text" placeholder="Full Name" />
+                                <span asp-validation-for="InputModel.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.DisplayName">Display Name</label>
+                                <input autocomplete="off" asp-for="InputModel.DisplayName" type="text" placeholder="User name" />
+                                <span asp-validation-for="InputModel.DisplayName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.Email">Email</label>
+                                <input asp-for="InputModel.Email" type="email" placeholder="Email" />
+                                <span asp-validation-for="InputModel.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.Password">Password</label>
+                                <input id="PasswordInput" autocomplete="off" asp-for="InputModel.Password" type="password" placeholder="Password" />
+                                <div id="PasswordUpperDivId" class="valid password_requirement">At least one upper case letter.</div>
+                                <div id="PasswordLowerDivId" class="valid password_requirement">At least one lower case letter.</div>
+                                <div id="PasswordDigitDivId" class="valid password_requirement">At least one digit.</div>
+                                <div id="PasswordSpecialDivId" class="valid password_requirement">At least one special character.</div>
+                                <div id="PasswordLengthDivId" class="valid password_requirement mb-2">At least 8 characters long.</div>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.ConfirmPassword">Confirm Password</label>
+                                <input autocomplete="off" asp-for="InputModel.ConfirmPassword" type="password" placeholder="Password" />
+                                <span asp-validation-for="InputModel.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="select-style-1">
+                                <label asp-for="InputModel.Role"></label>
+                                <div class="select-position">
+                                    <select class="light-bg" asp-items="Model.InputModel.Roles" asp-for="InputModel.Role">
+                                        <option disabled selected>Select a role</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="InputModel.Role" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="
+                            button-group
+                            d-flex
+                            justify-content-center
+                            flex-wrap
+                          ">
+                                <button class="
+                              main-btn
+                              primary-btn
+                              btn-hover
+                              w-100
+                              text-center
+                            ">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+                </form>
+                <div class="singup-option pt-40">
+                    <p class="text-sm text-medium text-dark text-center">
+                        Already have an account? <a asp-page="/Auth/Login" asp-route-returnUrl="@Model.ReturnUrl">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<partial name="_PasswordValidationScript" />
+}

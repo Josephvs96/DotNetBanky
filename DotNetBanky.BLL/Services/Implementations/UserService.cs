@@ -31,11 +31,15 @@ namespace DotNetBanky.BLL.Services
 
             if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
 
+            await _userManager.AddToRoleAsync(user, model.Role);
+
             var accountConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             // Send CONFIRMATION EMAIL
             // Delete the next line when implementing the email validation
             await _userManager.ConfirmEmailAsync(user, accountConfirmationToken);
+
+            await _signInManager.SignInAsync(user, isPersistent: false);
         }
 
         public async Task<string> LoginAsync(UserLoginModel model)
@@ -45,7 +49,7 @@ namespace DotNetBanky.BLL.Services
             if (user == null)
                 throw new NotFoundException("Username or password is incorrect");
 
-            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
 
             if (!signInResult.Succeeded)
                 throw new BadRequestException("Username or password is incorrect");
