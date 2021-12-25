@@ -11,6 +11,7 @@ namespace DotNetBanky.Core.AutoMapperProfiles
             public AutoMapperProfile()
             {
                 CreateMap<UserCreateModel, User>().ForMember(usr => usr.UserName, opt => opt.MapFrom(dto => dto.DisplayName)).ReverseMap();
+                CreateMap<UserDTOModel, User>().ForMember(usr => usr.UserName, opt => opt.MapFrom(dto => dto.DisplayName)).ReverseMap();
             }
         }
     }

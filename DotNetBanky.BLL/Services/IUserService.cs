@@ -7,9 +7,10 @@ namespace DotNetBanky.BLL.Services
         Task ChangePasswordAsync(Guid userId, UserChangePasswordModel model);
 
         Task CreateAsync(UserCreateModel model);
-
+        Task<List<UserDTOModel>> GetAllUsersAsync();
         Task<string> LoginAsync(UserLoginModel model);
 
         Task LogoutAsnyc();
+        Task UpdateUserInfoAsync(UserDTOModel model);
     }
 }

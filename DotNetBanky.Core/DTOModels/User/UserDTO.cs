@@ -51,5 +51,21 @@ namespace DotNetBanky.Core.DTOModels.User
         [Required]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
+        [Required]
+        [Display(Name = "Confirm new password")]
+        [DataType(DataType.Password)]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmNewPassword { get; set; }
+    }
+
+    public class UserDTOModel
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string Role { get; set; }
+        public SelectList? Roles { get; set; }
     }
 }

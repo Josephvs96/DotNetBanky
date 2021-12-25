@@ -14,13 +14,15 @@ namespace DotNetBanky.BLL.Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public UserService(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
         }
         public async Task CreateAsync(UserCreateModel model)
@@ -71,6 +73,38 @@ namespace DotNetBanky.BLL.Services
             if (user == null) throw new NotFoundException("User does not exist anymore");
 
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
+        }
+
+        public async Task<List<UserDTOModel>> GetAllUsersAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return users.Select(u => new UserDTOModel
+            {
+                Email = u.Email,
+                Id = u.Id,
+                DisplayName = u.UserName,
+                FirstName = u.FirstName,
+                Role = _userManager.GetRolesAsync(u).GetAwaiter().GetResult().FirstOrDefault(),
+            }).ToList();
+        }
+
+        public async Task UpdateUserInfoAsync(UserDTOModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null) throw new NotFoundException("User does not exist");
+
+            user.UserName = model.DisplayName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var currentUserRoles = await _userManager.GetRolesAsync(user);
+            if (currentUserRoles.Any() && !currentUserRoles.Contains(model.Role))
+                await _userManager.AddToRoleAsync(user, model.Role);
+
+            var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
         }
