@@ -1,5 +1,6 @@
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.DTOModels.User;
+using DotNetBanky.Core.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DotNetBanky.Admin.Pages.Auth
 {
     [AllowAnonymous]
+    [NoAccess] // This is to prevent accessing the register page while we don't allow self registering. 
     public class SignupModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -26,6 +28,8 @@ namespace DotNetBanky.Admin.Pages.Auth
 
         public async Task OnGetAsync(string? returnUrl)
         {
+
+
             InputModel = new UserCreateModel { Roles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name") };
             ReturnUrl = returnUrl;
         }
