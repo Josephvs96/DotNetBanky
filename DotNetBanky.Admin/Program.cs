@@ -18,6 +18,7 @@ builder.Services.RegisterAutoMapper();
 builder.Services.AddBankyIdentity();
 
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
+
 builder.Services.AddNotyf(options =>
 {
     options.DurationInSeconds = 3;

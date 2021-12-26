@@ -1,0 +1,92 @@
+﻿@page "/Admin/Users/Edit/{userId}"
+@model DotNetBanky.Admin.Pages.Admin.Users.UserEditModel
+@{
+    ViewData["Title"] = "Edit user details";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="row g-0 auth-row">
+    <div class="col-lg-12">
+        <div class="signup-wrapper">
+            <div class="form-wrapper">
+                <form autocomplete="off" method="post">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.FirstName">Name</label>
+                                <input asp-for="InputModel.FirstName" type="text" placeholder="Full Name" />
+                                <span asp-validation-for="InputModel.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.DisplayName">Display Name</label>
+                                <input autocomplete="off" asp-for="InputModel.DisplayName" type="text" placeholder="User name" />
+                                <span asp-validation-for="InputModel.DisplayName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label asp-for="InputModel.Email">Email</label>
+                                <input asp-for="InputModel.Email" type="email" placeholder="Email" />
+                                <span asp-validation-for="InputModel.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class="select-style-1">
+                                <label asp-for="InputModel.Role"></label>
+                                <div class="select-position">
+                                    <select class="light-bg" asp-items="Model.InputModel.Roles" asp-for="InputModel.Role">
+                                        <option disabled selected>Select a role</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="InputModel.Role" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- end col -->
+                        <div class="col-12">
+                            <div class=" button-group d-flex justify-content-center flex-wrap gap-5">
+                                <button class="main-btn primary-btn btn-hover text-center" asp-page-handler="Edit">
+                                    Save Changes
+                                </button>
+                                <button type="button" class="main-btn danger-btn btn-hover text-center" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Remove User
+                                </button>
+                            </div>
+                        </div>
+                        <input asp-for="InputModel.Id" type="hidden" />
+                    </div>
+                    <!-- end row -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the user?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-hoveer" data-bs-dismiss="modal">No, Close</button>
+                <form method="post">
+                    <input asp-for="InputModel.Id" type="hidden" />
+                    <button class="btn btn-danger btn-hover" asp-page-handler="Delete">Yes delete!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

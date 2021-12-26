@@ -3103,9 +3103,7 @@ h6,
             visibility: visible;
         }
 
-        .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children > a::after {
-            content: "\ea5e";
-            font: normal normal normal 1em/1 "LineIcons";
+        .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children > a > .menu-angel {
             position: absolute;
             right: 25px;
             top: 16px;
@@ -3131,7 +3129,7 @@ h6,
                 visibility: hidden;
             }
 
-            .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children > a.collapsed::after {
+            .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children > a.collapsed > .menu-angel {
                 -webkit-transform: rotate(0deg);
                 -moz-transform: rotate(0deg);
                 -ms-transform: rotate(0deg);

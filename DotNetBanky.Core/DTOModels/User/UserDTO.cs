@@ -61,10 +61,19 @@ namespace DotNetBanky.Core.DTOModels.User
     public class UserDTOModel
     {
         public string Id { get; set; }
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [DisplayName("Display Name")]
         public string DisplayName { get; set; }
-        public string? FirstName { get; set; }
+
+        [Required]
+        [DisplayName("Name")]
+        public string FirstName { get; set; }
         public string? LastName { get; set; }
+
+        [Required]
         public string Role { get; set; }
         public SelectList? Roles { get; set; }
     }

@@ -28,8 +28,6 @@ namespace DotNetBanky.Admin.Pages.Auth
 
         public async Task OnGetAsync(string? returnUrl)
         {
-
-
             InputModel = new UserCreateModel { Roles = new SelectList(_roleManager.Roles.ToList(), "Name", "Name") };
             ReturnUrl = returnUrl;
         }

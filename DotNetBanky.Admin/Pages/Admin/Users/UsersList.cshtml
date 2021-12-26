@@ -1,6 +1,7 @@
 ﻿@page
 @model DotNetBanky.Admin.Pages.Admin.Users.UsersListModel
 @{
+    ViewData["Title"] = "Users list";
 }
 
 <div class="container">
@@ -9,7 +10,7 @@
             <div class="card-style mb-30">
                 <div class="table-wrapper table-responsive">
                     <div class="d-flex justify-content-end py-0 pb-2">
-                    <button class="btn btn-success rounded-full btn-hover" asp-page="/Admin/Users/Add"><i class="lni lni-plus"></i> Add new User</button>
+                        <a class="main-btn primary-btn btn-sm rounded-full btn-hover" asp-page="/Admin/Users/CreateUser"><i class="fa-solid fa-plus"></i> Add new User</a>
                     </div>
                     <table class="table">
                         <thead>
@@ -45,9 +46,10 @@
                                     </td>
                                     <td>
                                         <div class="action">
-                                            <button class="text-success">
-                                                <i class="lni lni-pencil"></i>
-                                            </button>
+                                            <a class="text-active" asp-page="/Admin/Users/UserEdit" asp-route-userId="@user.Id">
+                                                <i class="fa-solid fa-user-edit" title="Edit the user information or delete the user"></i>
+                                            </a>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -63,3 +65,4 @@
     </div>
     <!-- end row -->
 </div>
+

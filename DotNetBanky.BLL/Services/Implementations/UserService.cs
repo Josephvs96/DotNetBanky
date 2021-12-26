@@ -31,7 +31,7 @@ namespace DotNetBanky.BLL.Services
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()!.Description);
 
             await _userManager.AddToRoleAsync(user, model.Role);
 
@@ -66,15 +66,15 @@ namespace DotNetBanky.BLL.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task ChangePasswordAsync(Guid userId, UserChangePasswordModel model)
+        public async Task ChangePasswordAsync(string userId, UserChangePasswordModel model)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null) throw new NotFoundException("User does not exist anymore");
 
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
 
-            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()!.Description);
         }
 
         public async Task<List<UserDTOModel>> GetAllUsersAsync()
@@ -86,8 +86,18 @@ namespace DotNetBanky.BLL.Services
                 Id = u.Id,
                 DisplayName = u.UserName,
                 FirstName = u.FirstName,
-                Role = _userManager.GetRolesAsync(u).GetAwaiter().GetResult().FirstOrDefault(),
+                Role = _userManager.GetRolesAsync(u).GetAwaiter().GetResult().FirstOrDefault()!,
             }).ToList();
+        }
+
+        public async Task<UserDTOModel> GetUserByIdAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) throw new NotFoundException("User does not exist");
+            var userToBeReturned = _mapper.Map<UserDTOModel>(user);
+            userToBeReturned.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault()!;
+            return userToBeReturned;
         }
 
         public async Task UpdateUserInfoAsync(UserDTOModel model)
@@ -106,7 +116,23 @@ namespace DotNetBanky.BLL.Services
 
             var result = await _userManager.UpdateAsync(user);
 
-            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()?.Description);
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()!.Description);
+        }
+
+        public async Task DeleteUserAsync(UserDTOModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null) throw new NotFoundException("User does not exist");
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.FirstOrDefault()!.Description);
+        }
+
+        public async Task<List<IdentityRole>> GetAvailableRollesAsync()
+        {
+            return await _roleManager.Roles.ToListAsync();
         }
     }
 }

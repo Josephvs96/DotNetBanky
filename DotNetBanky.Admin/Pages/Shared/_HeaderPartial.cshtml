@@ -9,7 +9,7 @@
                     <div class="menu-toggle-btn mr-20">
                         <button id="menu-toggle"
                                 class="main-btn primary-btn btn-hover">
-                            <i class="lni lni-chevron-left me-2"></i> Menu
+                            <i class="fas fa-bars"></i> Menu
                         </button>
                     </div>
                 </div>
@@ -34,12 +34,12 @@
                             aria-labelledby="profile">
                             <li>
                                 <a href="#0">
-                                    <i class="lni lni-user"></i> View Profile
+                                    <i class="fa-solid fa-user"></i> View Profile
                                 </a>
                             </li>
                             <li>
                                 <form id="logout-form" class="form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                                    <a class="btn" onclick="$('#logout-form').submit()"><i class="lni lni-exit"></i> Sign Out</a>
+                                    <a class="btn" onclick="$('#logout-form').submit()"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
                                 </form>
                             </li>
                         </ul>
