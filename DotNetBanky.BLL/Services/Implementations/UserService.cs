@@ -66,9 +66,9 @@ namespace DotNetBanky.BLL.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task ChangePasswordAsync(string userId, UserChangePasswordModel model)
+        public async Task ChangePasswordAsync(UserChangePasswordModel model)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(model.UserId);
 
             if (user == null) throw new NotFoundException("User does not exist anymore");
 

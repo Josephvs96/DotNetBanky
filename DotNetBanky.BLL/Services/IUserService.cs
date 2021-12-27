@@ -5,7 +5,7 @@ namespace DotNetBanky.BLL.Services
 {
     public interface IUserService
     {
-        Task ChangePasswordAsync(string userId, UserChangePasswordModel model);
+        Task ChangePasswordAsync(UserChangePasswordModel model);
         Task CreateAsync(UserCreateModel model);
         Task DeleteUserAsync(UserDTOModel model);
         Task<List<UserDTOModel>> GetAllUsersAsync();

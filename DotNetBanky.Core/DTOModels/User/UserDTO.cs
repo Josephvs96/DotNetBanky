@@ -43,8 +43,9 @@ namespace DotNetBanky.Core.DTOModels.User
         public SelectList? Roles { get; set; }
     }
 
-    public class UserChangePasswordModel
+    public class UserChangePasswordModel : IValidatableObject
     {
+        public string UserId { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string OldPassword { get; set; }
@@ -56,6 +57,12 @@ namespace DotNetBanky.Core.DTOModels.User
         [DataType(DataType.Password)]
         [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmNewPassword { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (OldPassword == NewPassword)
+                yield return new ValidationResult("The new password and the old password cannot be the same");
+        }
     }
 
     public class UserDTOModel
