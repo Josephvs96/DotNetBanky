@@ -1,10 +1,48 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <!-- End Col -->
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="icon-card mb-30">
+            <div class="icon success">
+                <i class="fa-solid fa-euro-sign"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Number of accounts</h6>
+                <h3 class="text-bold mb-10">@Model.DashboardModel.TotalNumberOfAccounts.ToStringFormated()</h3>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="icon-card mb-30">
+            <div class="icon primary">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Number of customers</h6>
+                <h3 class="text-bold mb-10">@Model.DashboardModel.TotalNumberOfCustomers.ToStringFormated()</h3>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="icon-card mb-30">
+            <div class="icon orange">
+                <i class="fa-solid fa-euro-sign"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Sum of accounts</h6>
+                <h3 class="text-bold mb-10">@Model.DashboardModel.TotalSumOfAllAccounts.ToStringFormated()</h3>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
 </div>

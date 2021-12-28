@@ -1,21 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using DotNetBanky.BLL.Services;
+using DotNetBanky.Core.DTOModels.Dashboard;
+
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages
 {
-    [DefaultBreadcrumb("Home Page")]
+    [DefaultBreadcrumb("Dashboard")]
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IDashboardService _dashboardService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IDashboardService dashboardService)
         {
-            _logger = logger;
+            _dashboardService = dashboardService;
         }
 
-        public void OnGet()
-        {
+        public DashboardSummeryDTO DashboardModel { get; set; }
 
+        public async Task OnGetAsync()
+        {
+            DashboardModel = new DashboardSummeryDTO
+            {
+                TotalNumberOfAccounts = await _dashboardService.GetTotalNumberOfAccountsAsync(),
+                TotalNumberOfCustomers = await _dashboardService.GetTotalNumberOfCustomersAsync(),
+                TotalSumOfAllAccounts = await _dashboardService.GetTotalAccountsBalanceAsync(),
+            };
         }
     }
 }

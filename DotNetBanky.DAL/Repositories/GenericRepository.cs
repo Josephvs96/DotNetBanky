@@ -14,44 +14,44 @@ namespace DotNetBanky.DAL.Repositories
             _db = db;
         }
 
-        public async Task<TEntity> Add(TEntity entity)
+        public async Task<TEntity> AddOneAsync(TEntity entity)
         {
             await _db.AddAsync(entity);
             await _db.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<List<TEntity>> AddRange(List<TEntity> entity)
+        public async Task<List<TEntity>> AddRangeAsync(List<TEntity> entity)
         {
             await _db.AddRangeAsync(entity);
             await _db.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<int> Delete(TEntity entity)
+        public async Task<int> DeleteOneAsync(TEntity entity)
         {
             _db.Remove(entity);
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<TEntity> Get(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await _db.Set<TEntity>().FirstOrDefaultAsync(filter) ?? new TEntity();
         }
 
-        public async Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await (filter == null ? _db.Set<TEntity>().ToListAsync() : _db.Set<TEntity>().Where(filter).ToListAsync());
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task<TEntity> UpdateOneAsync(TEntity entity)
         {
             _db.Update(entity);
             await _db.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<List<TEntity>> UpdateRange(List<TEntity> entity)
+        public async Task<List<TEntity>> UpdateRangeAsync(List<TEntity> entity)
         {
             _db.UpdateRange(entity);
             await _db.SaveChangesAsync();

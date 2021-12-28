@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBankyDatabase(builder.Configuration);
 
+builder.Services.AddBankyRepositories();
+
 builder.Services.AddBankyServices(builder.Configuration);
 
 builder.Services.RegisterAutoMapper();

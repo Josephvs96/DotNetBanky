@@ -1,4 +1,5 @@
 ﻿using DotNetBanky.BLL.Services;
+using DotNetBanky.BLL.Services.Implementations;
 using DotNetBanky.Common.ConfigModels;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.DAL.Context;
@@ -42,11 +43,14 @@ namespace DotNetBanky.Common.DIContainer
         public static void AddBankyServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDashboardService, DashBoardService>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
 
         public static void RegisterAutoMapper(this IServiceCollection services)

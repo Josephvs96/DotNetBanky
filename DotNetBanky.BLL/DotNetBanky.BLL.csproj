@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetBanky.Core\DotNetBanky.Core.csproj" />
+    <ProjectReference Include="..\DotNetBanky.DAL\DotNetBanky.DAL.csproj" />
   </ItemGroup>
 
 </Project>
