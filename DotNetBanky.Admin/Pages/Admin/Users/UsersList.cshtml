@@ -4,65 +4,59 @@
     ViewData["Title"] = "Users list";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card-style mb-30">
-                <div class="table-wrapper table-responsive">
-                    <div class="d-flex justify-content-end py-0 pb-2">
-                        <a class="main-btn primary-btn btn-sm rounded-full btn-hover" asp-page="/Admin/Users/CreateUser"><i class="fa-solid fa-plus"></i> Add new User</a>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th><h6>Name</h6></th>
-                                <th><h6>Display Name</h6></th>
-                                <th><h6>Email</h6></th>
-                                <th><h6>Role</h6></th>
-                                <th><h6>Action</h6></th>
-                            </tr>
-                            <!-- end table row-->
-                        </thead>
-                        <tbody>
-                            @foreach (var user in Model.UsersList)
-                            {
-                                <tr>
-                                    <td class="min-width">
-                                        <p>
-                                            @(user.FirstName ?? "No value provided")
-                                        </p>
-                                    </td>
-                                    <td class="min-width"><p>@user.DisplayName</p></td>
-                                    <td class="min-width"><p>@user.Email</p></td>
-                                    <td class="min-width">
-                                        @if (user.Role == RoleConstants.Admin)
-                                        {
-                                            <span class="status-btn danger-btn">Admin</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="status-btn active-btn">Cashier</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="action">
-                                            <a class="text-active" asp-page="/Admin/Users/UserEdit" asp-route-userId="@user.Id">
-                                                <i class="fa-solid fa-user-edit" title="Edit the user information or delete the user"></i>
-                                            </a>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <!-- end table -->
-                </div>
+<div class="col-lg-12">
+    <div class="card-style mb-30">
+        <div class="table-wrapper table-responsive">
+            <div class="d-flex justify-content-end py-0 pb-2">
+                <a class="main-btn primary-btn btn-sm rounded-full btn-hover" asp-page="/Admin/Users/CreateUser"><i class="fa-solid fa-plus"></i> Add new User</a>
             </div>
-            <!-- end card -->
-        </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
-</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><h6>Name</h6></th>
+                        <th><h6>Display Name</h6></th>
+                        <th><h6>Email</h6></th>
+                        <th><h6>Role</h6></th>
+                        <th><h6>Action</h6></th>
+                    </tr>
+                    <!-- end table row-->
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.UsersList)
+                    {
+                        <tr>
+                            <td class="min-width">
+                                <p>
+                                    @(user.FirstName ?? "No value provided")
+                                </p>
+                            </td>
+                            <td class="min-width"><p>@user.DisplayName</p></td>
+                            <td class="min-width"><p>@user.Email</p></td>
+                            <td class="min-width">
+                                @if (user.Role == RoleConstants.Admin)
+                                {
+                                    <span class="status-btn danger-btn">Admin</span>
+                                }
+                                else
+                                {
+                                    <span class="status-btn active-btn">Cashier</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="action">
+                                    <a class="text-active" asp-page="/Admin/Users/UserEdit" asp-route-userId="@user.Id">
+                                        <i class="fa-solid fa-user-edit" title="Edit the user information or delete the user"></i>
+                                    </a>
 
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- end table -->
+        </div>
+    </div>
+    <!-- end card -->
+</div>
+<!-- end col -->
