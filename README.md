@@ -2,6 +2,8 @@
 
 Bank managment system
 
+[Project Requierments](https://github.com/Josephvs96/DotNetBanky/blob/main/Krav%20st%C3%A4llningen.md)
+
 ## Uses the N-Tier architecture as folowes:
 ### Diagram
 <p align="center">
@@ -16,3 +18,4 @@ Bank managment system
 - DotNetBanky.Core : The data entites and the transfare objects that will be used to trasfare data between the presntation layer and business layer
 - DotNetBanky.Common : The dependency injection layer that will configure the DI container to be used in diffrent applications
 - DotNetBanky.Tests : Xunit project to run tests with MOQ to moq the reposiroties 
+
