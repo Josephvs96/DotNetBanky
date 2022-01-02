@@ -6,7 +6,7 @@
 
 <div class="row">
     <!-- End Col -->
-    <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="icon-card mb-30">
             <div class="icon success">
                 <i class="fa-solid fa-euro-sign"></i>
@@ -19,7 +19,7 @@
         <!-- End Icon Cart -->
     </div>
     <!-- End Col -->
-    <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="icon-card mb-30">
             <div class="icon primary">
                 <i class="fa-solid fa-users"></i>
@@ -32,7 +32,7 @@
         <!-- End Icon Cart -->
     </div>
     <!-- End Col -->
-    <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="icon-card mb-30">
             <div class="icon orange">
                 <i class="fa-solid fa-euro-sign"></i>
@@ -45,4 +45,10 @@
         <!-- End Icon Cart -->
     </div>
     <!-- End Col -->
+</div>
+<div class="row">
+    @foreach (var country in Model.DashboardCountryList)
+    {
+        @await Component.InvokeAsync("CountryCard", new {countryData = country})
+    }
 </div>

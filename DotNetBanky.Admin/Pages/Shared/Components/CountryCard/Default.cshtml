@@ -1,0 +1,39 @@
+﻿@model DotNetBanky.Core.DTOModels.Dashboard.DashboardCountryCardDTO
+
+<div class="col-lg-4 col-md-6 col-sm-12 mb-30">
+    <div class ="card-style">
+        <div class="mb-30 d-flex align-items-center flex-column gap-2">
+            <img class="card-image" width=200 height=125 src="@Model!.FlagURL" />
+            <h1 class="text-center">@Model!.CountryName</h1>
+        </div>
+        <div class="icon-card no-style mb-30">
+            <div class="icon success">
+                <i class="fa-solid fa-euro-sign"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Number of accounts</h6>
+                <h3 class="text-bold mb-10">@Model.TotalNumberOfAccounts.ToStringFormated()</h3>
+            </div>
+        </div>
+        <div class="icon-card no-style mb-30">
+            <div class="icon primary">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Number of customers</h6>
+                <h3 class="text-bold mb-10">@Model.TotalNumberOfCustomers.ToStringFormated()</h3>
+            </div>
+        </div>
+        <div class="icon-card no-style">
+            <div class="icon orange">
+                <i class="fa-solid fa-euro-sign"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Sum of accounts</h6>
+                <h3 class="text-bold mb-10">@Model.TotalSumOfAllAccounts.ToStringFormated()</h3>
+            </div>
+        </div>
+        </div>
+    <!-- End Icon Cart -->
+    </div>
+<!-- End Col -->

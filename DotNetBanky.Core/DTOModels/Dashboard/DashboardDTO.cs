@@ -1,13 +1,18 @@
-﻿using DotNetBanky.Core.Entities;
-
-namespace DotNetBanky.Core.DTOModels.Dashboard
+﻿namespace DotNetBanky.Core.DTOModels.Dashboard
 {
     public class DashboardSummeryDTO
     {
-        public List<Account>? Accounts { get; set; }
-        public List<Customer>? Customers { get; set; }
         public int? TotalNumberOfAccounts { get; set; }
         public int? TotalNumberOfCustomers { get; set; }
         public decimal? TotalSumOfAllAccounts { get; set; }
     }
+    public class DashboardCountryCardDTO
+    {
+        public string CountryName { get; set; } = null!;
+        public string FlagURL { get; set; } = null!;
+        public int TotalNumberOfAccounts { get; set; }
+        public int TotalNumberOfCustomers { get; set; }
+        public decimal TotalSumOfAllAccounts { get; set; }
+    }
+
 }

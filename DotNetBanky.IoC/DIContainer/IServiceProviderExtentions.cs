@@ -44,6 +44,7 @@ namespace DotNetBanky.Common.DIContainer
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDashboardService, DashBoardService>();
+            services.AddScoped<ICountryService, CountryService>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)
@@ -51,6 +52,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IDispositionsRepository, DispositionsRepository>();
         }
 
         public static void RegisterAutoMapper(this IServiceCollection services)
