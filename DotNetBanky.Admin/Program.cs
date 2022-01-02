@@ -29,12 +29,17 @@ builder.Services.AddNotyf(options =>
     options.Position = NotyfPosition.BottomRight;
 });
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AddPageRoute("/Dashboard/Index", "");
+});
 
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
+
+builder.Services.AddResponseCaching();
 
 var app = builder.Build();
 
@@ -53,6 +58,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseResponseCaching();
 
 app.UseRouting();
 

@@ -3,7 +3,7 @@ using DotNetBanky.Core.DTOModels.Dashboard;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartBreadcrumbs.Attributes;
 
-namespace DotNetBanky.Admin.Pages
+namespace DotNetBanky.Admin.Pages.Dashboard
 {
     [DefaultBreadcrumb("Dashboard")]
     public class IndexModel : PageModel

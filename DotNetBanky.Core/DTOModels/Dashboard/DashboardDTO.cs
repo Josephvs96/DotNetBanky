@@ -1,4 +1,6 @@
-﻿namespace DotNetBanky.Core.DTOModels.Dashboard
+﻿using DotNetBanky.Core.DTOModels.Customer;
+
+namespace DotNetBanky.Core.DTOModels.Dashboard
 {
     public class DashboardSummeryDTO
     {
@@ -14,5 +16,8 @@
         public int TotalNumberOfCustomers { get; set; }
         public decimal TotalSumOfAllAccounts { get; set; }
     }
-
+    public class DashboardCountryDetailsDTO
+    {
+        public IEnumerable<CustomerCountryDetailsDTO> TopCustomers { get; set; } = null!;
+    }
 }

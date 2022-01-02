@@ -1,4 +1,5 @@
-﻿using DotNetBanky.Core.DTOModels.Dashboard;
+﻿using DotNetBanky.Core.DTOModels.Customer;
+using DotNetBanky.Core.DTOModels.Dashboard;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -73,6 +74,20 @@ namespace DotNetBanky.BLL.Services.Implementations
             {
                 x.SlidingExpiration = TimeSpan.FromDays(1);
                 return await _countryService.GetCountryFlagUrl(countryName);
+            });
+        }
+
+        public Task<DashboardCountryDetailsDTO> GetDashboardCountryDetailsAsync(string countryName)
+        {
+            return Task.FromResult(new DashboardCountryDetailsDTO
+            {
+                TopCustomers = _customerRepository.GetTopCustomersWithAccountsAsync(countryName).Select(c => new CustomerCountryDetailsDTO
+                {
+                    CustomerId = c.CustomerId,
+                    EmailAddress = c.Emailaddress ?? "No email address available",
+                    GivenName = $"{c.Givenname} {c.Surname}",
+                    AccountBalance = c.Dispositions.Sum(x => x.Account.Balance)
+                })
             });
         }
     }

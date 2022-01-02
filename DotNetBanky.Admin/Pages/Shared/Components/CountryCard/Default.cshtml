@@ -1,7 +1,7 @@
 ﻿@model DotNetBanky.Core.DTOModels.Dashboard.DashboardCountryCardDTO
 
 <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
-    <div class ="card-style">
+    <div class="card-style">
         <div class="mb-30 d-flex align-items-center flex-column gap-2">
             <img class="card-image" width=200 height=125 src="@Model!.FlagURL" />
             <h1 class="text-center">@Model!.CountryName</h1>
@@ -33,7 +33,10 @@
                 <h3 class="text-bold mb-10">@Model.TotalSumOfAllAccounts.ToStringFormated()</h3>
             </div>
         </div>
+        <div class="buttons-group mt-30">
+            <a class="main-btn primary-btn btn-sm col-12" asp-page="/Dashboard/CountryDetails/Index" asp-route-countryName="@Model.CountryName">View details</a>
         </div>
-    <!-- End Icon Cart -->
     </div>
+    <!-- End Icon Cart -->
+</div>
 <!-- End Col -->

@@ -1,0 +1,54 @@
+﻿@page
+@model DotNetBanky.Admin.Pages.Dashboard.CountryDetails.IndexModel
+@{
+    ViewData["Title"] = $"Country Details - {Model.CountryName}";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-style mb-30">
+            <h6 class="mb-10">Top 10 customers in @Model.CountryName</h6>
+            <p class="text-sm mb-20">
+                This is a list of the top 10 customers in @Model.CountryName
+            </p>
+            <div class="table-wrapper table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><h6>Customer Id</h6></th>
+                            <th><h6>Customer Name</h6></th>
+                            <th><h6>Email Address</h6></th>
+                            <th><h6>Accounts Balance</h6></th>
+                        </tr>
+                        <!-- end table row-->
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in Model.CountryDetails.TopCustomers)
+                        {
+                            <tr>
+                                <td class="min-width">
+                                    <p>@customer.CustomerId</p>
+                                </td>
+                                <td class="min-width">
+                                    <p>@customer.GivenName</p>
+                                </td>
+                                <td class="min-width">
+                                    <p>@customer.EmailAddress</p>
+                                </td>
+                                <td>
+                                    <p>@customer.AccountBalance.ToStringFormated()</p>
+                                </td>
+                            </tr>
+                        }
+                        <!-- end table row -->
+                    </tbody>
+                </table>
+                <!-- end table -->
+            </div>
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->

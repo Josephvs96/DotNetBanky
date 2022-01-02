@@ -5,7 +5,7 @@ using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages.Admin.Users
 {
-    [Breadcrumb("Users", FromPage = typeof(IndexModel))]
+    [Breadcrumb("Users", FromPage = typeof(Dashboard.IndexModel))]
     public class UsersListModel : PageModel
     {
         private readonly IUserService _userService;

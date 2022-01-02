@@ -6,5 +6,6 @@ namespace DotNetBanky.BLL.Services
     {
         public Task<DashboardSummeryDTO> GetDashboardSummeryAsync();
         public Task<List<DashboardCountryCardDTO>> GetDashboardCountriesSummeryAsync();
+        public Task<DashboardCountryDetailsDTO> GetDashboardCountryDetailsAsync(string countryName);
     }
 }
