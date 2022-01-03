@@ -38,7 +38,7 @@
                                 </a>
                             </li>
                             <li>
-                                <form id="logout-form" class="form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                <form id="logout-form" class="form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" asp-antiforgery="false">
                                     <a class="btn" onclick="$('#logout-form').submit()"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
                                 </form>
                             </li>

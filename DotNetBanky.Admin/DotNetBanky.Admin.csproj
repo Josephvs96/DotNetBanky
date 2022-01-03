@@ -22,8 +22,6 @@
 
 	<ItemGroup>
 
-		<Folder Include="Pages\Customers\" />
-
 		<Folder Include="wwwroot\images\" />
 		<Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
 		<Folder Include="wwwroot\lib\jquery-validation\" />

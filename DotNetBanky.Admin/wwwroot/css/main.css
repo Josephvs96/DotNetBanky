@@ -3121,11 +3121,11 @@ h6,
             -ms-transition: all 0.3s ease-out 0s;
             -o-transition: all 0.3s ease-out 0s;
             transition: all 0.3s ease-out 0s;
-            -webkit-transform: rotate(180deg);
-            -moz-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            transform: rotate(180deg);
+            -webkit-transform: rotate(-180deg);
+            -moz-transform: rotate(-180deg);
+            -ms-transform: rotate(-180deg);
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
         }
 
         .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children > a.collapsed {
@@ -5322,10 +5322,10 @@ h6,
 
 .invalid.password_requirement {
     color: red;
-    display:block
+    display: block
 }
 
 .valid.password_requirement {
     color: green;
-    display:none;
+    display: none;
 }
