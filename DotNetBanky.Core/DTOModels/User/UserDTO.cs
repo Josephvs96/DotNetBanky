@@ -25,8 +25,7 @@ namespace DotNetBanky.Core.DTOModels.User
         public string DisplayName { get; set; }
         [Required]
         [DisplayName("Name")]
-        public string FirstName { get; set; }
-        public string? LastName { get; set; }
+        public string FullName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -77,8 +76,7 @@ namespace DotNetBanky.Core.DTOModels.User
 
         [Required]
         [DisplayName("Name")]
-        public string FirstName { get; set; }
-        public string? LastName { get; set; }
+        public string FullName { get; set; }
 
         [Required]
         public string Role { get; set; }

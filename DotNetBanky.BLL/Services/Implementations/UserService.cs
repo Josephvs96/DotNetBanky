@@ -85,7 +85,7 @@ namespace DotNetBanky.BLL.Services
                 Email = u.Email,
                 Id = u.Id,
                 DisplayName = u.UserName,
-                FirstName = u.FirstName,
+                FullName = u.FullName,
                 Role = _userManager.GetRolesAsync(u).GetAwaiter().GetResult().FirstOrDefault()!,
             }).ToList();
         }
@@ -107,8 +107,7 @@ namespace DotNetBanky.BLL.Services
             if (user == null) throw new NotFoundException("User does not exist");
 
             user.UserName = model.DisplayName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
+            user.FullName = model.FullName;
 
             var currentUserRoles = await _userManager.GetRolesAsync(user);
             if (currentUserRoles.Any() && !currentUserRoles.Contains(model.Role))

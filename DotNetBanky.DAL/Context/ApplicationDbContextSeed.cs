@@ -22,15 +22,22 @@ namespace DotNetBanky.DAL.Context
                     Name = RoleConstants.Cahsier,
                     NormalizedName = RoleConstants.Cahsier.ToUpper()
                 };
+                var customerRole = new IdentityRole
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = RoleConstants.Customer,
+                    NormalizedName = RoleConstants.Customer,
+                };
                 await roleManager.CreateAsync(adminRole);
                 await roleManager.CreateAsync(cashierRole);
+                await roleManager.CreateAsync(customerRole);
             }
             await db.SaveChangesAsync();
 
             if (!userManager.Users.Any())
             {
-                var adminUser = new User { FirstName = "Stefan Admin", UserName = "Stefan Admin", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
-                var cashierUser = new User { FirstName = "Stefan Cashier", UserName = "Stefan Cashier", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
+                var adminUser = new User { FullName = "Stefan Admin", UserName = "Stefan Admin", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
+                var cashierUser = new User { FullName = "Stefan Cashier", UserName = "Stefan Cashier", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
 
                 await userManager.CreateAsync(adminUser, "Hejsan123#");
                 await userManager.CreateAsync(cashierUser, "Hejsan123#");
