@@ -7,7 +7,7 @@
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li class="nav-item">
+            <li navigation-active-for="/" class="nav-item">
                 <a asp-page="/Dashboard/Index">
                     <span class="icon">
                         <i class="fas fa-tachometer-alt"></i>
@@ -17,7 +17,7 @@
             </li>
             @if (User.IsInRole(RoleConstants.Admin))
             {
-                <li class="nav-item nav-item-has-children">
+                <li navigation-active-for="Admin" id="admin_menu" class="nav-item nav-item-has-children">
                     <a href="#0"
                    class="collapsed"
                    data-bs-toggle="collapse"
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
             }
-            <li class="nav-item nav-item-has-children">
+            <li navigation-active-for="Customers" class="nav-item nav-item-has-children">
                 <a href="#0"
                    class="collapsed"
                    data-bs-toggle="collapse"
@@ -54,9 +54,15 @@
                 </a>
                 <ul id="ddmenu_customer" class="collapse dropdown-nav">
                     <li>
+                        <a asp-page="/Customers/Index"> <i class="fas fa-address-book"></i>Customers List</a>
+                    </li>
+                    <li>
                         <a asp-page="/Customers/Create"> <i class="fas fa-user-plus"></i>Add Customer</a>
                     </li>
                 </ul>
+            </li>
+        </ul>
+    </nav>
 </aside>
 <div class="overlay"></div>
 <!-- ======== sidebar-nav end =========== -->

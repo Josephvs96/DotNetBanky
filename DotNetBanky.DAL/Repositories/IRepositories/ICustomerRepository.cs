@@ -6,6 +6,6 @@ namespace DotNetBanky.DAL.Repositories.IRepositories
     {
         Task<int> GetTotalNumberOfCustomersAsync();
 
-        IEnumerable<Customer> GetTopCustomersWithAccountsAsync(string countryName);
+        Task<IEnumerable<Customer>> GetTopCustomersWithAccountsAsync(string countryName);
     }
 }

@@ -6,10 +6,8 @@ using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages.Dashboard.CountryDetails
 {
-    //[AllowAnonymous]
-    //[IgnoreAntiforgeryToken]
     [Breadcrumb("Country Details")]
-    [ResponseCache(Duration = 60, VaryByHeader = "countryDetails", Location = ResponseCacheLocation.Any, NoStore = false)]
+    [ResponseCache(Duration = 60, VaryByHeader = "Country-Details", Location = ResponseCacheLocation.Any, NoStore = false)]
     public class IndexModel : PageModel
     {
         private readonly IDashboardService _dashboardService;
@@ -19,8 +17,8 @@ namespace DotNetBanky.Admin.Pages.Dashboard.CountryDetails
             _dashboardService = dashboardService;
         }
 
-        public DashboardCountryDetailsDTO CountryDetails { get; set; }
-        public string CountryName { get; set; }
+        public DashboardCountryDetailsDTO CountryDetails { get; set; } = null!;
+        public string CountryName { get; set; } = null!;
 
         public async Task OnGetAsync(string countryName)
         {

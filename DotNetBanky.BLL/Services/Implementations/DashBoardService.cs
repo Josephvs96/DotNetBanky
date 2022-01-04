@@ -77,18 +77,21 @@ namespace DotNetBanky.BLL.Services.Implementations
             });
         }
 
-        public Task<DashboardCountryDetailsDTO> GetDashboardCountryDetailsAsync(string countryName)
+        public async Task<DashboardCountryDetailsDTO> GetDashboardCountryDetailsAsync(string countryName)
         {
-            return Task.FromResult(new DashboardCountryDetailsDTO
+
+            var topCustomers = await _customerRepository.GetTopCustomersWithAccountsAsync(countryName);
+
+            return new DashboardCountryDetailsDTO
             {
-                TopCustomers = _customerRepository.GetTopCustomersWithAccountsAsync(countryName).Select(c => new CustomerCountryDetailsDTO
+                TopCustomers = topCustomers.Select(c => new CustomerCountryDetailsDTO
                 {
                     CustomerId = c.CustomerId,
                     EmailAddress = c.Emailaddress ?? "No email address available",
                     GivenName = $"{c.Givenname} {c.Surname}",
                     AccountBalance = c.Dispositions.Sum(x => x.Account.Balance)
                 })
-            });
+            };
         }
     }
 }

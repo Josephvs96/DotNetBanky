@@ -45,6 +45,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDashboardService, DashBoardService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)

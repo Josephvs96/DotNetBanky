@@ -14,9 +14,14 @@ namespace DotNetBanky.DAL.Repositories
             _db = db;
         }
 
-        public IEnumerable<Customer> GetTopCustomersWithAccountsAsync(string countryName)
+        public async Task<IEnumerable<Customer>> GetTopCustomersWithAccountsAsync(string countryName)
         {
-            return _db.Customers.Include(c => c.Dispositions).ThenInclude(d => d.Account).Where(c => c.Country == countryName).OrderByDescending(c => c.Dispositions.Sum(d => d.Account.Balance)).Take(10);
+            return await GetListAsync(
+                filter: c => c.Country == countryName,
+                include: q => q.Include(x => x.Dispositions).ThenInclude(d => d.Account),
+                orderBy: q => q.OrderByDescending(c => c.Dispositions.Sum(d => d.Account.Balance)),
+                page: 1,
+                pageSize: 10);
         }
 
         public async Task<int> GetTotalNumberOfCustomersAsync()
