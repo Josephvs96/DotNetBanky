@@ -18,6 +18,6 @@ namespace DotNetBanky.DAL.Repositories.IRepositories
         Task<int> DeleteOneAsync(T entity);
         Task<List<T>> AddRangeAsync(List<T> entity);
         Task<List<T>> UpdateRangeAsync(List<T> entity);
-        Task<int> GetNumberOfRecords();
+        Task<int> GetNumberOfRecords(Expression<Func<T, bool>>? filter = null);
     }
 }

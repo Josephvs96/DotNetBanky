@@ -3,6 +3,7 @@ using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Exceptions;
 using DotNetBanky.DAL.Repositories.IRepositories;
+using System.Linq.Expressions;
 
 namespace DotNetBanky.BLL.Services.Implementations
 {
@@ -32,9 +33,12 @@ namespace DotNetBanky.BLL.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CustomerListDTOModel>> GetAllCustomerListAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<CustomerListDTOModel>> GetAllCustomerListAsync(int pageNumber, int pageSize, string? filter = null)
         {
-            var customersList = await _customerRepository.GetListAsync(page: pageNumber, pageSize: pageSize);
+            Expression<Func<Customer, bool>>? filterExp = null;
+            if (filter != null) filterExp = x => x.Surname.Contains(filter);
+
+            var customersList = await _customerRepository.GetListAsync(page: pageNumber, pageSize: pageSize, filter: filterExp);
             return _mapper.Map<IEnumerable<CustomerListDTOModel>>(customersList);
         }
 

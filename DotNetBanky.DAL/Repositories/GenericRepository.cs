@@ -92,9 +92,9 @@ namespace DotNetBanky.DAL.Repositories
             return entity;
         }
 
-        public async Task<int> GetNumberOfRecords()
+        public async Task<int> GetNumberOfRecords(Expression<Func<TEntity, bool>>? filter = null)
         {
-            return await _db.Set<TEntity>().CountAsync();
+            return filter != null ? await _db.Set<TEntity>().Where(filter).CountAsync() : await _db.Set<TEntity>().CountAsync();
         }
     }
 }

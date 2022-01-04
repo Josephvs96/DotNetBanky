@@ -19,13 +19,18 @@ namespace DotNetBanky.Admin.Pages.Customers
         public int NumberOfPages { get; set; }
         public int PageSize { get; set; } = 10;
         public int CurrentPage { get; set; }
-        public async Task OnGetAsync(int pageNumber)
+        public string? Filter { get; set; }
+
+        public async Task OnGetAsync(int pageNumber, string? filter = null)
         {
-            NumberOfPages = await _customerService.GetTotalNumberOfPages(PageSize);
+            Filter = filter;
+
+            if (filter != null) NumberOfPages = await _customerService.GetTotalNumberOfPages(PageSize, c => c.Surname.Contains(filter));
+            else NumberOfPages = await _customerService.GetTotalNumberOfPages(PageSize);
 
             CurrentPage = (pageNumber > 0 && pageNumber <= NumberOfPages) ? pageNumber : 1;
 
-            CustomersList = (await _customerService.GetAllCustomerListAsync(CurrentPage, PageSize)).ToList();
+            CustomersList = (await _customerService.GetAllCustomerListAsync(CurrentPage, PageSize, filter)).ToList();
         }
     }
 }
