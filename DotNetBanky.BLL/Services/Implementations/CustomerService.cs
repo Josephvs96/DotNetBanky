@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DotNetBanky.Core.DTOModels.Customer;
+using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Enums;
 using DotNetBanky.Core.Exceptions;
@@ -35,18 +36,30 @@ namespace DotNetBanky.BLL.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CustomerListDTOModel>> GetAllCustomerListAsync(int pageNumber, int pageSize, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
+        public async Task<IEnumerable<CustomerListDTOModel>> GetCustomerListAsync(
+            string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
         {
             Expression<Func<Customer, bool>>? filterExp = null;
             if (filter != null) filterExp = x => x.Surname.Contains(filter);
 
-            var customersList = await _customerRepository.GetListAsync(
+            var customersList = await _customerRepository.GetListAsync(filter: filterExp, orderBy: x => x.SortBy(sortColumn, sortDirection));
+
+            return _mapper.Map<IEnumerable<CustomerListDTOModel>>(customersList);
+        }
+
+        public async Task<PagedResult<CustomerListDTOModel>> GetPagedCustomerListAsync(
+            int pageNumber, int pageSize, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
+        {
+            Expression<Func<Customer, bool>>? filterExp = null;
+            if (filter != null) filterExp = x => x.Surname.Contains(filter);
+
+            var customersList = await _customerRepository.GetPagedListAsync(
                 page: pageNumber,
                 pageSize: pageSize,
                 filter: filterExp,
                 orderBy: x => x.SortBy(sortColumn, sortDirection));
 
-            return _mapper.Map<IEnumerable<CustomerListDTOModel>>(customersList);
+            return _mapper.Map<PagedResult<CustomerListDTOModel>>(customersList);
         }
 
         public async Task<CustomerDetailsDTOModel> GetCustomerDetailsAsync(int id)

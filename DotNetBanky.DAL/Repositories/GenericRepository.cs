@@ -1,4 +1,6 @@
-﻿using DotNetBanky.DAL.Context;
+﻿using DotNetBanky.Core.DTOModels.Paging;
+using DotNetBanky.Core.Extentions;
+using DotNetBanky.DAL.Context;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -76,6 +78,34 @@ namespace DotNetBanky.DAL.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<PagedResult<TEntity>> GetPagedListAsync(
+                    Expression<Func<TEntity, bool>>? filter = null,
+                    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
+                    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                    int? page = null,
+                    int? pageSize = null)
+
+        {
+            var query = _db.Set<TEntity>().AsQueryable();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            return await query.GetPagedResult(page, pageSize);
         }
 
         public async Task<TEntity> UpdateOneAsync(TEntity entity)

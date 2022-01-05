@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using DotNetBanky.Core.DTOModels.Paging;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace DotNetBanky.DAL.Repositories.IRepositories
@@ -8,6 +9,12 @@ namespace DotNetBanky.DAL.Repositories.IRepositories
         Task<T> GetOneAsync(Expression<Func<T, bool>>? filter = null);
         Task<T> GetOneByIdAsync(int id);
         Task<List<T>> GetListAsync(
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            int? page = null,
+            int? pageSize = null);
+        Task<PagedResult<T>> GetPagedListAsync(
             Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
