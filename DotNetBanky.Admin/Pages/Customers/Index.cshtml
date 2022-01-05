@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                         <th>
-                            <h6>Customer Number</h6>
+                            <h6 class="d-inline mr-10">Customer Number</h6>
                             <a class="btn p-0"
                                asp-page="/Customers/Index"
                                asp-route-filter="@Model.Filter"
@@ -39,8 +39,8 @@
                             </a>
                         </th>
                         <th>
-                            <h6>Customer Name</h6>
-                            <a class="btn"
+                            <h6 class="d-inline mr-10">Customer Name</h6>
+                            <a class="btn p-0"
                                asp-page="/Customers/Index"
                                asp-route-filter="@Model.Filter"
                                asp-route-pageNumber="@Model.PagedResult.CurrentPage"
@@ -48,7 +48,7 @@
                                asp-route-sortDirection="@SortDirection.Asc">
                                 <i class="fa fa-angle-up"></i>
                             </a>
-                            <a class="btn"
+                            <a class="btn p-0"
                                asp-page="/Customers/Index"
                                asp-route-filter="@Model.Filter"
                                asp-route-pageNumber="@Model.PagedResult.CurrentPage"
