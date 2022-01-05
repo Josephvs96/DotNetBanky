@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
 using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.Entities;
+using DotNetBanky.Core.Enums;
 using DotNetBanky.Core.Exceptions;
+using DotNetBanky.Core.Extentions;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using System.Linq.Expressions;
 
 namespace DotNetBanky.BLL.Services.Implementations
 {
-    public class CustomerService : BaseService<Customer>, ICustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
 
-        public CustomerService(ICustomerRepository customerRepository, IMapper mapper) : base(customerRepository)
+        public CustomerService(ICustomerRepository customerRepository, IMapper mapper)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
@@ -33,12 +35,17 @@ namespace DotNetBanky.BLL.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CustomerListDTOModel>> GetAllCustomerListAsync(int pageNumber, int pageSize, string? filter = null)
+        public async Task<IEnumerable<CustomerListDTOModel>> GetAllCustomerListAsync(int pageNumber, int pageSize, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
         {
             Expression<Func<Customer, bool>>? filterExp = null;
             if (filter != null) filterExp = x => x.Surname.Contains(filter);
 
-            var customersList = await _customerRepository.GetListAsync(page: pageNumber, pageSize: pageSize, filter: filterExp);
+            var customersList = await _customerRepository.GetListAsync(
+                page: pageNumber,
+                pageSize: pageSize,
+                filter: filterExp,
+                orderBy: x => x.SortBy(sortColumn, sortDirection));
+
             return _mapper.Map<IEnumerable<CustomerListDTOModel>>(customersList);
         }
 
@@ -47,6 +54,16 @@ namespace DotNetBanky.BLL.Services.Implementations
             var customer = await _customerRepository.GetOneByIdAsync(id);
             if (customer == null) throw new NotFoundException("Customer could not be found");
             return _mapper.Map<CustomerDetailsDTOModel>(customer);
+        }
+
+        public async Task<int> GetTotalNumberOfPages(int pageSize, string? filter = null)
+        {
+            Expression<Func<Customer, bool>>? filterExp = null;
+
+            if (filter != null) filterExp = x => x.Givenname.Contains(filter) || x.Surname.Contains(filter);
+
+            var records = await _customerRepository.GetNumberOfRecords(filterExp);
+            return (records / pageSize) + 1;
         }
     }
 }

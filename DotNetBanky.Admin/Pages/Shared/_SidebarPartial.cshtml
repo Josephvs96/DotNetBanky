@@ -19,6 +19,7 @@
             {
                 <li navigation-active-for="Admin" id="admin_menu" class="nav-item nav-item-has-children">
                     <a href="#0"
+                   menu-active-for="Admin"
                    class="collapsed"
                    data-bs-toggle="collapse"
                    data-bs-target="#ddmenu_admin"
@@ -31,7 +32,7 @@
                         </span>
                         <span class="text">Admin Menu</span>
                     </a>
-                    <ul id="ddmenu_admin" class="collapse dropdown-nav">
+                    <ul id="ddmenu_admin" menu-active-for="Admin" class="collapse dropdown-nav">
                         <li>
                             <a asp-page="/Admin/Users/UsersList"> <i class="fa-solid fa-users-cog"></i>Users managment</a>
                         </li>
@@ -40,6 +41,7 @@
             }
             <li navigation-active-for="Customers" class="nav-item nav-item-has-children">
                 <a href="#0"
+                   menu-active-for="Customers"
                    class="collapsed"
                    data-bs-toggle="collapse"
                    data-bs-target="#ddmenu_customer"
@@ -52,7 +54,7 @@
                     </span>
                     <span class="text">Customers Managment</span>
                 </a>
-                <ul id="ddmenu_customer" class="collapse dropdown-nav">
+                <ul id="ddmenu_customer" menu-active-for="Customers" class="collapse dropdown-nav">
                     <li>
                         <a asp-page="/Customers/Index"> <i class="fas fa-address-book"></i>Customers List</a>
                     </li>
