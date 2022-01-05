@@ -20,8 +20,7 @@ namespace DotNetBanky.DAL.Repositories
                 filter: c => c.Country == countryName,
                 include: q => q.Include(x => x.Dispositions).ThenInclude(d => d.Account),
                 orderBy: q => q.OrderByDescending(c => c.Dispositions.Sum(d => d.Account.Balance)),
-                page: 1,
-                pageSize: 10);
+                limit: 10);
         }
 
         public async Task<int> GetTotalNumberOfCustomersAsync()

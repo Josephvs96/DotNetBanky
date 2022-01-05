@@ -51,8 +51,7 @@ namespace DotNetBanky.DAL.Repositories
                     Expression<Func<TEntity, bool>>? filter = null,
                     Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
                     Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-                    int? page = null,
-                    int? pageSize = null)
+                    int? limit = null)
 
         {
             var query = _db.Set<TEntity>().AsQueryable();
@@ -72,9 +71,9 @@ namespace DotNetBanky.DAL.Repositories
                 query = orderBy(query);
             }
 
-            if (page != null && pageSize != null)
+            if (limit != null)
             {
-                query = query.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value);
+                query = query.Take(limit.Value);
             }
 
             return await query.ToListAsync();

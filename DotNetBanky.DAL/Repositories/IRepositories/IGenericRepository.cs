@@ -12,8 +12,7 @@ namespace DotNetBanky.DAL.Repositories.IRepositories
             Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
-            int? page = null,
-            int? pageSize = null);
+            int? limit = null);
         Task<PagedResult<T>> GetPagedListAsync(
             Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
