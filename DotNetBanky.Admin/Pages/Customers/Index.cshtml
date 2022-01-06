@@ -2,6 +2,7 @@
 @model DotNetBanky.Admin.Pages.Customers.IndexModel
 @{
     ViewData["Title"] = "Customers list";
+
 }
 
 <div class="col-lg-12">
@@ -21,41 +22,11 @@
                     <tr>
                         <th>
                             <h6 class="d-inline mr-10">Customer Number</h6>
-                            <a class="btn p-0"
-                               asp-page="/Customers/Index"
-                               asp-route-filter="@Model.Filter"
-                               asp-route-pageNumber="@Model.PagedResult.CurrentPage"
-                               asp-route-sortColumn="@CustomerSortColumn.Id"
-                               asp-route-sortDirection="@SortDirection.Asc">
-                                <i class="fa fa-angle-up"></i>
-                            </a>
-                            <a class="btn p-0"
-                               asp-page="/Customers/Index"
-                               asp-route-filter="@Model.Filter"
-                               asp-route-pageNumber="@Model.PagedResult.CurrentPage"
-                               asp-route-sortColumn="@CustomerSortColumn.Id"
-                               asp-route-sortDirection="@SortDirection.Desc">
-                                <i class="fa fa-angle-down"></i>
-                            </a>
+                            <sort sort-column="@CustomerSortColumn.Id"></sort>
                         </th>
                         <th>
                             <h6 class="d-inline mr-10">Customer Name</h6>
-                            <a class="btn p-0"
-                               asp-page="/Customers/Index"
-                               asp-route-filter="@Model.Filter"
-                               asp-route-pageNumber="@Model.PagedResult.CurrentPage"
-                               asp-route-sortColumn="@CustomerSortColumn.Name"
-                               asp-route-sortDirection="@SortDirection.Asc">
-                                <i class="fa fa-angle-up"></i>
-                            </a>
-                            <a class="btn p-0"
-                               asp-page="/Customers/Index"
-                               asp-route-filter="@Model.Filter"
-                               asp-route-pageNumber="@Model.PagedResult.CurrentPage"
-                               asp-route-sortColumn="@CustomerSortColumn.Name"
-                               asp-route-sortDirection="@SortDirection.Desc">
-                                <i class="fa fa-angle-down"></i>
-                            </a>
+                            <sort sort-column="@CustomerSortColumn.Name"></sort>
                         </th>
                         <th><h6>Email</h6></th>
                         <th><h6>Phone number</h6></th>
@@ -84,42 +55,12 @@
             </table>
             <!-- end table -->
         </div>
-        <nav exclude-if="@Model.PagedResult.PageCount <= 1" aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li include-if="@(Model.PagedResult.CurrentPage > 1)" class="page-item">
-                    <a class="page-link" asp-page="/Customers/Index"
-                       asp-route-filter="@Model.Filter"
-                       asp-route-pageNumber="@(Model.PagedResult.CurrentPage-1)"
-                       asp-route-sortColumn="@Model.SortColumn"
-                       asp-route-sortDirection="@Model.SortDirection"
-                       aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                @for (var i = Model.PagedResult.CurrentPage; i <= (Model.PagedResult.PageCount < Model.PagedResult.CurrentPage + 4 ? Model.PagedResult.PageCount : Model.PagedResult.CurrentPage + 4); i++)
-                {
-                    <li class="@(Model.PagedResult.CurrentPage == i ? "page-item active" : "page-item")">
-                        <a class="page-link" asp-page="/Customers/Index"
-                       asp-route-filter="@Model.Filter"
-                       asp-route-pageNumber="@i"
-                       asp-route-sortColumn="@Model.SortColumn"
-                       asp-route-sortDirection="@Model.SortDirection">@i</a>
-                    </li>
-                }
-                <li exclude-if="@(Model.PagedResult.CurrentPage == Model.PagedResult.PageCount)" class="page-item">
-                    <a class="page-link" asp-page="/Customers/Index"
-                       asp-route-filter="@Model.Filter"
-                       asp-route-pageNumber="@(Model.PagedResult.CurrentPage+1)"
-                       asp-route-sortColumn="@Model.SortColumn"
-                       asp-route-sortDirection="@Model.SortDirection"
-                       aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="d-flex justify-content-center">
+            <paging page-number="Model.PagedResult.CurrentPage"
+                    page-size="Model.PageSize"
+                    total-records="Model.PagedResult.PageCount">
+            </paging>
+        </div>
     </div>
     <!-- end card -->
 </div>

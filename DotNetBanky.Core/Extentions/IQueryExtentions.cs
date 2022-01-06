@@ -16,7 +16,7 @@ namespace DotNetBanky.Core.Extentions
             Expression<Func<Customer, object>> exp = sortByColumn switch
             {
                 CustomerSortColumn.Id => x => x.CustomerId,
-                CustomerSortColumn.Name => x => x.Surname,
+                CustomerSortColumn.Name => x => x.Givenname,
                 _ => x => x.CustomerId,
             };
 

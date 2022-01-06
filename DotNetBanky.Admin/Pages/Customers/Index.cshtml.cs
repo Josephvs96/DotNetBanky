@@ -17,23 +17,21 @@ namespace DotNetBanky.Admin.Pages.Customers
             _customerService = customerService;
         }
 
-
         public PagedResult<CustomerListDTOModel> PagedResult { get; set; }
-
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; }
         public string? Filter { get; set; }
         public CustomerSortColumn? SortColumn { get; set; }
         public SortDirection? SortDirection { get; set; }
 
-        public async Task OnGetAsync(int pageNumber = 1, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
+        public async Task OnGetAsync(int pageNumber = 1, int pageSize = 10, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
         {
             if (pageNumber <= 1) pageNumber = 1;
-
+            PageSize = pageSize;
             Filter = filter;
             SortColumn = sortColumn;
             SortDirection = sortDirection;
 
-            PagedResult = await _customerService.GetPagedCustomerListAsync(pageNumber, PageSize, filter, sortColumn, sortDirection);
+            PagedResult = await _customerService.GetPagedCustomerListAsync(pageNumber, pageSize, filter, sortColumn, sortDirection);
         }
     }
 }
