@@ -837,6 +837,7 @@ namespace DotNetBanky.Admin.TagHelpers
         {
             var liTag = new TagBuilder("li");
             liTag.AddCssClass("page-item");
+            liTag.Attributes.Add("title", textSr);
 
             var pageUrl = CreatePagingUrl(targetPageNo, PageSize);
 
@@ -884,6 +885,7 @@ namespace DotNetBanky.Admin.TagHelpers
         {
             var dropDownDiv = new TagBuilder("div");
             dropDownDiv.AddCssClass("dropdown");
+            dropDownDiv.Attributes.Add("title", "Number of items to show");
 
             var dropDownBtn = new TagBuilder("button");
             dropDownBtn.AddCssClass("btn page-link dropdown-toggle");

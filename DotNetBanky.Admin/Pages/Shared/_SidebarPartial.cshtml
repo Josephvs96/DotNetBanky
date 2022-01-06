@@ -33,7 +33,7 @@
                         <span class="text">Admin Menu</span>
                     </a>
                     <ul id="ddmenu_admin" menu-active-for="Admin" class="collapse dropdown-nav">
-                        <li>
+                        <li sub-item-active-for="/Admin/Users/UsersList">
                             <a asp-page="/Admin/Users/UsersList"> <i class="fa-solid fa-users-cog"></i>Users managment</a>
                         </li>
                     </ul>
@@ -55,10 +55,10 @@
                     <span class="text">Customers Managment</span>
                 </a>
                 <ul id="ddmenu_customer" menu-active-for="Customers" class="collapse dropdown-nav">
-                    <li>
+                    <li sub-item-active-for="/Customers/Index">
                         <a asp-page="/Customers/Index"> <i class="fas fa-address-book"></i>Customers List</a>
                     </li>
-                    <li>
+                    <li sub-item-active-for="/Customers/Create">
                         <a asp-page="/Customers/Create"> <i class="fas fa-user-plus"></i>Add Customer</a>
                     </li>
                 </ul>

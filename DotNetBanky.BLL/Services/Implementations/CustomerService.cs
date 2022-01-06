@@ -51,7 +51,9 @@ namespace DotNetBanky.BLL.Services.Implementations
             int pageNumber, int pageSize, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null)
         {
             Expression<Func<Customer, bool>>? filterExp = null;
-            if (filter != null) filterExp = x => x.Surname.Contains(filter);
+            if (filter != null)
+                filterExp = x =>
+                x.Surname.Contains(filter) || x.Givenname.Contains(filter) || x.CustomerId.ToString() == filter;
 
             var customersList = await _customerRepository.GetPagedListAsync(
                 page: pageNumber,

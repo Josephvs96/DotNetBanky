@@ -42,7 +42,11 @@ namespace DotNetBanky.Admin.TagHelpers
             var aTag = new TagBuilder("a");
             aTag.AddCssClass("btn p-0");
             aTag.Attributes.Add("href", pageUrl);
-
+            aTag.Attributes.Add("title", sortButton switch
+            {
+                SortButton.asc => "Sort ascending",
+                SortButton.desc => "Sort descending",
+            });
 
             aTag.InnerHtml.AppendHtml(iTag);
             return aTag;

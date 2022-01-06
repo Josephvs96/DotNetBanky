@@ -3202,11 +3202,14 @@ h6,
                 border: 1px solid transparent;
             }
 
-                .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a.active, .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a:hover {
+                .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a.active, .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a:hover,
+                .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a.active, .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li.active a {
                     color: #4a6cf7;
                     border-color: rgba(74, 108, 247, 0.15);
                     background: rgba(74, 108, 247, 0.1);
                 }
+
+
 
                 .sidebar-nav-wrapper .sidebar-nav ul .nav-item.nav-item-has-children ul li a i {
                     font-size: 16px;
