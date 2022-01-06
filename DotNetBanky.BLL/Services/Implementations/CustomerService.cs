@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.Entities;
@@ -23,6 +24,21 @@ namespace DotNetBanky.BLL.Services.Implementations
         public async Task CreateCustomerAsync(CustomerCreateModel model)
         {
             var customer = _mapper.Map<Customer>(model);
+            customer.CountryCode = CountryConstants.CountryCodes[model.Country];
+            customer.Dispositions = new List<Disposition>()
+            {
+                new Disposition()
+                {
+                    Account = new Account()
+                    {
+                        Balance = 0,
+                        Frequency = FrequencyConstants.Monthly,
+                        Created = DateTime.UtcNow,
+                    },
+                    Type = DispostionsConstants.Owner
+                }
+            };
+
             await _customerRepository.AddOneAsync(customer);
         }
 
@@ -69,16 +85,6 @@ namespace DotNetBanky.BLL.Services.Implementations
             var customer = await _customerRepository.GetOneByIdAsync(id);
             if (customer == null) throw new NotFoundException("Customer could not be found");
             return _mapper.Map<CustomerDetailsDTOModel>(customer);
-        }
-
-        public async Task<int> GetTotalNumberOfPages(int pageSize, string? filter = null)
-        {
-            Expression<Func<Customer, bool>>? filterExp = null;
-
-            if (filter != null) filterExp = x => x.Givenname.Contains(filter) || x.Surname.Contains(filter);
-
-            var records = await _customerRepository.GetNumberOfRecords(filterExp);
-            return (records / pageSize) + 1;
         }
     }
 }

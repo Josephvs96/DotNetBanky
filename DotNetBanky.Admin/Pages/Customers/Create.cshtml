@@ -1,4 +1,124 @@
 ﻿@page
 @model DotNetBanky.Admin.Pages.Customers.CreateModel
 @{
+    ViewData["Title"] = "New Customer";
+}
+
+<form asp-page="/Customer/Create" class="row" method="post" autocomplete="off">
+    <div class="col-lg-6">
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Personal Information</h6>
+            <div class="input-style-1">
+                <label asp-for="InputModel.Givenname">First Name</label>
+                <input asp-for="InputModel.Givenname" placeholder="First Name" />
+                <span asp-validation-for="InputModel.Givenname" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.Surname">Last Name</label>
+                <input asp-for="InputModel.Surname" placeholder="Last Name" />
+                <span asp-validation-for="InputModel.Surname" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.Birthday">Birth Date</label>
+                <input asp-for="InputModel.Birthday" type="date" placeholder="Birth Date" />
+                <span asp-validation-for="InputModel.Birthday" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="select-style-1">
+                <label asp-for="InputModel.Gender">Gender</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.Gender" asp-items="Model.GenderList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.Gender" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+        <!-- end card -->
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Contact Information</h6>
+            <div class="input-style-1">
+                <label asp-for="InputModel.Telephonenumber">Phone Number</label>
+                <input asp-for="InputModel.Telephonenumber" placeholder="Phone Number" />
+                <span asp-validation-for="InputModel.Telephonenumber" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.Emailaddress">Email Address</label>
+                <input asp-for="InputModel.Emailaddress" placeholder="Email Address" />
+                <span asp-validation-for="InputModel.Emailaddress" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+    <div class="col-lg-6">
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Address Information</h6>
+            <div class="input-style-1">
+                <label asp-for="InputModel.Streetaddress">Street Address</label>
+                <input asp-for="InputModel.Streetaddress" placeholder="Street Address" />
+                <span asp-validation-for="InputModel.Streetaddress" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.City">City</label>
+                <input asp-for="InputModel.City" placeholder="City" />
+                <span asp-validation-for="InputModel.City" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.Zipcode">Zipcode</label>
+                <input asp-for="InputModel.Zipcode" placeholder="Zipcode" />
+                <span asp-validation-for="InputModel.Zipcode" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="select-style-1">
+                <label asp-for="InputModel.Country">Country</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.Country" asp-items="Model.CountryList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.Country" class="text-danger"></span>
+            </div>
+        </div>
+        <!-- end card -->
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Account Information</h6>
+            <div class="input-style-1 pb-4">
+                <label asp-for="InputModel.Password">Password</label>
+                <input id="PasswordInput" asp-for="InputModel.Password" autocomplete="New-Password" />
+                <div id="PasswordUpperDivId" class="valid password_requirement mt-10">* At least one upper case letter.</div>
+                <div id="PasswordLowerDivId" class="valid password_requirement">* At least one lower case letter.</div>
+                <div id="PasswordDigitDivId" class="valid password_requirement">* At least one digit.</div>
+                <div id="PasswordSpecialDivId" class="valid password_requirement">* At least one special character.</div>
+                <div id="PasswordLengthDivId" class="valid password_requirement">* At least 8 characters long.</div>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.ConfirmPassword">Confirm Password</label>
+                <input asp-for="InputModel.ConfirmPassword" />
+                <span asp-validation-for="InputModel.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+    <div class="col-lg-12">
+        <div class="card-style d-flex justify-content-evenly">
+            <button class="main-btn primary-btn btn-hover" type="submit">Create New Customer</button>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<partial name="_PasswordValidationScript" />
 }

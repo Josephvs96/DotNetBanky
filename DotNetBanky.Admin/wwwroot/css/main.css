@@ -1522,11 +1522,11 @@ h6,
             background: #fff;
         }
 
-        .input-style-1 input[type="date"], .input-style-1 input[type="time"],
+/*        .input-style-1 input[type="date"], .input-style-1 input[type="time"],
         .input-style-1 textarea[type="date"],
         .input-style-1 textarea[type="time"] {
             background: transparent;
-        }
+        }*/
 
 .input-style-2 {
     position: relative;

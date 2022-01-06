@@ -15,6 +15,5 @@ namespace DotNetBanky.BLL.Services
         public Task<PagedResult<CustomerListDTOModel>> GetPagedCustomerListAsync(
             int pageNumber, int pageSize, string? filter = null, CustomerSortColumn? sortColumn = null, SortDirection? sortDirection = null);
         public Task<CustomerDetailsDTOModel> GetCustomerDetailsAsync(int id);
-        public Task<int> GetTotalNumberOfPages(int pageSize, string? filter = null);
     }
 }
