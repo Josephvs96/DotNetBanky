@@ -4,7 +4,6 @@ using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Enums;
-using DotNetBanky.Core.Exceptions;
 using DotNetBanky.Core.Extentions;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using System.Linq.Expressions;
@@ -82,9 +81,18 @@ namespace DotNetBanky.BLL.Services.Implementations
 
         public async Task<CustomerDetailsDTOModel> GetCustomerDetailsAsync(int id)
         {
-            var customer = await _customerRepository.GetOneByIdAsync(id);
-            if (customer == null) throw new NotFoundException("Customer could not be found");
-            return _mapper.Map<CustomerDetailsDTOModel>(customer);
+            try
+            {
+                var customer = await _customerRepository.GetCustomerByIdAsync(id);
+                var mappedCustomer = _mapper.Map<CustomerDetailsDTOModel>(customer);
+                mappedCustomer.TotalBalance = await _customerRepository.GetTotalAccountsBalanceByCustomerId(id);
+                return mappedCustomer;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

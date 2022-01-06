@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.DTOModels.User;
@@ -20,7 +21,7 @@ namespace DotNetBanky.Core.AutoMapperProfiles
                 // Customer Mappings
                 CreateMap<Customer, CustomerCreateModel>().ReverseMap();
                 CreateMap<Customer, CustomerListDTOModel>().ForMember(dto => dto.FullName, opt => opt.MapFrom(src => src.Givenname + " " + src.Surname));
-                CreateMap<Customer, CustomerDetailsDTOModel>().ReverseMap();
+                CreateMap<Customer, CustomerDetailsDTOModel>().ForMember(dto => dto.Gender, opt => opt.MapFrom(src => GenderConstants.GenderList.First(v => v.Value == src.Gender).Key)).ReverseMap();
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerListDTOModel>>().ReverseMap();
             }
         }

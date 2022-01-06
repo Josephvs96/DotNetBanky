@@ -18,6 +18,15 @@
         {
             return string.Format("{0:0,0}", value);
         }
+
+        public static string ToPascalCase(this string value)
+        {
+            if (!string.IsNullOrEmpty(value) && value.Length > 1)
+            {
+                return char.ToUpperInvariant(value[0]) + value.Substring(1).ToLower();
+            }
+            return value;
+        }
     }
 
 }

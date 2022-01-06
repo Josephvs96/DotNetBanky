@@ -4,4 +4,197 @@
     ViewData["Title"] = "Customer Details";
 }
 
+<div class="row mb-30">
+    <div class="col-5 offset-1">
+        <div class="icon-card mb-30">
+            <div class="icon success">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Number of accounts</h6>
+                <h3 class="text-bold mb-10">@Model.InputModel.Dispositions.Count</h3>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
+    <div class="col-5">
+        <div class="icon-card mb-30">
+            <div class="icon primary">
+                <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+            <div class="content">
+                <h6 class="mb-10">Total Balance</h6>
+                <h3 class="text-bold mb-10">@Model.InputModel.TotalBalance.ToStringFormated()</h3>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
+</div>
 
+<!-- Customer information -->
+<div class="card-style p-0 mb-30">
+    <div class="row p-4 mx-2"
+         type="button"
+         data-bs-toggle="collapse"
+         data-bs-target="#collapseCustomerInfo"
+         aria-expanded="false"
+         aria-controls="collapseExample">
+        <div class="col-6">
+            <h4>Customer Information</h4>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+            <i class="fa fa-angle-down fa-lg"></i>
+        </div>
+    </div>
+    <div class="collapse mt-2 mx-5" id="collapseCustomerInfo">
+        <form asp-page="/Customer/Create" class="row" method="post" autocomplete="off">
+            <div class="col-lg-6">
+                <div class="card-style mb-30">
+                    <h6 class="mb-25">Personal Information</h6>
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Givenname">First Name</label>
+                        <input disabled asp-for="InputModel.Givenname" placeholder="First Name" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Surname">Last Name</label>
+                        <input disabled asp-for="InputModel.Surname" placeholder="Last Name" />
+
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Birthday">Birth Date</label>
+                        <input disabled asp-for="InputModel.Birthday" type="date" placeholder="Birth Date" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Gender">Gender</label>
+                        <input disabled asp-for="InputModel.Gender" />
+                    </div>
+                    <!-- end input -->
+                </div>
+                <!-- end card -->
+                <div class="card-style mb-30">
+                    <h6 class="mb-25">Contact Information</h6>
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Telephonenumber">Phone Number</label>
+                        <input disabled asp-for="InputModel.Telephonenumber" placeholder="Phone Number" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Emailaddress">Email Address</label>
+                        <input disabled asp-for="InputModel.Emailaddress" placeholder="Email Address" />
+                    </div>
+                    <!-- end input -->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+            <div class="col-lg-6">
+                <div class="card-style mb-30">
+                    <h6 class="mb-25">Address Information</h6>
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Streetaddress">Street Address</label>
+                        <input disabled asp-for="InputModel.Streetaddress" placeholder="Street Address" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.City">City</label>
+                        <input disabled asp-for="InputModel.City" placeholder="City" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Zipcode">Zipcode</label>
+                        <input disabled asp-for="InputModel.Zipcode" placeholder="Zipcode" />
+                    </div>
+                    <!-- end input -->
+                    <div class="input-style-1">
+                        <label asp-for="InputModel.Country">Country</label>
+                        <input disabled asp-for="InputModel.Country" />
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+            <div class="col-lg-12 mb-30 mt-30">
+                <div class="d-flex justify-content-evenly">
+                    <a asp-page="/Customers/Customer/Edit"
+                       asp-route-customerId="@Model.InputModel.CustomerId"
+                       class="main-btn primary-btn btn-hover rounded-full btn-sm shadow-lg">
+                        <i class="fa-solid fa-pen mr-10"></i> Edit Customer Information
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card-style p-0 m-0">
+    <div class="row p-4 mx-2"
+         type="button"
+         data-bs-toggle="collapse"
+         data-bs-target="#collapseCustomerAccounts"
+         aria-expanded="false"
+         aria-controls="collapseExample">
+        <div class="col-6">
+            <h4>Customer Accounts</h4>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+            <i class="fa fa-angle-down fa-lg"></i>
+        </div>
+    </div>
+    <div class="collapse mt-2 mx-5" id="collapseCustomerAccounts">
+        <div class="table-wrapper table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><h6>Account Number</h6></th>
+                        <th><h6>Account Type</h6></th>
+                        <th><h6>Frequency</h6></th>
+                        <th><h6>Balance</h6></th>
+                        <th><h6>Action</h6></th>
+                    </tr>
+                    <!-- end table row-->
+                </thead>
+                <tbody>
+                    @foreach (var disposition in Model.InputModel.Dispositions)
+                    {
+                        <tr>
+                            <td class="min-width">
+                                <p>
+                                    @disposition.Account.AccountId
+                                </p>
+                            </td>
+                            <td class="min-width"><p>@disposition.Type.ToPascalCase()</p></td>
+                            <td class="min-width"><p>@disposition.Account.Frequency</p></td>
+                            <td class="min-width"><p>@disposition.Account.Balance.ToStringFormated()</p></td>
+                            <td>
+                                <div class="action">
+                                    <a class="text-active" asp-page="/Customer/Accounts/Account" asp-route-accountId="@disposition.Account.AccountId">
+                                        <i class="fa-solid fa-user-edit" title="Edit the user information or delete the user"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- end table -->
+        </div>
+        <div class="col-lg-12 mt-30 mb-30">
+            <div class="d-flex justify-content-evenly">
+                <a class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg" asp-page="/Admin/Users/CreateUser">
+                    <i class="fa-solid fa-plus mr-10"></i> Add new account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<partial name="_PasswordValidationScript" />
+}

@@ -27,5 +27,18 @@ namespace DotNetBanky.DAL.Repositories
         {
             return await _db.Customers.CountAsync();
         }
+
+        public async Task<Customer> GetCustomerByIdAsync(int id)
+        {
+            return await _db.Customers
+                .Include(c => c.Dispositions)
+                .ThenInclude(d => d.Account).FirstAsync(c => c.CustomerId == id);
+        }
+
+        public async Task<decimal> GetTotalAccountsBalanceByCustomerId(int id)
+        {
+            return await _db.Customers.Where(c => c.CustomerId == id).Select(c => c.Dispositions.Sum(d => d.Account.Balance)).FirstAsync();
+
+        }
     }
 }
