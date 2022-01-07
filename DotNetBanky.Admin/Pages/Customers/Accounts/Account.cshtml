@@ -1,4 +1,4 @@
-﻿@page "/Customers/Customer/{customerId}/Account/{accountId}"
+﻿@page "Customers/Customer/{customerId}/Account/{accountId}/{handler?}"
 @model DotNetBanky.Admin.Pages.Customers.Accounts.AccountModel
 @{
     ViewData["Title"] = "Account";
@@ -85,47 +85,7 @@
     </div>
 </div>
 
+@section Scripts{
 
-@section scripts{
-<script>
-    const formatter = new Intl.NumberFormat('se', {
-    style: 'currency',
-    currency: 'SEK',
-    currencyDisplay: "narrowSymbol"
-    });
-
-      const tbody = document.querySelector("tbody");
-      const loadBtn = document.getElementById("loadBtn")
-
-      let currentPage = 1;
-
-      const handleGetMore = () => {
-           currentPage++;
-         $.ajax({
-             url:`${@Model.AccountId}/?handler=More`,
-             data:{
-                 currnetPage: currentPage,
-                 accountId: @Model.AccountId
-             }
-         }).done(result => {
-             result.forEach(transaction=>DrawTableRow(transaction));
-         })
-      }
-
-      function DrawTableRow(transaction){
-          const html = `
-          <tr>
-              <td class="min-width"><p>${transaction.transactionId}</p></td>
-              <td class="min-width"><p>${transaction.type}</p></td>
-              <td class="min-width"><p>${transaction.operation}</p></td>
-              <td class="min-width"><p>${formatter.format(transaction.amount)}</p></td>
-              <td class="min-width"><p>${new Date(transaction.date).toLocaleDateString()}</p></td>
-          </tr>
-          `;
-          tbody.insertAdjacentHTML("beforeend", html);
-      }
-
-      loadBtn.addEventListener("click",handleGetMore)
-
-</script>
+<partial name="_transactionsAjaxReqPartial" />
 }

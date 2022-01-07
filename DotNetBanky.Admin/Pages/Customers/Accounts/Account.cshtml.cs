@@ -16,12 +16,12 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
             _accountService = accountService;
         }
 
+        [BindProperty]
         public AccountDetailsDTO InputModel { get; set; } = null!;
-        public int AccountId { get; set; }
 
         public async Task OnGetAsync(int customerId, int accountId)
         {
-            AccountId = accountId;
+
             SetupBreadcrumb(customerId);
 
             InputModel = await _accountService.GetAccountDetailsByAccountId(accountId);
