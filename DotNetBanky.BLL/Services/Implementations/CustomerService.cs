@@ -46,9 +46,10 @@ namespace DotNetBanky.BLL.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public Task EditCustomerAsync(CustomerEditModel model)
+        public async Task EditCustomerAsync(CustomerEditModel model)
         {
-            throw new NotImplementedException();
+            model.CountryCode = CountryConstants.CountryCodes[model.Country];
+            await _customerRepository.UpdateOneAsync(_mapper.Map<Customer>(model));
         }
 
         public async Task<IEnumerable<CustomerListDTOModel>> GetCustomerListAsync(

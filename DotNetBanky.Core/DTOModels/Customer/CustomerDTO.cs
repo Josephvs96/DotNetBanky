@@ -29,7 +29,7 @@ namespace DotNetBanky.Core.DTOModels.Customer
         [Required]
         public string City { get; set; } = null!;
         [Required]
-        [RegularExpression(@"(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^\d{3} \d{2}$)", ErrorMessage = "The Zip code is not valid")]
+        [RegularExpression(@"(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^\d{3} \d{2}$)|(^\d{4})", ErrorMessage = "The Zip code is not valid")]
         public string Zipcode { get; set; } = null!;
         [Required]
         public string Country { get; set; } = null!;
@@ -71,29 +71,39 @@ namespace DotNetBanky.Core.DTOModels.Customer
         [Required]
         public string Gender { get; set; } = null!;
         [Required]
+        [DisplayName("First Name")]
         public string Givenname { get; set; } = null!;
         [Required]
+        [DisplayName("Last Name")]
         public string Surname { get; set; } = null!;
         [Required]
+        [DisplayName("Street Address")]
         public string Streetaddress { get; set; } = null!;
         [Required]
         public string City { get; set; } = null!;
         [Required]
+        [RegularExpression(@"(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)|(^\d{3} \d{2}$)|(^\d{4})", ErrorMessage = "The Zip code is not valid")]
         public string Zipcode { get; set; } = null!;
         [Required]
         public string Country { get; set; } = null!;
         [Required]
+        [DisplayName("Country Code")]
         public string CountryCode { get; set; } = null!;
 
+        [DisplayName("Birth Year")]
         public DateTime? Birthday { get; set; }
 
         public string? NationalId { get; set; }
 
-        public string? Telephonecountrycode { get; set; }
-
+        [RegularExpression(
+            @"^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$",
+            ErrorMessage = "The phone number entered is not valid")]
+        [DisplayName("Phone Number")]
         public string? Telephonenumber { get; set; }
 
         [Required]
+        [EmailAddress]
+        [Display(Name = "Email Address")]
         public string Emailaddress { get; set; } = null!;
     }
 

@@ -20,8 +20,10 @@ namespace DotNetBanky.Core.AutoMapperProfiles
 
                 // Customer Mappings
                 CreateMap<Customer, CustomerCreateModel>().ReverseMap();
+                CreateMap<Customer, CustomerEditModel>().ReverseMap();
                 CreateMap<Customer, CustomerListDTOModel>().ForMember(dto => dto.FullName, opt => opt.MapFrom(src => src.Givenname + " " + src.Surname));
                 CreateMap<Customer, CustomerDetailsDTOModel>().ForMember(dto => dto.Gender, opt => opt.MapFrom(src => GenderConstants.GenderList.First(v => v.Value == src.Gender).Key)).ReverseMap();
+                CreateMap<CustomerDetailsDTOModel, CustomerEditModel>().ReverseMap();
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerListDTOModel>>().ReverseMap();
             }
         }

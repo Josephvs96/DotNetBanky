@@ -3,7 +3,7 @@
     public static class CountryConstants
     {
         public const string Sweden = "Sweden";
-        public const string Denmark = "Danmark";
+        public const string Denmark = "Denmark";
         public const string Finland = "Finland";
         public const string Norway = "Norway";
 

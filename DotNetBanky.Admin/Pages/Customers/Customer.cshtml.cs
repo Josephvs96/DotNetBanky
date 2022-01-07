@@ -21,5 +21,7 @@ namespace DotNetBanky.Admin.Pages.Customers
         {
             InputModel = await _customerService.GetCustomerDetailsAsync(customerId);
         }
+
+
     }
 }
