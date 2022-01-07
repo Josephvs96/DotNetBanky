@@ -13,11 +13,16 @@ namespace DotNetBanky.BLL.Services.Implementations
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IAccountService _accountService;
         private readonly IMapper _mapper;
 
-        public CustomerService(ICustomerRepository customerRepository, IMapper mapper)
+        public CustomerService(
+            ICustomerRepository customerRepository,
+            IAccountService accountService,
+            IMapper mapper)
         {
             _customerRepository = customerRepository;
+            _accountService = accountService;
             _mapper = mapper;
         }
         public async Task CreateCustomerAsync(CustomerCreateModel model)
@@ -87,6 +92,7 @@ namespace DotNetBanky.BLL.Services.Implementations
                 var customer = await _customerRepository.GetCustomerByIdAsync(id);
                 var mappedCustomer = _mapper.Map<CustomerDetailsDTOModel>(customer);
                 mappedCustomer.TotalBalance = await _customerRepository.GetTotalAccountsBalanceByCustomerId(id);
+                mappedCustomer.Accounts = await _accountService.GetAccountsListByCustomerId(id);
                 return mappedCustomer;
             }
             catch (Exception)

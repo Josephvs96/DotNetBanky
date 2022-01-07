@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DotNetBanky.Core.Entities
 {
@@ -28,6 +29,8 @@ namespace DotNetBanky.Core.Entities
 
         [MaxLength(50)]
         public string? Account { get; set; }
+
+        [ForeignKey("AccountId")]
         public Account AccountNavigation { get; set; } = null!;
     }
 }

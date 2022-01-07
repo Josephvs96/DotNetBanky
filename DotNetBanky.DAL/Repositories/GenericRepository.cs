@@ -37,9 +37,18 @@ namespace DotNetBanky.DAL.Repositories
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
-            return await _db.Set<TEntity>().FirstAsync(filter);
+            var query = _db.Set<TEntity>().AsQueryable<TEntity>();
+
+            if (include != null)
+                query = include(query);
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            return await query.FirstAsync();
         }
 
         public async Task<TEntity> GetOneByIdAsync(int id)

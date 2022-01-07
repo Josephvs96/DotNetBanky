@@ -6,7 +6,9 @@ namespace DotNetBanky.DAL.Repositories.IRepositories
 {
     public interface IGenericRepository<T> where T : class, new()
     {
-        Task<T> GetOneAsync(Expression<Func<T, bool>>? filter = null);
+        Task<T> GetOneAsync(
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
         Task<T> GetOneByIdAsync(int id);
         Task<List<T>> GetListAsync(
             Expression<Func<T, bool>>? filter = null,

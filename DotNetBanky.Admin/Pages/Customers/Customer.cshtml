@@ -12,7 +12,7 @@
             </div>
             <div class="content">
                 <h6 class="mb-10">Number of accounts</h6>
-                <h3 class="text-bold mb-10">@Model.InputModel.Dispositions.Count</h3>
+                <h3 class="text-bold mb-10">@Model.InputModel.Accounts.Count</h3>
             </div>
         </div>
         <!-- End Icon Cart -->
@@ -131,6 +131,7 @@
     </div>
 </div>
 
+<!-- Account Information -->
 <div class="card-style p-0 m-0">
     <div class="row p-4 mx-2"
          type="button"
@@ -154,26 +155,29 @@
                         <th><h6>Account Type</h6></th>
                         <th><h6>Frequency</h6></th>
                         <th><h6>Balance</h6></th>
-                        <th><h6>Action</h6></th>
+                        <th></th>
                     </tr>
                     <!-- end table row-->
                 </thead>
                 <tbody>
-                    @foreach (var disposition in Model.InputModel.Dispositions)
+                    @foreach (var account in Model.InputModel.Accounts)
                     {
                         <tr>
                             <td class="min-width">
                                 <p>
-                                    @disposition.Account.AccountId
+                                    @account.AccountId
                                 </p>
                             </td>
-                            <td class="min-width"><p>@disposition.Type.ToPascalCase()</p></td>
-                            <td class="min-width"><p>@disposition.Account.Frequency</p></td>
-                            <td class="min-width"><p>@disposition.Account.Balance.ToStringFormated()</p></td>
+                            <td class="min-width"><p>@account.AccountType.ToPascalCase()</p></td>
+                            <td class="min-width"><p>@account.Frequency</p></td>
+                            <td class="min-width"><p>@account.Balance.ToStringFormated()</p></td>
                             <td>
                                 <div class="action">
-                                    <a class="text-active" asp-page="/Customer/Accounts/Account" asp-route-accountId="@disposition.Account.AccountId">
-                                        <i class="fa-solid fa-user-edit" title="Edit the user information or delete the user"></i>
+                                    <a class="text-active"
+                                   asp-page="/Customers/Accounts/Account"
+                                   asp-route-customerId="@Model.InputModel.CustomerId"
+                                   asp-route-accountId="@account.AccountId">
+                                        <i class="fa-solid fa-info-circle fa-xl mr-10" title="View account details"></i>
                                     </a>
                                 </div>
                             </td>
@@ -185,7 +189,7 @@
         </div>
         <div class="col-lg-12 mt-30 mb-30">
             <div class="d-flex justify-content-evenly">
-                <a class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg" asp-page="/Admin/Users/CreateUser">
+                <a class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg" asp-page="/Customers/Accounts/Create">
                     <i class="fa-solid fa-plus mr-10"></i> Add new account
                 </a>
             </div>

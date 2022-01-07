@@ -1,4 +1,4 @@
-﻿using DotNetBanky.Core.Entities;
+﻿using DotNetBanky.Core.DTOModels.Account;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -144,7 +144,7 @@ namespace DotNetBanky.Core.DTOModels.Customer
 
         public string Emailaddress { get; set; } = null!;
 
-        public List<Disposition> Dispositions { get; set; } = null!;
+        public List<AccountSummeryDTO> Accounts { get; set; } = null!;
 
         public decimal TotalBalance { get; set; }
     }

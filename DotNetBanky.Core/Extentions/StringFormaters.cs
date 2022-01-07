@@ -4,11 +4,11 @@
     {
         public static string ToStringFormated(this decimal value)
         {
-            return string.Format("${0:0,0.00}", value);
+            return string.Format("{0:C}", value);
         }
         public static string ToStringFormated(this decimal? value)
         {
-            return string.Format("${0:0,0.00}", value);
+            return string.Format("{0:C}", value);
         }
         public static string ToStringFormated(this int value)
         {
