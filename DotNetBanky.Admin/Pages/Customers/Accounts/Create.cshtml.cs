@@ -35,13 +35,15 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
         {
             try
             {
-                await _accountService.CreateAccountAndAssignToCustomer(InputModel);
-                _notyfService.Success("Account created successfully!");
-                return LocalRedirect($"/Customers/Accounts/Account/{InputModel.CustomerId}");
+                if (ModelState.IsValid)
+                {
+                    await _accountService.CreateAccountAndAssignToCustomer(InputModel);
+                    _notyfService.Success("Account created successfully!");
+                    return LocalRedirect($"/Customers/Accounts/Account/{InputModel.CustomerId}");
+                }
             }
             catch (Exception)
             {
-                throw;
                 _notyfService.Error("Error while creating new account");
             }
 
@@ -51,7 +53,7 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
         private void SetupBreadcrumb(int customerId)
         {
 
-            var currentNode = new RazorPageBreadcrumbNode("/Customers/Accounts/Account", "Account")
+            var currentNode = new RazorPageBreadcrumbNode("/Customers/Accounts/Account", "Create Account")
             {
                 Parent = new RazorPageBreadcrumbNode("/Customers/Customer", "Customer Details")
                 {

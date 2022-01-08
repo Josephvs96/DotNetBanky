@@ -38,9 +38,12 @@ namespace DotNetBanky.Admin.Pages.Customers
         {
             try
             {
-                await _customerService.EditCustomerAsync(InputModel);
-                _notyfService.Success("Customer updated successfully!");
-                return LocalRedirect($"/Customers/Customer/{InputModel.CustomerId}");
+                if (ModelState.IsValid)
+                {
+                    await _customerService.EditCustomerAsync(InputModel);
+                    _notyfService.Success("Customer updated successfully!");
+                    return LocalRedirect($"/Customers/Customer/{InputModel.CustomerId}");
+                }
             }
             catch (Exception)
             {

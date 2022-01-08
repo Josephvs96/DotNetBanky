@@ -2,6 +2,7 @@
 using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Paging;
+using DotNetBanky.Core.DTOModels.User;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Enums;
 using DotNetBanky.Core.Extentions;
@@ -14,15 +15,18 @@ namespace DotNetBanky.BLL.Services.Implementations
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountService _accountService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public CustomerService(
             ICustomerRepository customerRepository,
             IAccountService accountService,
+            IUserService userService,
             IMapper mapper)
         {
             _customerRepository = customerRepository;
             _accountService = accountService;
+            _userService = userService;
             _mapper = mapper;
         }
         public async Task CreateCustomerAsync(CustomerCreateModel model)
@@ -43,7 +47,9 @@ namespace DotNetBanky.BLL.Services.Implementations
                 }
             };
 
-            await _customerRepository.AddOneAsync(customer);
+            var user = _mapper.Map<UserCreateModel>(model);
+            user.Customer = customer;
+            await _userService.CreateAsync(user);
         }
 
         public Task DeleteCustomerAsync(int id)

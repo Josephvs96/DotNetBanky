@@ -40,6 +40,8 @@ namespace DotNetBanky.Core.DTOModels.User
         [Required]
         public string Role { get; set; }
         public SelectList? Roles { get; set; }
+
+        public Entities.Customer? Customer { get; set; } = null;
     }
 
     public class UserChangePasswordModel : IValidatableObject

@@ -22,7 +22,7 @@ namespace DotNetBanky.Admin.Pages.Profile
         [BindProperty]
         public UserChangePasswordModel InputModel { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
             InputModel = new();
             InputModel.UserId = User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
@@ -34,13 +34,16 @@ namespace DotNetBanky.Admin.Pages.Profile
             {
                 try
                 {
-                    await _userService.ChangePasswordAsync(InputModel);
-                    _notifyService.Success("Password updated!");
-                    return LocalRedirect("~/");
+                    if (ModelState.IsValid)
+                    {
+                        await _userService.ChangePasswordAsync(InputModel);
+                        _notifyService.Success("Password updated!");
+                        return LocalRedirect("~/");
+                    }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    _notifyService.Error(e.Message);
+                    _notifyService.Error("Error changed the password");
                 }
             }
 

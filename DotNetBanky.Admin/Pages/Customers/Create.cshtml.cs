@@ -36,9 +36,12 @@ namespace DotNetBanky.Admin.Pages.Customers
         {
             try
             {
-                await _customerService.CreateCustomerAsync(InputModel);
-                _notyfService.Success("New customer added successfully!");
-                return LocalRedirect("/Customers/Index");
+                if (ModelState.IsValid)
+                {
+                    await _customerService.CreateCustomerAsync(InputModel);
+                    _notyfService.Success("New customer added successfully!");
+                    return LocalRedirect("/Customers/Index");
+                }
             }
             catch (Exception)
             {

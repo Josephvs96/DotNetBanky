@@ -33,9 +33,8 @@ namespace DotNetBanky.Core.DTOModels.Customer
         public string Zipcode { get; set; } = null!;
         [Required]
         public string Country { get; set; } = null!;
-        [Required]
         [DisplayName("Country Code")]
-        public string CountryCode { get; set; } = null!;
+        public string? CountryCode { get; set; } = null!;
 
         [DisplayName("Birth Year")]
         public DateTime? Birthday { get; set; }
@@ -86,9 +85,8 @@ namespace DotNetBanky.Core.DTOModels.Customer
         public string Zipcode { get; set; } = null!;
         [Required]
         public string Country { get; set; } = null!;
-        [Required]
         [DisplayName("Country Code")]
-        public string CountryCode { get; set; } = null!;
+        public string? CountryCode { get; set; } = null!;
 
         [DisplayName("Birth Year")]
         public DateTime? Birthday { get; set; }
