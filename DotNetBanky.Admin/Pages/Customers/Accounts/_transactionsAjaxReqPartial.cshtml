@@ -1,0 +1,55 @@
+﻿<script>
+    const formatter = new Intl.NumberFormat('se', {
+    style: 'currency',
+    currency: 'SEK',
+    currencyDisplay: "narrowSymbol"
+    });
+
+      const tbody = document.querySelector("tbody");
+      const loadBtn = document.getElementById("loadBtn")
+
+      let currentPage = 1;
+
+     const req = {
+               method:"GET",
+               headers: {
+                   "Content-Type":"Application/json"
+               },
+               body:{
+                   currentPage,
+                   accountId: @Model.InputModel.AccountId
+              }
+     }
+
+
+      const handleGetMore = () => {
+           currentPage++;
+
+         $.ajax({
+             url:`@Url.ActionLink()/More`,
+             data:{
+                 currnetPage: currentPage,
+                 accountId: @Model.InputModel.AccountId
+             }
+         })
+         .done(result => {
+             result.forEach(transaction=>DrawTableRow(transaction));
+         });
+      }
+
+      function DrawTableRow(transaction){
+          const html = `
+          <tr>
+              <td class="min-width"><p>${transaction.transactionId}</p></td>
+              <td class="min-width"><p>${transaction.type}</p></td>
+              <td class="min-width"><p>${transaction.operation}</p></td>
+              <td class="min-width"><p>${formatter.format(transaction.amount)}</p></td>
+              <td class="min-width"><p>${new Date(transaction.date).toLocaleDateString()}</p></td>
+          </tr>
+          `;
+          tbody.insertAdjacentHTML("beforeend", html);
+      }
+
+      loadBtn.addEventListener("click",handleGetMore)
+
+</script>
