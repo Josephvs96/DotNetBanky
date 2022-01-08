@@ -1,0 +1,41 @@
+﻿@page "/Customer/{customerId}/Accounts/Create"
+@model DotNetBanky.Admin.Pages.Customers.Accounts.CreateModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<form asp-page="/Accounts/Create" class="row" method="post" autocomplete="off">
+    <input type="hidden" asp-for="InputModel.CustomerId" />
+    <div class="col-6 offset-3">
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Account Information</h6>
+            <div class="select-style-1">
+                <label asp-for="InputModel.AccountType">Type</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.AccountType" asp-items="Model.TypeList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.AccountType" class="text-danger"></span>
+            </div>
+
+            <div class="select-style-1">
+                <label asp-for="InputModel.Frequency">Frequency</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.Frequency" asp-items="Model.FrequencyList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.Frequency" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+    </div>
+    <div class="col-6 offset-3">
+        <div class="card-style d-flex justify-content-evenly">
+            <button class="main-btn primary-btn btn-hover rounded-full btn-sm shadow-lg" type="submit">
+                <i class="fa-solid fa-plus mr-10"></i>Create New Account
+            </button>
+        </div>
+    </div>
+</form>

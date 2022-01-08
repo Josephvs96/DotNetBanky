@@ -33,6 +33,7 @@ namespace DotNetBanky.Core.AutoMapperProfiles
                     dto => dto.AccountType,
                     opt => opt.MapFrom(src => src.Dispositions.First().Type)).ReverseMap();
                 CreateMap<Account, AccountDetailsDTO>().ReverseMap();
+                CreateMap<Account, AccountCreateModel>().ReverseMap();
 
                 // Transaction
                 CreateMap<Transaction, TransactionDTO>().ReverseMap();

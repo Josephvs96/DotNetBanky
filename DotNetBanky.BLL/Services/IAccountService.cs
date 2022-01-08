@@ -10,5 +10,7 @@ namespace DotNetBanky.BLL.Services
         Task<List<AccountSummeryDTO>> GetAccountsListByCustomerId(int customerId);
 
         Task<PagedResult<TransactionDTO>> GetPagedTransactions(int accountId, int page, int pageSize);
+
+        Task CreateAccountAndAssignToCustomer(AccountCreateModel model);
     }
 }

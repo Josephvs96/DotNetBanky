@@ -12,13 +12,36 @@ namespace DotNetBanky.BLL.Services.Implementations
     {
         private readonly IAccountRepository _accountRepository;
         private readonly IGenericRepository<Transaction> _transactionRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
 
-        public AccountService(IAccountRepository accountRepository, IGenericRepository<Transaction> transactionRepository, IMapper mapper)
+        public AccountService(
+            IAccountRepository accountRepository,
+            IGenericRepository<Transaction> transactionRepository,
+            ICustomerRepository customerRepository,
+            IMapper mapper)
         {
             _accountRepository = accountRepository;
             _transactionRepository = transactionRepository;
+            _customerRepository = customerRepository;
             _mapper = mapper;
+        }
+
+        public async Task CreateAccountAndAssignToCustomer(AccountCreateModel model)
+        {
+            var customer = await _customerRepository.GetOneByIdAsync(model.CustomerId);
+            var newAccount = _mapper.Map<Account>(model);
+            newAccount.Dispositions = new List<Disposition>()
+            {
+                new Disposition()
+                {
+                    Account = newAccount,
+                    Customer = customer,
+                    Type = model.AccountType
+                }
+            };
+
+            await _accountRepository.AddOneAsync(newAccount);
         }
 
         public async Task<AccountDetailsDTO> GetAccountDetailsByAccountId(int accountId)

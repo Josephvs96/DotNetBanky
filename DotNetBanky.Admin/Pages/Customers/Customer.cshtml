@@ -1,4 +1,4 @@
-﻿@page "/Customers/Customer/{customerId}"
+﻿@page "/Customer/{customerId}"
 @model DotNetBanky.Admin.Pages.Customers.CustomerModel
 @{
     ViewData["Title"] = "Customer Details";
@@ -189,7 +189,9 @@
         </div>
         <div class="col-lg-12 mt-30 mb-30">
             <div class="d-flex justify-content-evenly">
-                <a class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg" asp-page="/Customers/Accounts/Create">
+                <a class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg"
+                   asp-page="/Customers/Accounts/Create"
+                   asp-route-customerId="@Model.InputModel.CustomerId">
                     <i class="fa-solid fa-plus mr-10"></i> Add new account
                 </a>
             </div>
