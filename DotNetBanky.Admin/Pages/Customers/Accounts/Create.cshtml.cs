@@ -39,7 +39,7 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
                 {
                     await _accountService.CreateAccountAndAssignToCustomer(InputModel);
                     _notyfService.Success("Account created successfully!");
-                    return LocalRedirect($"/Customers/Accounts/Account/{InputModel.CustomerId}");
+                    return LocalRedirect($"/Customer/{InputModel.CustomerId}");
                 }
             }
             catch (Exception)
