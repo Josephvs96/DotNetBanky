@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace DotNetBanky.Admin.Pages.Auth
 {
     [AllowAnonymous]
+    [IgnoreAntiforgeryToken]
     public class LogoutModel : PageModel
     {
         private readonly IUserService _userService;
@@ -14,8 +15,9 @@ namespace DotNetBanky.Admin.Pages.Auth
         {
             _userService = userService;
         }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            await _userService.LogoutAsnyc();
         }
 
         public async Task<IActionResult> OnPost()
