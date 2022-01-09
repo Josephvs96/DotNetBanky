@@ -1,4 +1,5 @@
-﻿using DotNetBanky.Core.DTOModels.Transaction;
+﻿using DotNetBanky.Core.DTOModels.Paging;
+using DotNetBanky.Core.DTOModels.Transaction;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,8 +12,7 @@ namespace DotNetBanky.Core.DTOModels.Account
         public DateTime Created { get; set; }
         [Precision(13, 2)]
         public decimal Balance { get; set; }
-
-        public ICollection<TransactionDTO> Transactions { get; set; } = null!;
+        public PagedResult<TransactionDTO> PagedTransactions { get; set; } = null!;
     }
 
     public class AccountSummeryDTO

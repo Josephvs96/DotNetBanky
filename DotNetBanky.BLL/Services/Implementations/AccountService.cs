@@ -110,13 +110,16 @@ namespace DotNetBanky.BLL.Services.Implementations
             var account = await _accountRepository.GetOneAsync(
                 filter: a => a.AccountId == accountId);
 
-            var transactions = await _transactionRepository.GetListAsync(
+            var transactions = await _transactionRepository.GetPagedListAsync(
                 filter: t => t.AccountNavigation.AccountId == accountId,
-                orderBy: query => query.OrderByDescending(t => t.Date),
-                limit: 20);
+                orderBy: q => q.OrderByDescending(t => t.Date),
+                page: 1,
+                pageSize: 20);
 
-            account.Transactions = transactions;
-            return _mapper.Map<AccountDetailsDTO>(account);
+            var accountDetailsDto = _mapper.Map<AccountDetailsDTO>(account);
+            accountDetailsDto.PagedTransactions = _mapper.Map<PagedResult<TransactionDTO>>(transactions);
+
+            return accountDetailsDto;
         }
 
         public async Task<List<AccountSummeryDTO>> GetAccountsListByCustomerId(int customerId)

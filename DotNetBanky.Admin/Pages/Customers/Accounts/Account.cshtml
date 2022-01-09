@@ -71,7 +71,7 @@
                     <!-- end table row-->
                 </thead>
                 <tbody>
-                    @foreach (var transaction in Model.InputModel.Transactions)
+                    @foreach (var transaction in Model.InputModel.PagedTransactions.Results)
                     {
                         <tr>
                             <td class="min-width"><p>@transaction.TransactionId</p></td>
@@ -87,7 +87,7 @@
             <!-- end table -->
         </div>
         <div class="col-lg-12 mt-30 mb-30">
-            <div class="d-flex justify-content-evenly @(Model.InputModel.Transactions.Count == 20 ? "" : "d-none")">
+            <div class="d-flex justify-content-evenly @(Model.InputModel.PagedTransactions.RowCount > 20 ? "" : "d-none")">
                 <button id="loadBtn" class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg">
                     <i class="fas fa-chevron-circle-down mr-10"></i> Show more
                 </button>
