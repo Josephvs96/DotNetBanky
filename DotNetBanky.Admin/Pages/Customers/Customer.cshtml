@@ -179,6 +179,12 @@
                                    asp-route-accountId="@account.AccountId">
                                         <i class="fa-solid fa-info-circle fa-xl mr-10" title="View account details"></i>
                                     </a>
+                                    <a class="text-active"
+                                   asp-page="/Customers/Accounts/Transactions/Create"
+                                   asp-route-customerId="@Model.InputModel.CustomerId"
+                                   asp-route-accountId="@account.AccountId">
+                                        <i class="fas fa-exchange-alt mr-10" title="Add new transaction"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

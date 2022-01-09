@@ -47,12 +47,22 @@
 
 <div class="row px-4">
     <div class="card-style">
-        <h2>Transactions list</h2>
+        <div class="d-flex justify-content-between">
+            <h2>Transactions list</h2>
+            <a class="main-btn primary-btn btn-sm btn-hover rounded-full"
+               asp-page="/Customers/Accounts/Transactions/Create"
+               asp-route-customerId="@Model.CustomerId"
+               asp-route-accountId="@Model.InputModel.AccountId">
+                <i class="fa-solid fa-plus"></i>
+                Add New Transaction
+            </a>
+        </div>
         <div class="mt-3 table-wrapper table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th><h6>Number</h6></th>
+                        <th><h6>Description</h6></th>
                         <th><h6>Type</h6></th>
                         <th><h6>Operation</h6></th>
                         <th><h6>Amount</h6></th>
@@ -65,6 +75,7 @@
                     {
                         <tr>
                             <td class="min-width"><p>@transaction.TransactionId</p></td>
+                            <td class="min-width"><p>@transaction.Symbol</p></td>
                             <td class="min-width"><p>@transaction.Type</p></td>
                             <td class="min-width"><p>@transaction.Operation</p></td>
                             <td class="min-width"><p>@transaction.Amount.ToStringFormated()</p></td>
@@ -76,7 +87,7 @@
             <!-- end table -->
         </div>
         <div class="col-lg-12 mt-30 mb-30">
-            <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly @(Model.InputModel.Transactions.Count == 20 ? "" : "d-none")">
                 <button id="loadBtn" class="main-btn primary-btn btn-sm rounded-full btn-hover shadow-lg">
                     <i class="fas fa-chevron-circle-down mr-10"></i> Show more
                 </button>

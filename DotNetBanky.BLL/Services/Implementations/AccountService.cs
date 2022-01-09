@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Account;
 using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.DTOModels.Transaction;
 using DotNetBanky.Core.Entities;
+using DotNetBanky.Core.Exceptions;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace DotNetBanky.BLL.Services.Implementations
 {
@@ -44,6 +47,64 @@ namespace DotNetBanky.BLL.Services.Implementations
             await _accountRepository.AddOneAsync(newAccount);
         }
 
+        public async Task CreateAccountTransaction(TransactionCreateDTO model)
+        {
+            var accountFrom = await _accountRepository.GetOneByIdAsync(model.AccountFrom);
+
+            if (!accountFrom.Dispositions.Any(d => d.Customer.CustomerId == model.CustomerId))
+                throw new AccountNotOwnedByCustomerException();
+
+            switch (model.Operation)
+            {
+                case TransactionConstants.Deposit:
+                    {
+                        var transaction = _mapper.Map<Transaction>(model);
+                        transaction.Balance += accountFrom.Balance;
+                        accountFrom.Transactions.Add(transaction);
+                        accountFrom.Balance += transaction.Amount;
+                        await _accountRepository.CreateNewDepositTransaction(accountFrom);
+                        break;
+                    }
+                case TransactionConstants.Withdraw:
+                    {
+                        var transaction = _mapper.Map<Transaction>(model);
+                        transaction.Balance = accountFrom.Balance - transaction.Amount;
+                        transaction.Amount *= -1;
+                        if (transaction.Balance < 0) throw new TransactionAmountLargerThanBalanceException();
+
+                        accountFrom.Transactions.Add(transaction);
+                        accountFrom.Balance = transaction.Balance;
+                        await _accountRepository.CreateNewDepositTransaction(accountFrom);
+                        break;
+                    }
+                case TransactionConstants.Transaction:
+                    {
+                        if (!model.AccountTo.HasValue) throw new AccountToNotProvided();
+
+                        var accountTo = await _accountRepository.GetOneByIdAsync(model.AccountTo.Value);
+                        if (accountTo == null) throw new NotFoundException("The To Account could not be found in the local system");
+
+                        var transactionFrom = _mapper.Map<Transaction>(model);
+                        transactionFrom.Amount *= -1;
+                        transactionFrom.Balance = accountFrom.Balance + transactionFrom.Amount;
+                        transactionFrom.Account = model.AccountTo.Value.ToString();
+                        accountFrom.Transactions.Add(transactionFrom);
+                        accountFrom.Balance = transactionFrom.Balance;
+
+                        var transactionTo = _mapper.Map<Transaction>(model);
+                        transactionTo.Balance = accountTo.Balance + transactionTo.Amount;
+                        transactionTo.Account = model.AccountFrom.ToString();
+                        accountTo.Transactions.Add(transactionTo);
+                        accountTo.Balance = transactionTo.Balance;
+
+                        await _accountRepository.CreateNewTransaction(accountFrom, accountTo);
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
         public async Task<AccountDetailsDTO> GetAccountDetailsByAccountId(int accountId)
         {
             var account = await _accountRepository.GetOneAsync(
@@ -60,8 +121,10 @@ namespace DotNetBanky.BLL.Services.Implementations
 
         public async Task<List<AccountSummeryDTO>> GetAccountsListByCustomerId(int customerId)
         {
-            return _mapper.Map<List<AccountSummeryDTO>>(await _accountRepository.GetListAsync(
-                filter: a => a.Dispositions.Any(d => d.Customer.CustomerId == customerId)));
+            var accounts = await _accountRepository.GetListAsync(
+                filter: a => a.Dispositions.Any(d => d.Customer.CustomerId == customerId),
+                include: q => q.Include(a => a.Dispositions));
+            return _mapper.Map<List<AccountSummeryDTO>>(accounts);
         }
 
         public async Task<PagedResult<TransactionDTO>> GetPagedTransactions(int accountId, int page = 2, int pageSize = 20)

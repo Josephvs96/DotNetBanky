@@ -23,5 +23,34 @@ namespace DotNetBanky.DAL.Repositories
         {
             return await _db.Accounts.SumAsync(a => a.Balance);
         }
+
+        public new async Task<Account> GetOneByIdAsync(int id)
+        {
+            return await _db.Accounts
+                .Include(a => a.Transactions)
+                .Include(a => a.Dispositions).ThenInclude(d => d.Customer)
+                .FirstOrDefaultAsync(a => a.AccountId == id);
+        }
+
+        public async Task CreateNewDepositTransaction(Account account)
+        {
+            await UpdateOneAsync(account);
+        }
+
+        public async Task CreateNewWithdrawTransaction(Account account)
+        {
+            await UpdateOneAsync(account);
+        }
+
+        public async Task CreateNewTransaction(Account accountFrom, Account accountTo)
+        {
+            await _db.Database.BeginTransactionAsync();
+
+            await UpdateOneAsync(accountFrom);
+
+            await UpdateOneAsync(accountTo);
+
+            await _db.Database.CommitTransactionAsync();
+        }
     }
 }

@@ -30,7 +30,7 @@
                         </th>
                         <th><h6>Email</h6></th>
                         <th><h6>Phone number</h6></th>
-                        <th><h6>Action</h6></th>
+                        <th></th>
                     </tr>
                     <!-- end table row-->
                 </thead>
@@ -43,9 +43,12 @@
                             <td class="min-width"><p>@customer.EmailAddress</p></td>
                             <td class="min-width"><p>@customer.TelephoneNumber</p></td>
                             <td>
-                                <div class="action">
+                                <div class="d-flex gap-2">
                                     <a class="text-active" asp-page="/Customers/Customer" asp-route-customerId="@customer.CustomerId">
                                         <i class="fa-solid fa-info-circle fa-xl" title="Show customer details"></i>
+                                    </a>
+                                    <a class="text-active" asp-page="/Customers/Accounts/Transactions/Create" asp-route-customerId="@customer.CustomerId">
+                                        <i class="fas fa-exchange-alt fa-xl" title="New Transaction"></i>
                                     </a>
                                 </div>
                             </td>

@@ -43,6 +43,7 @@ namespace DotNetBanky.Core.AutoMapperProfiles
                 // Transaction
                 CreateMap<Transaction, TransactionDTO>().ReverseMap();
                 CreateMap<PagedResult<Transaction>, PagedResult<TransactionDTO>>().ReverseMap();
+                CreateMap<TransactionCreateDTO, Transaction>().ReverseMap();
             }
         }
     }

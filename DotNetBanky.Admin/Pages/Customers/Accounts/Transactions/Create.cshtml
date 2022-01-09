@@ -1,0 +1,101 @@
+﻿@page "/Customer/{customerId}/Transaction/Create/{accountId?}"
+@model DotNetBanky.Admin.Pages.Customers.Accounts.Transactions.CreateModel
+@{
+    ViewData["Title"] = "New Transaction";
+}
+
+<form asp-page="/Customers/Accounts/Transactions/Create" class="row" method="post" autocomplete="off">
+    <input type="hidden" asp-for="InputModel.CustomerId" />
+    <div class="col-lg-6">
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Transaction Information</h6>
+            <div class="select-style-1">
+                <label asp-for="InputModel.Type">Transaction Type</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.Type" asp-items="Model.TypeList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.Type" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="select-style-1">
+                <label asp-for="InputModel.Operation">Transaction Operation</label>
+                <div class="select-position">
+                    <select id="selectOperation" asp-for="InputModel.Operation" asp-items="Model.OperationList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.Operation" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div class="input-style-1">
+                <label asp-for="InputModel.Symbol">Description</label>
+                <input asp-for="InputModel.Symbol" placeholder="Description" />
+                <span asp-validation-for="InputModel.Symbol" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <!-- end card -->
+        <div class="card-style mb-30">
+            <h6 class="mb-25">Account</h6>
+            <div class="select-style-1">
+                <label asp-for="InputModel.AccountFrom">From Account</label>
+                <div class="select-position">
+                    <select asp-for="InputModel.AccountFrom" asp-items="Model.AccountsList">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+                <span asp-validation-for="InputModel.AccountFrom" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+            <div id="accountTo" class="input-style-1 @(Model.InputModel.Operation == TransactionConstants.Transaction?"":"d-none")">
+                <label asp-for="InputModel.AccountTo">To Account</label>
+                <input asp-for="InputModel.AccountTo" placeholder="Account number" />
+                <span asp-validation-for="InputModel.AccountTo" class="text-danger"></span>
+            </div>
+            <!-- end input -->
+        </div>
+        <!-- end card -->
+        <div class="card-style mb-30">
+            <div class="input-style-1">
+                <label asp-for="InputModel.Amount">Amount</label>
+                <input asp-for="InputModel.Amount" placeholder="Amount number" />
+                <span asp-validation-for="InputModel.Amount" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+    <!-- end card -->
+    </div>
+    <!-- end col -->
+    <div class="col-lg-12">
+        <div class="card-style d-flex justify-content-evenly">
+            <button class="main-btn primary-btn btn-hover rounded-full btn-sm shadow-lg" type="submit">
+                Confirm Transaction
+            </button>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<partial name="_PasswordValidationScript" />
+<script>
+    const selectOperation = document.getElementById("selectOperation");
+    const accountTo = document.getElementById("accountTo");
+
+    selectOperation?.addEventListener("change", (e) =>{
+        if (e.target.value === "Transaction"){
+            accountTo.classList.remove("d-none");
+        }else{
+            if(accountTo.classList.contains("d-none")) return;
+
+            accountTo.classList.add("d-none");
+        }
+    });
+</script>
+}

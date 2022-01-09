@@ -12,5 +12,7 @@ namespace DotNetBanky.BLL.Services
         Task<PagedResult<TransactionDTO>> GetPagedTransactions(int accountId, int page, int pageSize);
 
         Task CreateAccountAndAssignToCustomer(AccountCreateModel model);
+
+        Task CreateAccountTransaction(TransactionCreateDTO model);
     }
 }
