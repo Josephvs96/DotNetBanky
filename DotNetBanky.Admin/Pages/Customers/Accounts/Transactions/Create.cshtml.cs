@@ -3,6 +3,7 @@ using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Account;
 using DotNetBanky.Core.DTOModels.Transaction;
+using DotNetBanky.Core.Exceptions;
 using DotNetBanky.Core.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,18 +45,26 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts.Transactions
 
         public async Task<IActionResult> OnPostAsync()
         {
-            try
+            if (ModelState.IsValid)
             {
-                await _accountService.CreateAccountTransaction(InputModel);
-                _notyfService.Success("New transaction created successfully!");
-                return LocalRedirect($"/Customer/{InputModel.CustomerId}/Account/{InputModel.AccountFrom}");
+                try
+                {
+                    await _accountService.CreateAccountTransaction(InputModel);
+                    _notyfService.Success("New transaction created successfully!");
+                    return LocalRedirect($"/Customer/{InputModel.CustomerId}/Account/{InputModel.AccountFrom}");
+                }
+                catch (TransactionAmountLargerThanBalanceException e)
+                {
+                    _notyfService.Error($"Error: {e.Message.ToString().Replace("'", "\"")}", durationInSeconds: 5);
+                    ModelState.AddModelError("InputModel.Amount", e.Message);
+                    await PopulateAccountList(InputModel.CustomerId);
+                }
+                catch (Exception e)
+                {
+                    _notyfService.Error($"Error: {e.Message.ToString().Replace("'", "\"")}", durationInSeconds: 5);
+                    await PopulateAccountList(InputModel.CustomerId);
+                }
             }
-            catch (Exception e)
-            {
-                _notyfService.Error(e.Message.ToString(), durationInSeconds: 5);
-                await PopulateAccountList(InputModel.CustomerId);
-            }
-
             return Page();
         }
 
