@@ -4,283 +4,16 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace DotNetBanky.Admin.TagHelpers
 {
-    /// <summary>
-    /// Number formats for different cultures.
-    /// <para>https://github.com/unicode-cldr/cldr-core/blob/master/supplemental/numberingSystems.json</para>
-    /// </summary>
-    public static class NumberFormats
-    {
-        /// <summary>
-        /// Receives a number in system format, and converts it to any other format.
-        /// See <see cref="NumberFormats"/>
-        /// </summary>
-        /// <param name="number"></param>
-        /// <param name="targetFormat"></param>
-        /// <returns></returns>
-        public static string ToNumberFormat(this int number, string targetFormat)
-        {
-            string _str = string.Empty;
-            switch (targetFormat)
-            {
-                case NumberFormats.Default: _str = number.ToString("N0"); break;
-                case NumberFormats.Hex: _str = number.ToString("X"); break;
-                default:
-                    var numberStr = number.ToString();
-                    var newNum = string.Empty;
-
-                    for (int i = 0; i < numberStr.Length; i++)
-                        newNum += targetFormat.Split(' ')[int.Parse(numberStr[i].ToString())];
-
-                    _str = string.Join("", newNum);
-                    break;
-            }
-
-            return _str;
-        }
-
-        /// <summary>
-        /// System default numbering format
-        /// </summary>
-        public const string Default = "default";
-
-        /// <summary>
-        /// 0123456789
-        /// </summary>
-        public const string Arabic = "0 1 2 3 4 5 6 7 8 9";
-
-        /// <summary>
-        /// Use hexadecimal numbering system
-        /// </summary>
-        public const string Hex = "hex";
-
-        /// <summary>
-        /// I II III IV V VI
-        /// </summary>
-        public const string Roman = "roman";
-
-        /// <summary>
-        /// ٠١٢٣٤٥٦٧٨٩
-        /// </summary>
-        public const string Hindi = "٠ ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩";
-
-        /// <summary>
-        /// 𑁦𑁧𑁨𑁩𑁪𑁫𑁬𑁭𑁮𑁯
-        /// </summary>
-        public const string Brah = "𑁦 𑁧 𑁨 𑁩 𑁪 𑁫 𑁬 𑁭 𑁮 𑁯";
-
-        /// <summary>
-        /// ০১২৩৪৫৬৭৮৯
-        /// </summary>
-        public const string Beng = "০ ১ ২ ৩ ৪ ৫ ৬ ৭ ৮ ৯";
-
-        /// <summary>
-        /// ०१२३४५६७८९
-        /// </summary>
-        public const string Deva = "० १ २ ३ ४ ५ ६ ७ ८ ९";
-
-        /// <summary>
-        /// ۰۱۲۳۴۵۶۷۸۹
-        /// </summary>
-        public const string Farsi = "۰ ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹";
-
-        /// <summary>
-        /// ０１２３４５６７８９
-        /// </summary>
-        public const string Fullwide = "０ １ ２ ３ ４ ５ ６ ７ ８ ９";
-
-        /// <summary>
-        /// ೦೧೨೩೪೫೬೭೮೯
-        /// </summary>
-        public const string Knda = "೦ ೧ ೨ ೩ ೪ ೫ ೬ ೭ ೮ ೯";
-
-        /// <summary>
-        /// ૦૧૨૩૪૫૬૭૮૯
-        /// </summary>
-        public const string Gujr = "૦ ૧ ૨ ૩ ૪ ૫ ૬ ૭ ૮ ૯";
-
-        /// <summary>
-        /// ੦੧੨੩੪੫੬੭੮੯
-        /// </summary>
-        public const string Guru = "੦ ੧ ੨ ੩ ੪ ੫ ੬ ੭ ੮ ੯";
-
-        /// <summary>
-        /// 〇一二三四五六七八九
-        /// </summary>
-        public const string Hanidec = "〇 一 二 三 四 五 六 七 八 九";
-
-        /// <summary>
-        /// ꧐꧑꧒꧓꧔꧕꧖꧗꧘꧙
-        /// </summary>
-        public const string Java = "꧐ ꧑ ꧒ ꧓ ꧔ ꧕ ꧖ ꧗ ꧘ ꧙";
-
-        /// <summary>
-        /// ០១២៣៤៥៦៧៨៩
-        /// </summary>
-        public const string Khmr = "០ ១ ២ ៣ ៤ ៥ ៦ ៧ ៨ ៩";
-
-        /// <summary>
-        /// ໐໑໒໓໔໕໖໗໘໙
-        /// </summary>
-        public const string Laoo = "໐ ໑ ໒ ໓ ໔ ໕ ໖ ໗ ໘ ໙";
-
-        /// <summary>
-        /// 0123456789
-        /// </summary>
-        public const string Latin = "0 1 2 3 4 5 6 7 8 9";
-
-        /// <summary>
-        /// 𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗
-        /// </summary>
-        public const string Mathbold = "𝟎 𝟏 𝟐 𝟑 𝟒 𝟓 𝟔 𝟕 𝟖 𝟗";
-
-        /// <summary>
-        /// 𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡
-        /// </summary>
-        public const string Mathborder = "𝟘 𝟙 𝟚 𝟛 𝟜 𝟝 𝟞 𝟟 𝟠 𝟡";
-
-        /// <summary>
-        /// 𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
-        /// </summary>
-        public const string Mathmono = "𝟶 𝟷 𝟸 𝟹 𝟺 𝟻 𝟼 𝟽 𝟾 𝟿";
-
-        /// <summary>
-        /// 𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵
-        /// </summary>
-        public const string Mathanb = "𝟬 𝟭 𝟮 𝟯 𝟰 𝟱 𝟲 𝟳 𝟴 𝟵";
-
-        /// <summary>
-        /// 𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫
-        /// </summary>
-        public const string Mathsans = "𝟢 𝟣 𝟤 𝟥 𝟦 𝟧 𝟨 𝟩 𝟪 𝟫";
-
-        /// <summary>
-        /// ൦൧൨൩൪൫൬൭൮൯
-        /// </summary>
-        public const string Mlym = "൦ ൧ ൨ ൩ ൪ ൫ ൬ ൭ ൮ ൯";
-
-        /// <summary>
-        /// ᠐᠑᠒᠓᠔᠕᠖᠗᠘᠙
-        /// </summary>
-        public const string Mong = "᠐ ᠑ ᠒ ᠓ ᠔ ᠕ ᠖  ᠗ ᠘ ᠙";
-
-        /// <summary>
-        /// ၀၁၂၃၄၅၆၇၈၉
-        /// </summary>
-        public const string Mymr = "၀ ၁ ၂ ၃ ၄ ၅ ၆ ၇ ၈ ၉";
-
-        /// <summary>
-        /// ႐႑႒႓႔႕႖႗႘႙
-        /// </summary>
-        public const string Mymrshan = "႐ ႑ ႒ ႓ ႔ ႕ ႖ ႗ ႘ ႙";
-
-        /// <summary>
-        /// ꧰꧱꧲꧳꧴꧵꧶꧷꧸꧹
-        /// </summary>
-        public const string Mymtlng = "꧰ ꧱ ꧲ ꧳ ꧴ ꧵ ꧶ ꧷ ꧸ ꧹";
-
-        /// <summary>
-        /// ߀߁߂߃߄߅߆߇߈߉
-        /// </summary>
-        public const string Nkoo = "߀ ߁ ߂ ߃ ߄ ߅ ߆ ߇ ߈ ߉";
-
-        /// <summary>
-        /// ᱐᱑᱒᱓᱔᱕᱖᱗᱘᱙
-        /// </summary>
-        public const string Olck = "᱐ ᱑ ᱒ ᱓ ᱔ ᱕ ᱖ ᱗ ᱘ ᱙";
-
-        /// <summary>
-        /// ୦୧୨୩୪୫୬୭୮୯
-        /// </summary>
-        public const string Orya = "୦ ୧ ୨ ୩ ୪ ୫ ୬ ୭ ୮ ୯";
-
-        /// <summary>
-        /// 𐒠𐒡𐒢𐒣𐒤𐒥𐒦𐒧𐒨𐒩
-        /// </summary>
-        public const string Osma = "𐒠 𐒡 𐒢 𐒣 𐒤 𐒥 𐒦 𐒧 𐒨 𐒩";
-
-        /// <summary>
-        /// ෦෧෨෩෪෫෬෭෮෯
-        /// </summary>
-        public const string Sinh = "෦ ෧ ෨ ෩ ෪ ෫ ෬ ෭ ෮ ෯";
-
-        /// <summary>
-        /// ᧐᧑᧒᧓᧔᧕᧖᧗᧘᧙
-        /// </summary>
-        public const string Talu = "᧐ ᧑ ᧒ ᧓ ᧔ ᧕ ᧖ ᧗ ᧘ ᧙";
-
-        /// <summary>
-        /// ௦௧௨௩௪௫௬௭௮௯
-        /// </summary>
-        public const string Tamldec = "௦ ௧ ௨ ௩ ௪ ௫ ௬ ௭ ௮ ௯";
-
-        /// <summary>
-        /// ౦౧౨౩౪౫౬౭౮౯
-        /// </summary>
-        public const string Telu = "౦ ౧ ౨ ౩ ౪ ౫ ౬ ౭ ౮ ౯";
-
-        /// <summary>
-        /// ๐๑๒๓๔๕๖๗๘๙
-        /// </summary>
-        public const string Thai = "๐ ๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙";
-
-        /// <summary>
-        /// ༠༡༢༣༤༥༦༧༨༩
-        /// </summary>
-        public const string Tibt = "༠ ༡ ༢ ༣ ༤ ༥ ༦ ༧ ༨ ༩";
-
-        /// <summary>
-        /// ꘠꘡꘢꘣꘤꘥꘦꘧꘨꘩
-        /// </summary>
-        public const string Vaii = "꘠ ꘡ ꘢ ꘣ ꘤ ꘥ ꘦ ꘧ ꘨ ꘩";
-    }
-    public enum RenderMode
-    {
-        /// <summary>
-        /// regular dropdown list
-        /// </summary>
-        Classic = 0,
-
-        /// <summary>
-        /// HTML5 div with Bootstrap 4 support
-        /// </summary>
-        Bootstrap = 1,
-
-        /// <summary>
-        /// Render as form control
-        /// </summary>
-        FormControl = 2,
-        /// <summary>
-        /// HTML5 div with Bootstrap 5 support
-        /// </summary>
-        Bootstrap5 = 3
-    }
-
-    /// <summary>
-    /// Creates a pagination control
-    /// </summary>
     public class PagingTagHelper : TagHelper
     {
         private IConfiguration Configuration { get; }
         private readonly ILogger _logger;
 
-
-        /// <summary>
-        /// A URL template for paging buttons
-        /// e.g. 
-        /// <![CDATA[?p={0}&s={1}&q=test]]>
-        /// </summary>
         private string UrlTemplate { get; set; }
 
-        /// <summary>
-        /// <para>ViewContext property is not required to be passed as parameter, it will be assigned automatically by the tag helper.</para>
-        /// <para>View context is required to access TempData dictionary that contains the alerts coming from backend</para>
-        /// </summary>
         [ViewContext]
         public ViewContext ViewContext { get; set; } = null;
 
-        /// <summary>
-        /// Creates a pagination control
-        /// </summary>
         public PagingTagHelper(IConfiguration configuration, ILogger<PagingTagHelper> logger)
         {
             Configuration = configuration;
@@ -314,12 +47,6 @@ namespace DotNetBanky.Admin.TagHelpers
         /// <para>default: 10</para>
         /// </summary>
         public int? MaxDisplayedPages { get; set; }
-
-        /// <summary>
-        /// name of the settings section in appSettings.json
-        /// <param>default: "default"</param>
-        /// </summary>
-        public string SettingsJson { get; set; } = "default";
 
         /// <summary>
         /// Force adding url path to the navigation url
@@ -384,18 +111,6 @@ namespace DotNetBanky.Admin.TagHelpers
         /// <para>default: true</para>
         /// </summary>
         public bool? ShowPrevNext { get; set; }
-
-        /// <summary>
-        /// Show or hide total pages count
-        /// <para>default: true</para>
-        /// </summary>
-        public bool? ShowTotalPages { get; set; }
-
-        /// <summary>
-        /// Show or hide total records count
-        /// <para>default: true</para>
-        /// </summary>
-        public bool? ShowTotalRecords { get; set; }
         #endregion
 
         #region Texts
@@ -404,8 +119,6 @@ namespace DotNetBanky.Admin.TagHelpers
         /// <para>default: Page size </para>
         /// </summary>
         public string TextPageSize { get; set; }
-
-
         /// <summary>
         /// Text to show on the "Go To First" Page button
         /// <para>
@@ -433,55 +146,9 @@ namespace DotNetBanky.Admin.TagHelpers
         /// <![CDATA[default: &lsaquo;]]></para>
         /// </summary>
         public string TextPrevious { get; set; }
-
-        /// <summary>
-        /// Display text for total pages label
-        /// <para>default: page</para>
-        /// </summary>
-        public string TextTotalPages { get; set; }
-
-        /// <summary>
-        /// Display text for total records label
-        /// <para>default: records</para>
-        /// </summary>
-        public string TextTotalRecords { get; set; }
-
-        /// <summary>
-        /// The number display format for page numbers. Use a list of numbers splitted by space e.g. "0 1 2 3 4 5 6 7 8 9" or use one from a pre-defined numbers formats in :
-        /// <see cref="LazZiya.TagHelpers.Utilities.NumberFormats"/>
-        /// </summary>
-        public string NumberFormat { get; set; }
-        #endregion
-
-        #region Screen Reader
-        /// <summary>
-        /// Text for screen readers only
-        /// </summary>
-        public string SrTextFirst { get; set; }
-
-        /// <summary>
-        /// text for screen readers only
-        /// </summary>
-        public string SrTextLast { get; set; }
-
-        /// <summary>
-        /// text for screenreaders only
-        /// </summary>
-        public string SrTextNext { get; set; }
-
-        /// <summary>
-        /// text for screen readers only
-        /// </summary>
-        public string SrTextPrevious { get; set; }
-
         #endregion
 
         #region Styling
-
-        /// <summary>
-        /// Select bootstrap version
-        /// </summary>
-        public RenderMode RenderMode { get; set; } = RenderMode.Bootstrap5;
 
         /// <summary>
         /// add custom class to content div
@@ -552,11 +219,6 @@ namespace DotNetBanky.Admin.TagHelpers
             public int End { get; set; }
         }
 
-        /// <summary>
-        /// process creating paging tag helper
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="output"></param>
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             SetDefaults();
@@ -576,14 +238,14 @@ namespace DotNetBanky.Admin.TagHelpers
 
                 if (ShowFirstLast == true)
                 {
-                    var first = CreatePagingLink(1, TextFirst, SrTextFirst, ClassDisabledJumpingButton);
+                    var first = CreatePagingLink(1, TextFirst, "First Page", ClassDisabledJumpingButton);
                     pagingControl.InnerHtml.AppendHtml(first);
                 }
 
                 if (ShowPrevNext == true)
                 {
                     var prevPage = PageNumber - 1 <= 1 ? 1 : PageNumber - 1;
-                    var prev = CreatePagingLink(prevPage, TextPrevious, SrTextPrevious, ClassDisabledJumpingButton);
+                    var prev = CreatePagingLink(prevPage, TextPrevious, "Previous Page", ClassDisabledJumpingButton);
                     pagingControl.InnerHtml.AppendHtml(prev);
                 }
 
@@ -629,13 +291,13 @@ namespace DotNetBanky.Admin.TagHelpers
                 if (ShowPrevNext == true)
                 {
                     var nextPage = PageNumber + 1 > TotalPages ? TotalPages : PageNumber + 1;
-                    var next = CreatePagingLink(nextPage, TextNext, SrTextNext, ClassDisabledJumpingButton);
+                    var next = CreatePagingLink(nextPage, TextNext, "Next Page", ClassDisabledJumpingButton);
                     pagingControl.InnerHtml.AppendHtml(next);
                 }
 
                 if (ShowFirstLast == true)
                 {
-                    var last = CreatePagingLink(TotalPages, TextLast, SrTextLast, ClassDisabledJumpingButton);
+                    var last = CreatePagingLink(TotalPages, TextLast, "Last Page", ClassDisabledJumpingButton);
                     pagingControl.InnerHtml.AppendHtml(last);
                 }
 
@@ -657,97 +319,57 @@ namespace DotNetBanky.Admin.TagHelpers
 
                     output.Content.AppendHtml(psDiv);
                 }
-
-                if (ShowTotalPages == true || ShowTotalRecords == true)
-                {
-                    var infoDiv = AddDisplayInfo();
-
-                    output.Content.AppendHtml(infoDiv);
-                }
-
             }
         }
 
-        /// <summary>
-        /// This method will assign the values by checking three places
-        /// 1- Property value if set from HTML code
-        /// 2- Default values in appSettings.json
-        /// 3- Hard coded default value in code
-        /// </summary>
         private void SetDefaults()
         {
-            var _settingsJson = SettingsJson ?? "default";
 
-            _logger.LogInformation($"----> PagingTagHelper SettingsJson: {SettingsJson} - {_settingsJson}");
+            MaxDisplayedPages = MaxDisplayedPages == null ? 5 : MaxDisplayedPages;
 
-            MaxDisplayedPages = MaxDisplayedPages == null ? int.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:max-displayed-pages"], out int _dp) ? _dp : 5 : MaxDisplayedPages;
+            PageSizeDropdownItems = PageSizeDropdownItems ?? "10-25-50";
 
-            PageSizeDropdownItems = PageSizeDropdownItems ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:page-size-dropdown-items"] ?? "10-25-50";
+            QueryStringKeyPageNo = QueryStringKeyPageNo ?? "pageNumber";
 
-            QueryStringKeyPageNo = QueryStringKeyPageNo ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:query-string-key-page-no"] ?? "pageNumber";
+            QueryStringKeyPageSize = QueryStringKeyPageSize ?? "pageSize";
 
-            QueryStringKeyPageSize = QueryStringKeyPageSize ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:query-string-key-page-size"] ?? "pageSize";
+            ShowGap ??= true;
 
-            ShowGap = ShowGap == null ?
-                bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-gap"], out bool _sg) ? _sg : true : ShowGap;
+            ShowFirstLast ??= true;
 
-            ShowFirstLast = ShowFirstLast == null ?
-                bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-first-last"], out bool _sfl) ? _sfl : true : ShowFirstLast;
+            ShowPrevNext ??= true;
 
-            ShowPrevNext = ShowPrevNext == null ? bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-prev-next"], out bool _sprn) ? _sprn : true : ShowPrevNext;
+            ShowPageSizeNav ??= true;
 
-            ShowPageSizeNav = ShowPageSizeNav == null ? bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-page-size-nav"], out bool _spsn) ? _spsn : true : ShowPageSizeNav;
+            TextFirst = TextFirst ?? "&laquo;";
 
-            ShowTotalPages = ShowTotalPages == null ? bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-total-pages"], out bool _stp) ? _stp : false : ShowTotalPages;
+            TextLast = TextLast ?? "&raquo;";
 
-            ShowTotalRecords = ShowTotalRecords == null ? bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:show-total-records"], out bool _str) ? _str : false : ShowTotalRecords;
+            TextPrevious = TextPrevious ?? "&lsaquo;";
 
-            NumberFormat = NumberFormat ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:number-format"] ?? NumberFormats.Default;
+            TextNext = TextNext ?? "&rsaquo;";
 
-            TextPageSize = TextPageSize ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-page-size"];
+            Class = Class ?? "row";
 
-            TextFirst = TextFirst ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-first"] ?? "&laquo;";
+            ClassActivePage = ClassActivePage ?? "active";
 
-            TextLast = TextLast ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-last"] ?? "&raquo;";
+            ClassDisabledJumpingButton = ClassDisabledJumpingButton ?? "disabled";
 
-            TextPrevious = TextPrevious ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-previous"] ?? "&lsaquo;";
+            ClassInfoDiv = ClassInfoDiv ?? "col-2";
 
-            TextNext = TextNext ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-next"] ?? "&rsaquo;";
+            ClassPageSizeDiv = ClassPageSizeDiv ?? "col-1";
 
-            TextTotalPages = TextTotalPages ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-total-pages"] ?? "pages";
+            ClassPagingControlDiv = ClassPagingControlDiv ?? "col";
 
-            TextTotalRecords = TextTotalRecords ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:text-total-records"] ?? "records";
+            ClassPagingControl = ClassPagingControl ?? "pagination";
 
-            SrTextFirst = SrTextFirst ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:sr-text-first"] ?? "First";
+            ClassTotalPages = ClassTotalPages ?? "badge bg-light text-dark";
 
-            SrTextLast = SrTextLast ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:sr-text-last"] ?? "Last";
+            ClassTotalRecords = ClassTotalRecords ?? "badge bg-dark";
 
-            SrTextPrevious = SrTextPrevious ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:sr-text-previous"] ?? "Previous";
+            ClassPageLink = ClassPageLink ?? "";
 
-            SrTextNext = SrTextNext ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:sr-text-next"] ?? "Next";
-
-            Class = Class ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class"] ?? "row";
-
-            ClassActivePage = ClassActivePage ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-active-page"] ?? "active";
-
-            ClassDisabledJumpingButton = ClassDisabledJumpingButton ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-disabled-jumping-button"] ?? "disabled";
-
-            ClassInfoDiv = ClassInfoDiv ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-info-div"] ?? "col-2";
-
-            ClassPageSizeDiv = ClassPageSizeDiv ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-page-size-div"] ?? "col-1";
-
-            ClassPagingControlDiv = ClassPagingControlDiv ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-paging-control-div"] ?? "col";
-
-            ClassPagingControl = ClassPagingControl ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-paging-control"] ?? "pagination";
-
-            ClassTotalPages = ClassTotalPages ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-total-pages"] ?? (RenderMode == RenderMode.Bootstrap ? "badge badge-light" : "badge bg-light text-dark");
-
-            ClassTotalRecords = ClassTotalRecords ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-total-records"] ?? (RenderMode == RenderMode.Bootstrap ? "badge badge-dark" : "badge bg-dark");
-
-            ClassPageLink = ClassPageLink ?? Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:class-page-link"] ?? "";
-
-            FixUrlPath = FixUrlPath == null ?
-                bool.TryParse(Configuration[$"lazziya:pagingTagHelper:{_settingsJson}:fix-url-path"], out bool _fPath) ? _fPath : true : FixUrlPath;
+            FixUrlPath ??= true;
 
             _logger.LogInformation($"----> PagingTagHelper - " +
                 $"{nameof(PageNumber)}: {PageNumber}, " +
@@ -759,32 +381,6 @@ namespace DotNetBanky.Admin.TagHelpers
                 $"");
         }
 
-        private TagBuilder AddDisplayInfo()
-        {
-            var infoDiv = new TagBuilder("div");
-            infoDiv.AddCssClass($"{ClassInfoDiv}");
-
-            var txt = string.Empty;
-            if (ShowTotalPages == true)
-            {
-                infoDiv.InnerHtml.AppendHtml($"<span class=\"{ClassTotalPages}\">{TotalPages.ToNumberFormat(NumberFormat)} {TextTotalPages}</span>");
-            }
-
-            if (ShowTotalRecords == true)
-            {
-                infoDiv.InnerHtml.AppendHtml($"<span class=\"{ClassTotalRecords}\">{TotalRecords.ToNumberFormat(NumberFormat)} {TextTotalRecords}</span>");
-            }
-
-            return infoDiv;
-        }
-
-        /// <summary>
-        /// Calculate the boundaries of the currently rendered page numbers
-        /// </summary>
-        /// <param name="currentPageNo"></param>
-        /// <param name="totalPages"></param>
-        /// <param name="maxDisplayedPages"></param>
-        /// <returns></returns>
         private Boundaries CalculateBoundaries(int currentPageNo, int totalPages, int maxDisplayedPages)
         {
             int _start, _end;
@@ -849,7 +445,7 @@ namespace DotNetBanky.Admin.TagHelpers
             // use the actual page number
             if (string.IsNullOrWhiteSpace(textSr))
             {
-                var pageNoText = targetPageNo.ToNumberFormat(NumberFormat);
+                var pageNoText = targetPageNo;
 
                 aTag.InnerHtml.Append($"{pageNoText}");
             }
@@ -857,11 +453,8 @@ namespace DotNetBanky.Admin.TagHelpers
             {
                 liTag.MergeAttribute("area-label", textSr);
                 aTag.InnerHtml.AppendHtml($"<span area-hidden=\"true\">{text}</span>");
+                aTag.InnerHtml.AppendHtml($"<span class=\"visually-hidden-focusable\">{textSr}</span>");
 
-                if (RenderMode == RenderMode.Bootstrap5)
-                    aTag.InnerHtml.AppendHtml($"<span class=\"visually-hidden-focusable\">{textSr}</span>");
-                else
-                    aTag.InnerHtml.AppendHtml($"<span class=\"sr-only\">{textSr}</span>");
             }
 
             if (PageNumber == targetPageNo)
@@ -877,10 +470,6 @@ namespace DotNetBanky.Admin.TagHelpers
             return liTag;
         }
 
-        /// <summary>
-        /// dropdown list for changing page size (items per page)
-        /// </summary>
-        /// <returns></returns>
         private TagBuilder CreatePageSizeControl()
         {
             var dropDownDiv = new TagBuilder("div");
@@ -892,16 +481,15 @@ namespace DotNetBanky.Admin.TagHelpers
             dropDownBtn.Attributes.Add("type", "button");
             dropDownBtn.Attributes.Add("id", "pagingDropDownMenuBtn");
 
-            if (RenderMode == RenderMode.Bootstrap5)
-                dropDownBtn.Attributes.Add("data-bs-toggle", "dropdown");
-            else
-                dropDownBtn.Attributes.Add("data-toggle", "dropdown");
+
+            dropDownBtn.Attributes.Add("data-bs-toggle", "dropdown");
+
             dropDownBtn.Attributes.Add("aria-haspopup", "true");
             dropDownBtn.Attributes.Add("aria-expanded", "false");
 
             var psText = string.IsNullOrWhiteSpace(TextPageSize)
-                ? $"{PageSize.ToNumberFormat(NumberFormat)}"
-                : string.Format(TextPageSize, $"{PageSize.ToNumberFormat(NumberFormat)}");
+                ? $"{PageSize}"
+                : string.Format(TextPageSize, $"{PageSize}");
             dropDownBtn.InnerHtml.Append(psText);
 
             var dropDownMenu = new TagBuilder("div");
@@ -920,7 +508,7 @@ namespace DotNetBanky.Admin.TagHelpers
                 option.AddCssClass("dropdown-item");
                 option.Attributes.Add("href", pageUrl);
 
-                option.InnerHtml.Append($"{n.ToNumberFormat(NumberFormat)}");
+                option.InnerHtml.Append($"{n}");
 
                 if (n == PageSize)
                     option.AddCssClass("active");
@@ -934,22 +522,11 @@ namespace DotNetBanky.Admin.TagHelpers
             return dropDownDiv;
         }
 
-        /// <summary>
-        /// edit the url for each page, so it navigates to its target page number
-        /// </summary>
-        /// <param name="pageNo"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
         private string CreatePagingUrl(int pageNo, int pageSize)
         {
             return string.Format(UrlTemplate, pageNo, pageSize);
         }
 
-
-        /// <summary>
-        /// edit the url for each page, so it navigates to its target page number
-        /// </summary>
-        /// <returns>a string with placeholders for page no and page size</returns>
         private string CreatePagingUrlTemplate()
         {
             var queryString = ViewContext.HttpContext.Request.QueryString.Value;

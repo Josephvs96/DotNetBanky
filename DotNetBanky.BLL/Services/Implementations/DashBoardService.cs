@@ -1,4 +1,5 @@
-﻿using DotNetBanky.Core.DTOModels.Customer;
+﻿using DotNetBanky.Core.Constants;
+using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Dashboard;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.Extensions.Caching.Memory;
@@ -60,9 +61,19 @@ namespace DotNetBanky.BLL.Services.Implementations
             {
                 CountryName = c.Key,
                 FlagURL = await GetCountryFlagUrl(c.Key),
-                TotalNumberOfAccounts = c.DistinctBy(c => c.Account.AccountId).Count(),
-                TotalNumberOfCustomers = c.Count(),
-                TotalSumOfAllAccounts = c.Sum(c => c.Account.Balance),
+                TotalNumberOfAccounts = c.
+                Where(c => c.Type == DispostionsConstants.Owner)
+                .DistinctBy(c => c.Account.AccountId)
+                .Count(),
+
+                TotalNumberOfCustomers = c
+                .DistinctBy(c => c.Customer.CustomerId)
+                .Count(),
+
+                TotalSumOfAllAccounts = c
+                .Where(c => c.Type == DispostionsConstants.Owner)
+                .DistinctBy(c => c.Account.AccountId)
+                .Sum(c => c.Account.Balance),
             });
 
             return (await Task.WhenAll(dataToReturn)).Where(result => result != null).ToList();
