@@ -15,6 +15,8 @@ builder.Services.AddBankyRepositories();
 
 builder.Services.AddBankyServices(builder.Configuration);
 
+builder.Services.AddAzureSearch(builder.Configuration);
+
 builder.Services.RegisterAutoMapper();
 
 builder.Services.AddBankyIdentity();

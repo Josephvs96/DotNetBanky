@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -47,6 +48,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ISearchService, AzureSearchService>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)
@@ -119,6 +121,15 @@ namespace DotNetBanky.Common.DIContainer
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+            });
+        }
+
+        public static void AddAzureSearch(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAzureClients(builder =>
+            {
+                builder.AddSearchIndexClient(configuration.GetSection("AzureSearch"));
+                builder.AddSearchClient(configuration.GetSection("AzureSearch"));
             });
         }
 
