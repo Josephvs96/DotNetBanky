@@ -2,8 +2,8 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
-using Azure.Search.Documents.Models;
 using DotNetBanky.Core.DTOModels.Paging;
+using DotNetBanky.Core.DTOModels.Search;
 using DotNetBanky.Core.SearchEntities;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.Extensions.Configuration;
@@ -52,22 +52,22 @@ namespace DotNetBanky.BLL.Services.Implementations
             int currentPage = 1;
             while (true)
             {
-                var customersPaged = _mapper.Map<PagedResult<CustomerSearch>>(await _customerRepository.GetPagedListAsync(page: currentPage, pageSize: 1000));
+                var customersPaged = _mapper.Map<PagedResult<CustomerSearch>>(
+                    await _customerRepository.GetPagedListAsync(page: currentPage, pageSize: 1000));
 
-                List<IndexDocumentsAction<CustomerSearch>> actionsList = new List<IndexDocumentsAction<CustomerSearch>>();
-                for (int i = 0; i < customersPaged.Results.Count; i++)
-                {
-                    actionsList.Add(IndexDocumentsAction.Upload(customersPaged.Results[i]));
-                }
-                IndexDocumentsBatch<CustomerSearch> batch = IndexDocumentsBatch.Create(actionsList.ToArray());
-                await _searchClient.IndexDocumentsAsync(batch);
+                await _searchClient.MergeOrUploadDocumentsAsync(customersPaged.Results);
 
                 currentPage++;
                 if (currentPage > customersPaged.PageCount) break;
             }
         }
 
-        public Task<List<CustomerSearch>> Search(string searchTerm)
+        public Task CreatOrUpdateDocumentAsync(CustomerSearchDTO customerSearch)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<CustomerSearchDTO>> Search(string searchTerm)
         {
             throw new NotImplementedException();
         }

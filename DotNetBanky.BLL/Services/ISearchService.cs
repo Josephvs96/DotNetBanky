@@ -1,10 +1,11 @@
-﻿using DotNetBanky.Core.SearchEntities;
+﻿using DotNetBanky.Core.DTOModels.Search;
 
 namespace DotNetBanky.BLL.Services
 {
     public interface ISearchService
     {
         Task CreateAndPopulateIndex();
-        Task<List<CustomerSearch>> Search(string searchTerm);
+        Task CreatOrUpdateDocumentAsync(CustomerSearchDTO customerSearch);
+        Task<List<CustomerSearchDTO>> Search(string searchTerm);
     }
 }

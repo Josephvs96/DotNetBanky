@@ -43,9 +43,9 @@ namespace DotNetBanky.Admin.Pages.Customers
                     return LocalRedirect("/Customers/Index");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _notyfService.Error($"An error accrued while adding new customer");
+                _notyfService.Error(e.Message.ToString().Replace("'", "\""), durationInSeconds: 4);
             }
 
             return Page();

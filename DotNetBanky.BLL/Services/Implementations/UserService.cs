@@ -42,7 +42,16 @@ namespace DotNetBanky.BLL.Services
             // Delete the next line when implementing the email validation
             await _userManager.ConfirmEmailAsync(user, accountConfirmationToken);
 
-            await _signInManager.SignInAsync(user, isPersistent: false);
+            // await _signInManager.SignInAsync(user, isPersistent: false);
+        }
+
+        public async Task<Customer> CreateWithCustomerAsync(UserCreateModel model)
+        {
+            await CreateAsync(model);
+
+            var createdUser = await _userManager.Users.Include(u => u.Customer).FirstAsync(u => u.Email == model.Email);
+
+            return createdUser.Customer;
         }
 
         public async Task<string> LoginAsync(UserLoginModel model)

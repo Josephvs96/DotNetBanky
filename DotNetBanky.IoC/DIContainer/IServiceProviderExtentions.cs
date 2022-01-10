@@ -2,9 +2,11 @@
 using DotNetBanky.BLL.Services.Implementations;
 using DotNetBanky.Common.ConfigModels;
 using DotNetBanky.Core.Entities;
+using DotNetBanky.Core.Identity;
 using DotNetBanky.DAL.Context;
 using DotNetBanky.DAL.Repositories;
 using DotNetBanky.DAL.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +51,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ISearchService, AzureSearchService>();
+            services.AddScoped<IClaimsTransformation, AddDisplayNameClaimsTransformation>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)

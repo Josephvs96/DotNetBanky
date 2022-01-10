@@ -25,7 +25,7 @@
                                 aria-expanded="false">
                             <div class="profile-info">
                                 <div class="info">
-                                    <h6>@User.Identity.Name</h6>
+                                    <h6>@(User.FindFirst("DisplayName").Value != "" ? User.FindFirst("DisplayName").Value : User.Identity.Name)</h6>
                                 </div>
                             </div>
                             <i class="fa-solid fa-angle-down"></i>

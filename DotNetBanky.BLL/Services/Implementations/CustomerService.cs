@@ -49,7 +49,8 @@ namespace DotNetBanky.BLL.Services.Implementations
 
             var user = _mapper.Map<UserCreateModel>(model);
             user.Customer = customer;
-            await _userService.CreateAsync(user);
+            var createdCustomer = await _userService.CreateWithCustomerAsync(user);
+
         }
 
         public Task DeleteCustomerAsync(int id)
