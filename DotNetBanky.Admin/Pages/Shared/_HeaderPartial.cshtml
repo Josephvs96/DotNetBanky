@@ -12,6 +12,12 @@
                             <i class="fas fa-bars"></i> Menu
                         </button>
                     </div>
+                    <div class="header-search d-none d-md-flex">
+                        <form asp-page="/Search/SearchResults" method="post" asp-antiforgery="false">
+                            <input type="text" name="searchWord" placeholder="Customers Search..." />
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7 col-md-7 col-6">

@@ -36,8 +36,10 @@ namespace DotNetBanky.Core.AutoMapperProfiles
 
                 CreateMap<Customer, CustomerSearch>().ReverseMap();
                 CreateMap<Customer, CustomerSearchDTO>().ReverseMap();
+                CreateMap<CustomerSearch, CustomerSearchDTO>().ReverseMap();
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerSearch>>().ReverseMap();
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerSearchDTO>>().ReverseMap();
+                CreateMap<PagedResult<CustomerSearch>, PagedResult<CustomerSearchDTO>>().ReverseMap();
 
                 // Account Mappings
                 CreateMap<Account, AccountSummeryDTO>().ForMember(

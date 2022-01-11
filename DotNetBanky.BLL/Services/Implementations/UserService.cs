@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.User;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Exceptions;
@@ -141,7 +140,7 @@ namespace DotNetBanky.BLL.Services
 
         public async Task<List<IdentityRole>> GetAvailableRollesAsync()
         {
-            return await _roleManager.Roles.Where(x => x.Name != RoleConstants.Customer).ToListAsync();
+            return await _roleManager.Roles.ToListAsync();
         }
     }
 }

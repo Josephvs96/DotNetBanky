@@ -2,8 +2,11 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
+using Azure.Search.Documents.Models;
 using DotNetBanky.Core.DTOModels.Paging;
 using DotNetBanky.Core.DTOModels.Search;
+using DotNetBanky.Core.Enums;
+using DotNetBanky.Core.Extentions;
 using DotNetBanky.Core.SearchEntities;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.Extensions.Configuration;
@@ -67,9 +70,24 @@ namespace DotNetBanky.BLL.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<List<CustomerSearchDTO>> Search(string searchTerm)
+        public async Task<PagedResult<CustomerSearchDTO>> Search(
+            string searchTerm,
+            SortDirection sortDirection = SortDirection.Asc,
+            SearchSortColumn sortColumn = SearchSortColumn.Id,
+            int pageNumber = 1,
+            int pageSize = 50)
         {
-            throw new NotImplementedException();
+            SearchOptions options = new SearchOptions();
+            options.IncludeTotalCount = true;
+            options.QueryType = SearchQueryType.Full;
+            options.Size = pageSize;
+            options.Skip = (pageNumber - 1) * pageSize;
+            options.OrderBy.Add($"{sortColumn.GetValueAsString()} {sortDirection.GetValueAsString()}");
+
+            SearchResults<CustomerSearch> results;
+            results = await _searchClient.SearchAsync<CustomerSearch>(searchTerm + "~1", options);
+            var pagedResults = _mapper.Map<PagedResult<CustomerSearchDTO>>(results.GetPaged(pageNumber, pageSize));
+            return pagedResults;
         }
     }
 }

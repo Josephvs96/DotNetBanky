@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification;
+using DotNetBanky.BLL.Services;
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     await DbInitilizer.MigrateAsync(scope.ServiceProvider);
+    var search = scope.ServiceProvider.GetRequiredService<ISearchService>();
+    await search.CreateAndPopulateIndex();
 }
 
 // Configure the HTTP request pipeline.
