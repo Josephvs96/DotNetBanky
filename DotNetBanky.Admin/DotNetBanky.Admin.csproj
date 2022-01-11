@@ -8,8 +8,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
 		<PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
@@ -30,39 +30,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="AspNetCoreHero.ToastNotification">
-	    <HintPath>..\..\..\source\repos\ToastNotification\AspNetCoreHero.ToastNotification\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.dll</HintPath>
-	  </Reference>
-	  <Reference Include="AspNetCoreHero.ToastNotification.Views">
-	    <HintPath>..\..\..\source\repos\ToastNotification\AspNetCoreHero.ToastNotification\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.Views.dll</HintPath>
-	  </Reference>
+		<Reference Include="AspNetCoreHero.ToastNotification">
+			<HintPath>AspNetCoreHero.ToastNotification.dll</HintPath>
+			<CopyLocal>True</CopyLocal>
+			<EmbedInteropTypes>False</EmbedInteropTypes>
+		</Reference>
+		<Reference Include="AspNetCoreHero.ToastNotification.Views">
+			<HintPath>AspNetCoreHero.ToastNotification.Views.dll</HintPath>
+			<CopyLocal>True</CopyLocal>
+			<EmbedInteropTypes>False</EmbedInteropTypes>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="wwwroot\css\bootstrap.min.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\fullcalendar.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\lineicons.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\loading-bar.min.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\main.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\materialdesignicons.min.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\morris.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\css\site.css">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </Content>
+		<Content Update="wwwroot\css\bootstrap.min.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\fullcalendar.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\lineicons.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\loading-bar.min.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\main.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\materialdesignicons.min.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\morris.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\css\site.css">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 
