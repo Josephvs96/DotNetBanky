@@ -41,9 +41,9 @@ namespace DotNetBanky.Admin.Pages.Profile
                         return LocalRedirect("~/");
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    _notifyService.Error("Error changed the password");
+                    _notifyService.Error($"While changing the password Error: {e.Message}");
                 }
             }
 

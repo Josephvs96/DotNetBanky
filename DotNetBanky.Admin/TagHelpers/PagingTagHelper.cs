@@ -6,19 +6,11 @@ namespace DotNetBanky.Admin.TagHelpers
 {
     public class PagingTagHelper : TagHelper
     {
-        private IConfiguration Configuration { get; }
-        private readonly ILogger _logger;
-
         private string UrlTemplate { get; set; }
 
         [ViewContext]
         public ViewContext ViewContext { get; set; } = null;
 
-        public PagingTagHelper(IConfiguration configuration, ILogger<PagingTagHelper> logger)
-        {
-            Configuration = configuration;
-            _logger = logger;
-        }
 
         #region Settings
 
@@ -228,12 +220,6 @@ namespace DotNetBanky.Admin.TagHelpers
                 var pagingControl = new TagBuilder("ul");
                 pagingControl.AddCssClass($"{ClassPagingControl}");
 
-                // show-hide first-last buttons on user options
-                if (ShowFirstLast == true)
-                {
-                    ShowFirstLast = true;
-                }
-
                 UrlTemplate = CreatePagingUrlTemplate();
 
                 if (ShowFirstLast == true)
@@ -370,15 +356,6 @@ namespace DotNetBanky.Admin.TagHelpers
             ClassPageLink = ClassPageLink ?? "";
 
             FixUrlPath ??= true;
-
-            _logger.LogInformation($"----> PagingTagHelper - " +
-                $"{nameof(PageNumber)}: {PageNumber}, " +
-                $"{nameof(PageSize)}: {PageSize}, " +
-                $"{nameof(TotalRecords)}: {TotalRecords}, " +
-                $"{nameof(TotalPages)}: {TotalPages}, " +
-                $"{nameof(QueryStringKeyPageNo)}: {QueryStringKeyPageNo}, " +
-                $"{nameof(QueryStringKeyPageSize)}: {QueryStringKeyPageSize}, " +
-                $"");
         }
 
         private Boundaries CalculateBoundaries(int currentPageNo, int totalPages, int maxDisplayedPages)

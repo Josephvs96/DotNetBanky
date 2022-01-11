@@ -45,10 +45,9 @@ namespace DotNetBanky.Admin.Pages.Customers
                     return LocalRedirect($"/Customers/Customer/{InputModel.CustomerId}");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                var error = "Could not update customer information";
-                _notyfService.Error(error);
+                _notyfService.Error($"Could not update customer Error: {e.Message}");
             }
 
             return Page();

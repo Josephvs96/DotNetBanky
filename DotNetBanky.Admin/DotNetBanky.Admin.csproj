@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,6 +27,15 @@
 		<Folder Include="wwwroot\lib\jquery-validation\dist\" />
 		<Folder Include="wwwroot\lib\jquery\" />
 		<Folder Include="wwwroot\lib\jquery\dist\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="AspNetCoreHero.ToastNotification">
+	    <HintPath>..\..\..\source\repos\ToastNotification\AspNetCoreHero.ToastNotification\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.dll</HintPath>
+	  </Reference>
+	  <Reference Include="AspNetCoreHero.ToastNotification.Views">
+	    <HintPath>..\..\..\source\repos\ToastNotification\AspNetCoreHero.ToastNotification\bin\Debug\net5.0\AspNetCoreHero.ToastNotification.Views.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

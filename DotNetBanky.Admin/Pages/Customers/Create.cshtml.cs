@@ -45,7 +45,7 @@ namespace DotNetBanky.Admin.Pages.Customers
             }
             catch (Exception e)
             {
-                _notyfService.Error(e.Message.ToString().Replace("'", "\""), durationInSeconds: 4);
+                _notyfService.Error(e.Message, durationInSeconds: 4);
             }
 
             return Page();

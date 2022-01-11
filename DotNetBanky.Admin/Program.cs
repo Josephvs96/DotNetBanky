@@ -3,10 +3,12 @@ using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
 using Microsoft.AspNetCore.Authorization;
 using SmartBreadcrumbs.Extensions;
+using System.Globalization;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
+ConfigureCulture();
 
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddBankyDatabase(builder.Configuration);
@@ -25,7 +27,7 @@ builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
 
 builder.Services.AddNotyf(options =>
 {
-    options.DurationInSeconds = 3;
+    options.DurationInSeconds = 5;
     options.IsDismissable = true;
     options.HasRippleEffect = false;
     options.Position = NotyfPosition.BottomRight;
@@ -73,3 +75,13 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+void ConfigureCulture()
+{
+    var cultureInfo = new CultureInfo(CultureInfo.CurrentCulture.Name);
+    cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+    cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+    cultureInfo.NumberFormat.NumberGroupSeparator = ",";
+    CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+    CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+}
