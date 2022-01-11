@@ -65,9 +65,10 @@ namespace DotNetBanky.BLL.Services.Implementations
             }
         }
 
-        public Task CreatOrUpdateDocumentAsync(CustomerSearchDTO customerSearch)
+        public async Task CreatOrUpdateDocumentAsync(CustomerSearchDTO customerSearch)
         {
-            throw new NotImplementedException();
+            var documentsList = new List<CustomerSearchDTO> { customerSearch };
+            await _searchClient.MergeOrUploadDocumentsAsync(documentsList);
         }
 
         public async Task<PagedResult<CustomerSearchDTO>> Search(

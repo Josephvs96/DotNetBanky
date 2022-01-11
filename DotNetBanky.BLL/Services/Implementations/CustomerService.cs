@@ -2,6 +2,7 @@
 using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Customer;
 using DotNetBanky.Core.DTOModels.Paging;
+using DotNetBanky.Core.DTOModels.Search;
 using DotNetBanky.Core.DTOModels.User;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Enums;
@@ -16,17 +17,20 @@ namespace DotNetBanky.BLL.Services.Implementations
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
+        private readonly ISearchService _searchService;
         private readonly IMapper _mapper;
 
         public CustomerService(
             ICustomerRepository customerRepository,
             IAccountService accountService,
             IUserService userService,
+            ISearchService searchService,
             IMapper mapper)
         {
             _customerRepository = customerRepository;
             _accountService = accountService;
             _userService = userService;
+            _searchService = searchService;
             _mapper = mapper;
         }
         public async Task CreateCustomerAsync(CustomerCreateModel model)
@@ -50,7 +54,7 @@ namespace DotNetBanky.BLL.Services.Implementations
             var user = _mapper.Map<UserCreateModel>(model);
             user.Customer = customer;
             var createdCustomer = await _userService.CreateWithCustomerAsync(user);
-
+            await _searchService.CreatOrUpdateDocumentAsync(_mapper.Map<CustomerSearchDTO>(createdCustomer));
         }
 
         public Task DeleteCustomerAsync(int id)
@@ -61,7 +65,8 @@ namespace DotNetBanky.BLL.Services.Implementations
         public async Task EditCustomerAsync(CustomerEditModel model)
         {
             model.CountryCode = CountryConstants.CountryCodes[model.Country];
-            await _customerRepository.UpdateOneAsync(_mapper.Map<Customer>(model));
+            var updatedCustomer = await _customerRepository.UpdateOneAsync(_mapper.Map<Customer>(model));
+            await _searchService.CreatOrUpdateDocumentAsync(_mapper.Map<CustomerSearchDTO>(updatedCustomer));
         }
 
         public async Task<IEnumerable<CustomerListDTOModel>> GetCustomerListAsync(

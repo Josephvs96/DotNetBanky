@@ -42,12 +42,12 @@ namespace DotNetBanky.Admin.Pages.Customers
                 {
                     await _customerService.EditCustomerAsync(InputModel);
                     _notyfService.Success("Customer updated successfully!");
-                    return LocalRedirect($"/Customers/Customer/{InputModel.CustomerId}");
+                    return RedirectToPage("Customer", new { customerId = InputModel.CustomerId });
                 }
             }
             catch (Exception e)
             {
-                _notyfService.Error($"Could not update customer Error: {e.Message}");
+                _notyfService.Error($"Could not update customer Error: {e.Message[0..50]}...");
             }
 
             return Page();

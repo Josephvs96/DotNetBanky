@@ -4,8 +4,8 @@
     ViewData["Title"] = "Customers";
 }
 
-<div class="row mb-30 pt-100">
-    <div class="col-5 offset-1">
+<div class="row mb-30 pt-100 d-flex justify-content-center">
+    <div class="col-xxl-4 col-md-5 col-sm-10">
         <div class="card-style text-center mb-10">
             <div class="content mb-30">
                 <i class="fas fa-search fa-3x mb-30"></i>
@@ -13,24 +13,22 @@
             </div>
             <div class="header-search d-flex justify-content-center">
                 <form asp-page="/Search/SearchResults" method="post" asp-antiforgery="false">
-                    <input type="text" name="searchWord" placeholder="Customers Search..." />
+                    <input type="text" name="searchWord" placeholder="Search..." />
                     <button type="submit"><i class="fas fa-search fa-l"></i></button>
                 </form>
             </div>
         </div>
-
-
         <!-- End Icon Cart -->
     </div>
     <!-- End Col -->
-    <div class="col-5">
+    <div class="col-xxl-4 col-md-5 col-sm-10">
         <div class="card-style text-center mb-10">
             <div class="content mb-30">
                 <i class="fas fa-address-book fa-3x mb-30"></i>
                 <h4 class="text-bold mb-10">View All Customers</h4>
             </div>
             <div class="d-flex justify-content-center">
-                <a class="main-btn btn btn-sm rounded-full btn-hover"
+                <a class="main-btn active-btn btn-sm rounded-full btn-hover"
                    asp-page="List"><i class="fas fa-address-book fa-xl mr-10"></i>List All</a>
             </div>
         </div>

@@ -29,9 +29,8 @@ namespace DotNetBanky.Admin.Pages.Search
             SearchSortColumn sortColumn = SearchSortColumn.Id,
             SortDirection sortDirection = SortDirection.Asc)
         {
-            // Todo: Redirect to customers main page for search options
             if (string.IsNullOrWhiteSpace(searchWord))
-                return LocalRedirect("/");
+                return LocalRedirect("/Customers");
 
             SearchWord = searchWord;
             PageSize = pageSize;
