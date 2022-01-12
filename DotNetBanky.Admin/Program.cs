@@ -1,8 +1,8 @@
-using AspNetCoreHero.ToastNotification;
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
 using Microsoft.AspNetCore.Authorization;
+using NToastNotify;
 using SmartBreadcrumbs.Extensions;
 using System.Globalization;
 using System.Reflection;
@@ -26,19 +26,19 @@ builder.Services.AddBankyIdentity();
 
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
 
-builder.Services.AddNotyf(options =>
-{
-    options.DurationInSeconds = 5;
-    options.IsDismissable = true;
-    options.HasRippleEffect = false;
-    options.Position = NotyfPosition.BottomRight;
-});
-
 
 builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
 {
     options.Conventions.AddPageRoute("/Dashboard/Index", "");
+}).AddNToastNotifyToastr(new ToastrOptions
+{
+    PositionClass = ToastPositions.BottomRight,
+    ProgressBar = true,
+    CloseButton = true,
+    ShowDuration = 4
 });
+
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -74,6 +74,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseNToastNotify();
 
 app.MapRazorPages();
 

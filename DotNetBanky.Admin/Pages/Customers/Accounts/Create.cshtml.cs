@@ -1,10 +1,10 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using SmartBreadcrumbs.Nodes;
 
 namespace DotNetBanky.Admin.Pages.Customers.Accounts
@@ -12,12 +12,12 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
     public class CreateModel : PageModel
     {
         private readonly IAccountService _accountService;
-        private readonly INotyfService _notyfService;
+        private readonly IToastNotification _toastNotification;
 
-        public CreateModel(IAccountService accountService, INotyfService notyfService)
+        public CreateModel(IAccountService accountService, IToastNotification toastNotification)
         {
             _accountService = accountService;
-            _notyfService = notyfService;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -38,13 +38,13 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts
                 if (ModelState.IsValid)
                 {
                     await _accountService.CreateAccountAndAssignToCustomer(InputModel);
-                    _notyfService.Success("Account created successfully!");
+                    _toastNotification.AddSuccessToastMessage("Account created successfully!");
                     return LocalRedirect($"/Customer/{InputModel.CustomerId}");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                _notyfService.Error("Error while creating new account");
+                _toastNotification.AddErrorToastMessage($"Error while creating new account {e.Message}");
             }
 
             return Page();

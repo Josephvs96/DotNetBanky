@@ -12,6 +12,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
+		<PackageReference Include="NToastNotify" Version="7.0.0" />
 		<PackageReference Include="SmartBreadcrumbs" Version="3.6.1" />
 	</ItemGroup>
 
@@ -27,19 +28,6 @@
 		<Folder Include="wwwroot\lib\jquery-validation\dist\" />
 		<Folder Include="wwwroot\lib\jquery\" />
 		<Folder Include="wwwroot\lib\jquery\dist\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="AspNetCoreHero.ToastNotification">
-			<HintPath>AspNetCoreHero.ToastNotification.dll</HintPath>
-			<CopyLocal>True</CopyLocal>
-			<EmbedInteropTypes>False</EmbedInteropTypes>
-		</Reference>
-		<Reference Include="AspNetCoreHero.ToastNotification.Views">
-			<HintPath>AspNetCoreHero.ToastNotification.Views.dll</HintPath>
-			<CopyLocal>True</CopyLocal>
-			<EmbedInteropTypes>False</EmbedInteropTypes>
-		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>

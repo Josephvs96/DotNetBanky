@@ -6,6 +6,7 @@ using DotNetBanky.Core.DTOModels.Search;
 using DotNetBanky.Core.DTOModels.User;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Enums;
+using DotNetBanky.Core.Exceptions;
 using DotNetBanky.Core.Extentions;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using System.Linq.Expressions;
@@ -109,7 +110,7 @@ namespace DotNetBanky.BLL.Services.Implementations
             }
             catch (Exception)
             {
-                throw;
+                throw new NotFoundException("Customer could not bet found");
             }
 
         }

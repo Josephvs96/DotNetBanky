@@ -1,4 +1,3 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.Constants;
@@ -6,6 +5,7 @@ using DotNetBanky.Core.DTOModels.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages.Customers
@@ -15,13 +15,13 @@ namespace DotNetBanky.Admin.Pages.Customers
     {
         private readonly ICustomerService _customerService;
         private readonly IMapper _mapper;
-        private readonly INotyfService _notyfService;
+        private readonly IToastNotification _toastNotification;
 
-        public EditModel(ICustomerService customerService, IMapper mapper, INotyfService notyfService)
+        public EditModel(ICustomerService customerService, IMapper mapper, IToastNotification toastNotification)
         {
             _customerService = customerService;
             _mapper = mapper;
-            _notyfService = notyfService;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -41,13 +41,13 @@ namespace DotNetBanky.Admin.Pages.Customers
                 if (ModelState.IsValid)
                 {
                     await _customerService.EditCustomerAsync(InputModel);
-                    _notyfService.Success("Customer updated successfully!");
+                    _toastNotification.AddSuccessToastMessage("Customer updated successfully!");
                     return RedirectToPage("Customer", new { customerId = InputModel.CustomerId });
                 }
             }
             catch (Exception e)
             {
-                _notyfService.Error($"Could not update customer Error: {e.Message[0..50]}...");
+                _toastNotification.AddErrorToastMessage($"Error: {e.Message}");
             }
 
             return Page();
