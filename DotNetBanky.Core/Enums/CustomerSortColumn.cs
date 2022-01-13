@@ -12,6 +12,8 @@ namespace DotNetBanky.Core.Enums
 
     public enum SearchSortColumn
     {
+        [Description("")]
+        Relevance,
         [Description("CustomerId")]
         Id,
         [Description("Givenname")]

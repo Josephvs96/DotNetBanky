@@ -26,8 +26,8 @@ namespace DotNetBanky.Admin.Pages.Search
             string searchWord,
             int pageNumber = 1,
             int pageSize = 50,
-            SearchSortColumn sortColumn = SearchSortColumn.Id,
-            SortDirection sortDirection = SortDirection.Asc)
+            SearchSortColumn sortColumn = SearchSortColumn.Relevance,
+            SortDirection sortDirection = SortDirection.None)
         {
             if (string.IsNullOrWhiteSpace(searchWord))
                 return LocalRedirect("/Customers");

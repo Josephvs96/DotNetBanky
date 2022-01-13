@@ -73,8 +73,8 @@ namespace DotNetBanky.BLL.Services.Implementations
 
         public async Task<PagedResult<CustomerSearchDTO>> Search(
             string searchTerm,
-            SortDirection sortDirection = SortDirection.Asc,
-            SearchSortColumn sortColumn = SearchSortColumn.Id,
+            SortDirection sortDirection = SortDirection.None,
+            SearchSortColumn sortColumn = SearchSortColumn.Relevance,
             int pageNumber = 1,
             int pageSize = 50)
         {
@@ -83,7 +83,9 @@ namespace DotNetBanky.BLL.Services.Implementations
             options.QueryType = SearchQueryType.Full;
             options.Size = pageSize;
             options.Skip = (pageNumber - 1) * pageSize;
-            options.OrderBy.Add($"{sortColumn.GetValueAsString()} {sortDirection.GetValueAsString()}");
+            if (!string.IsNullOrEmpty(sortColumn.GetValueAsString()))
+                options.OrderBy.Add($"{sortColumn.GetValueAsString()} {sortDirection.GetValueAsString()}");
+            options.SearchMode = SearchMode.All;
 
             SearchResults<CustomerSearch> results;
             results = await _searchClient.SearchAsync<CustomerSearch>(searchTerm + "~1", options);
