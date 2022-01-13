@@ -39,7 +39,6 @@ namespace DotNetBanky.Admin.TagHelpers
 
             if (DontRender)
             {
-                //TODO: make this an option?
                 output.TagName = null;
                 output.SuppressOutput();
             }

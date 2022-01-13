@@ -1,9 +1,10 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
+
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.DTOModels.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages.Admin.Users
@@ -12,12 +13,12 @@ namespace DotNetBanky.Admin.Pages.Admin.Users
     public class CreateUserModel : PageModel
     {
         private readonly IUserService _userService;
-        private readonly INotyfService _notifyService;
+        private readonly IToastNotification _toastNotification;
 
-        public CreateUserModel(IUserService userService, INotyfService notifyService)
+        public CreateUserModel(IUserService userService, IToastNotification toastNotification)
         {
             _userService = userService;
-            _notifyService = notifyService;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -36,12 +37,12 @@ namespace DotNetBanky.Admin.Pages.Admin.Users
                 try
                 {
                     await _userService.CreateAsync(InputModel);
-                    _notifyService.Success("User created successfully!");
+                    _toastNotification.AddSuccessToastMessage("User created successfully!");
                     return LocalRedirect("/Admin/Users/UsersList");
                 }
                 catch (Exception e)
                 {
-                    _notifyService.Error(e.Message);
+                    _toastNotification.AddErrorToastMessage(e.Message);
                 }
             }
 

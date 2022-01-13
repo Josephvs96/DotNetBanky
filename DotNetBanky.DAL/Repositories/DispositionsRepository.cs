@@ -16,7 +16,10 @@ namespace DotNetBanky.DAL.Repositories
 
         public IEnumerable<Disposition> GetAllDispostions()
         {
-            return _db.Dispositions.Include(d => d.Account).Include(d => d.Customer).OrderBy(d => d.Customer.Country);
+            return _db.Dispositions
+                .Include(d => d.Account)
+                .Include(d => d.Customer)
+                .OrderBy(d => d.Customer.Country);
         }
     }
 }

@@ -15,6 +15,21 @@
                     <span class="text">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item" navigation-active-for="/Customers/Index">
+                <a asp-page="/Customers/Index">
+                    <span class="icon">
+                        <i class="fas fa-address-book"></i>
+                    </span>
+                    <span class="text">Customers</span>
+                </a>
+            </li>
+            <li class="nav-item" navigation-active-for="/Customers/Create">
+                <a asp-page="/Customers/Create">
+                    <span class="icon"> <i class="fas fa-user-plus"></i></span>
+                    <span class="text">Add Customer</span>
+                </a>
+            </li>
+
             @if (User.IsInRole(RoleConstants.Admin))
             {
                 <li navigation-active-for="Admin" id="admin_menu" class="nav-item nav-item-has-children">
@@ -39,29 +54,13 @@
                     </ul>
                 </li>
             }
-            <li navigation-active-for="Customers" class="nav-item nav-item-has-children">
-                <a href="#0"
-                   menu-active-for="Customers"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#ddmenu_customer"
-                   aria-controls="ddmenu_customer"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="menu-angel"><i class="fa-solid fa-angle-down"></i></span>
-                    <span class="icon">
-                        <i class="fas fa-address-book"></i>
-                    </span>
-                    <span class="text">Customers Managment</span>
-                </a>
-                <ul id="ddmenu_customer" menu-active-for="Customers" class="collapse dropdown-nav">
-                    <li sub-item-active-for="/Customers/Index">
-                        <a asp-page="/Customers/Index"> <i class="fas fa-address-book"></i>Customers List</a>
-                    </li>
-                    <li sub-item-active-for="/Customers/Create">
-                        <a asp-page="/Customers/Create"> <i class="fas fa-user-plus"></i>Add Customer</a>
-                    </li>
-                </ul>
+            <li class="nav-item">
+                <form id="logout-form" class="form-inline" asp-page="/Auth/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" asp-antiforgery="false">
+                    <a class="btn" onclick="$('#logout-form').submit()">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="text">Log out</span>
+                    </a>
+                </form>
             </li>
         </ul>
     </nav>

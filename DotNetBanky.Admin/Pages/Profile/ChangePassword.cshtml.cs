@@ -1,8 +1,8 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.DTOModels.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 using SmartBreadcrumbs.Attributes;
 using System.Security.Claims;
 
@@ -12,12 +12,12 @@ namespace DotNetBanky.Admin.Pages.Profile
     public class ChangePassword : PageModel
     {
         private readonly IUserService _userService;
-        private readonly INotyfService _notifyService;
+        private readonly IToastNotification _toastNotification;
 
-        public ChangePassword(IUserService userService, INotyfService notifyService)
+        public ChangePassword(IUserService userService, IToastNotification toastNotification)
         {
             _userService = userService;
-            _notifyService = notifyService;
+            _toastNotification = toastNotification;
         }
         [BindProperty]
         public UserChangePasswordModel InputModel { get; set; }
@@ -37,13 +37,13 @@ namespace DotNetBanky.Admin.Pages.Profile
                     if (ModelState.IsValid)
                     {
                         await _userService.ChangePasswordAsync(InputModel);
-                        _notifyService.Success("Password updated!");
+                        _toastNotification.AddSuccessToastMessage("Password updated!");
                         return LocalRedirect("~/");
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    _notifyService.Error("Error changed the password");
+                    _toastNotification.AddErrorToastMessage($"While changing the password Error: {e.Message}");
                 }
             }
 

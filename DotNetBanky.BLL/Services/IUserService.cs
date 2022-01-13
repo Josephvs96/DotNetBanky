@@ -1,4 +1,5 @@
 ﻿using DotNetBanky.Core.DTOModels.User;
+using DotNetBanky.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace DotNetBanky.BLL.Services
@@ -7,6 +8,7 @@ namespace DotNetBanky.BLL.Services
     {
         Task ChangePasswordAsync(UserChangePasswordModel model);
         Task CreateAsync(UserCreateModel model);
+        Task<Customer> CreateWithCustomerAsync(UserCreateModel model);
         Task DeleteUserAsync(UserDTOModel model);
         Task<List<UserDTOModel>> GetAllUsersAsync();
         Task<List<IdentityRole>> GetAvailableRollesAsync();
