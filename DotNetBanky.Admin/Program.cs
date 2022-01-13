@@ -1,4 +1,3 @@
-using DotNetBanky.BLL.Services;
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
 using Microsoft.AspNetCore.Authorization;
@@ -38,8 +37,6 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
     ShowDuration = 4
 });
 
-
-
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -52,8 +49,6 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     await DbInitilizer.MigrateAsync(scope.ServiceProvider);
-    var search = scope.ServiceProvider.GetRequiredService<ISearchService>();
-    await search.CreateAndPopulateIndex();
 }
 
 // Configure the HTTP request pipeline.
@@ -63,7 +58,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
