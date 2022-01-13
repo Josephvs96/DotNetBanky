@@ -3288,6 +3288,7 @@ h6,
             }
 
     .sidebar-nav-wrapper .sidebar-nav ul .nav-item.active > a,
+    .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > form > a,
     .sidebar-nav-wrapper .sidebar-nav ul .nav-item.active > a.collapsed, .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > a,
     .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > a.collapsed {
         color: #262d3f;
@@ -3295,6 +3296,7 @@ h6,
 
         .sidebar-nav-wrapper .sidebar-nav ul .nav-item.active > a::before,
         .sidebar-nav-wrapper .sidebar-nav ul .nav-item.active > a.collapsed::before, .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > a::before,
+        .sidebar-nav-wrapper .sidebar-nav ul .nav-item.active > a.collapsed::before, .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > form > a::before,
         .sidebar-nav-wrapper .sidebar-nav ul .nav-item:hover > a.collapsed::before {
             opacity: 1;
             visibility: visible;

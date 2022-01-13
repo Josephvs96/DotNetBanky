@@ -1,70 +1,55 @@
 ﻿@page
 @model DotNetBanky.Admin.Pages.Customers.IndexModel
 @{
-    ViewData["Title"] = "Customers list";
-
+    ViewData["Title"] = "Customers";
 }
 
-<div class="col-lg-12">
-    <div class="card-style mb-30">
-        <div class="table-wrapper table-responsive">
-            <div class="d-flex justify-content-between py-0 pb-2">
-                <div class="header-search d-none d-md-flex">
-                    <form asp-page="/Customers/Index" method="get">
-                        <input asp-for="Filter" name="filter" type="text" placeholder="Search..." />
-                        <button type="submit"><i class="fa fa-search"></i></button>
+<div class="row mb-30 pt-100 d-flex justify-content-center">
+    <div class="row d-flex justify-content-center mb-10">
+        <div class="col-xxl-4 col-md-5 col-sm-10">
+            <div class="card-style text-center mb-10">
+                <div class="content mb-30">
+                    <i class="fas fa-search fa-3x mb-30 text-primary"></i>
+                    <h4 class="text-bold mb-10">Search for customers</h4>
+                </div>
+                <div class="header-search d-flex justify-content-center">
+                    <form asp-page="/Search/SearchResults" method="post" asp-antiforgery="false">
+                        <input type="text" name="searchWord" placeholder="Search..." />
+                        <button type="submit"><i class="fas fa-search fa-l"></i></button>
                     </form>
                 </div>
-                <a class="main-btn primary-btn btn-sm rounded-full btn-hover" asp-page="/Customers/Create"><i class="fa-solid fa-plus"></i> Add new Customer</a>
             </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            <h6 class="d-inline mr-10">Customer Number</h6>
-                            <sort sort-column="@CustomerSortColumn.Id"></sort>
-                        </th>
-                        <th>
-                            <h6 class="d-inline mr-10">Customer Name</h6>
-                            <sort sort-column="@CustomerSortColumn.Name"></sort>
-                        </th>
-                        <th><h6>Email</h6></th>
-                        <th><h6>Phone number</h6></th>
-                        <th></th>
-                    </tr>
-                    <!-- end table row-->
-                </thead>
-                <tbody>
-                    @foreach (var customer in Model.PagedResult.Results)
-                    {
-                        <tr>
-                            <td class="min-width"><p>@customer.CustomerId</p></td>
-                            <td class="min-width"><p>@customer.FullName</p></td>
-                            <td class="min-width"><p>@customer.EmailAddress</p></td>
-                            <td class="min-width"><p>@customer.TelephoneNumber</p></td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <a class="text-active" asp-page="/Customers/Customer" asp-route-customerId="@customer.CustomerId">
-                                        <i class="fa-solid fa-info-circle fa-xl" title="Show customer details"></i>
-                                    </a>
-                                    <a class="text-active" asp-page="/Customers/Accounts/Transactions/Create" asp-route-customerId="@customer.CustomerId">
-                                        <i class="fas fa-exchange-alt fa-xl" title="New Transaction"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <!-- end table -->
         </div>
-        <div class="d-flex justify-content-center">
-            <paging page-number="Model.PagedResult.CurrentPage"
-                    page-size="Model.PageSize"
-                    total-records="Model.PagedResult.RowCount">
-            </paging>
+        <div class="col-xxl-4 col-md-5 col-sm-10">
+            <div class="card-style text-center mb-10">
+                <div class="content mb-30">
+                    <i class="far fa-id-card fa-3x mb-30 text-primary"></i>
+                    <h4 class="text-bold mb-10">Get customer information</h4>
+                </div>
+                <div class="header-search d-flex justify-content-center">
+                    <form asp-page="/Customer" method="post" asp-antiforgery="false">
+                        <input type="number" name="customer-Id" placeholder="Customer Id..." />
+                        <button type="submit"><i class="fas fa-search fa-l"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Icon Cart -->
+    </div>
+    <!-- End Col -->
+    <div class="row d-flex justify-content-center">
+        <div class="col-xxl-8 col-md-10 col-sm-12">
+            <div class="card-style text-center mb-10">
+                <div class="content mb-30">
+                    <i class="fas fa-address-book fa-3x mb-30 text-primary"></i>
+                    <h4 class="text-bold mb-10">View All Customers</h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a class="main-btn active-btn btn-sm rounded-full btn-hover"
+                       asp-page="List"><i class="fas fa-address-book fa-xl mr-10"></i>List All</a>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- end card -->
+    <!-- End Col -->
 </div>
-<!-- end col -->

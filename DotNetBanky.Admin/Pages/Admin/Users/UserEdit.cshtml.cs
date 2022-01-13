@@ -1,9 +1,10 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
+
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.DTOModels.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using SmartBreadcrumbs.Attributes;
 
 namespace DotNetBanky.Admin.Pages.Admin.Users
@@ -12,12 +13,12 @@ namespace DotNetBanky.Admin.Pages.Admin.Users
     public class UserEditModel : PageModel
     {
         private readonly IUserService _userService;
-        private readonly INotyfService _notifyService;
+        private readonly IToastNotification _toastNotification;
 
-        public UserEditModel(IUserService userService, INotyfService notifyService)
+        public UserEditModel(IUserService userService, IToastNotification toastNotification)
         {
             _userService = userService;
-            _notifyService = notifyService;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -36,12 +37,12 @@ namespace DotNetBanky.Admin.Pages.Admin.Users
                 try
                 {
                     await _userService.UpdateUserInfoAsync(InputModel);
-                    _notifyService.Success("User information updated successfully!");
+                    _toastNotification.AddSuccessToastMessage("User information updated successfully!");
                     return LocalRedirect("/Admin/Users/UsersList");
                 }
                 catch (Exception e)
                 {
-                    _notifyService.Error(e.Message);
+                    _toastNotification.AddErrorToastMessage(e.Message);
                 }
             }
 
@@ -56,12 +57,12 @@ namespace DotNetBanky.Admin.Pages.Admin.Users
             try
             {
                 await _userService.DeleteUserAsync(InputModel);
-                _notifyService.Success("User deleted successfully!");
+                _toastNotification.AddSuccessToastMessage("User deleted successfully!");
                 return LocalRedirect("/Admin/Users/UsersList");
             }
             catch (Exception e)
             {
-                _notifyService.Error(e.Message);
+                _toastNotification.AddErrorToastMessage(e.Message);
             }
 
             InputModel.Roles = new SelectList(await _userService.GetAvailableRollesAsync(), "Name", "Name");

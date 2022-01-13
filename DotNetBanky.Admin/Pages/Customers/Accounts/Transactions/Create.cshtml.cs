@@ -1,12 +1,13 @@
-using AspNetCoreHero.ToastNotification.Abstractions;
 using DotNetBanky.BLL.Services;
 using DotNetBanky.Core.Constants;
 using DotNetBanky.Core.DTOModels.Account;
 using DotNetBanky.Core.DTOModels.Transaction;
+using DotNetBanky.Core.Exceptions;
 using DotNetBanky.Core.Extentions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 using SmartBreadcrumbs.Attributes;
 using SmartBreadcrumbs.Nodes;
 
@@ -16,12 +17,12 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts.Transactions
     public class CreateModel : PageModel
     {
         private readonly IAccountService _accountService;
-        private readonly INotyfService _notyfService;
+        private readonly IToastNotification _toastNotification;
 
-        public CreateModel(IAccountService accountService, INotyfService notyfService)
+        public CreateModel(IAccountService accountService, IToastNotification toastNotification)
         {
             _accountService = accountService;
-            _notyfService = notyfService;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -44,18 +45,26 @@ namespace DotNetBanky.Admin.Pages.Customers.Accounts.Transactions
 
         public async Task<IActionResult> OnPostAsync()
         {
-            try
+            if (ModelState.IsValid)
             {
-                await _accountService.CreateAccountTransaction(InputModel);
-                _notyfService.Success("New transaction created successfully!");
-                return LocalRedirect($"/Customer/{InputModel.CustomerId}/Account/{InputModel.AccountFrom}");
+                try
+                {
+                    await _accountService.CreateAccountTransaction(InputModel);
+                    _toastNotification.AddSuccessToastMessage("New transaction created successfully!");
+                    return LocalRedirect($"/Customer/{InputModel.CustomerId}/Account/{InputModel.AccountFrom}");
+                }
+                catch (TransactionAmountLargerThanBalanceException e)
+                {
+                    _toastNotification.AddErrorToastMessage($"Error: {e.Message.ToString().Replace("'", "\"")}");
+                    ModelState.AddModelError("InputModel.Amount", e.Message);
+                    await PopulateAccountList(InputModel.CustomerId);
+                }
+                catch (Exception e)
+                {
+                    _toastNotification.AddErrorToastMessage($"Error: {e.Message.ToString().Replace("'", "\"")}");
+                    await PopulateAccountList(InputModel.CustomerId);
+                }
             }
-            catch (Exception e)
-            {
-                _notyfService.Error(e.Message.ToString(), durationInSeconds: 5);
-                await PopulateAccountList(InputModel.CustomerId);
-            }
-
             return Page();
         }
 

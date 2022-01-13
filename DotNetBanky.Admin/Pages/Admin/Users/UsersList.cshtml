@@ -37,9 +37,13 @@
                                 {
                                     <span class="status-btn danger-btn">Admin</span>
                                 }
-                                else
+                                else if(user.Role == RoleConstants.Cahsier)
                                 {
                                     <span class="status-btn active-btn">Cashier</span>
+                                }
+                                else
+                                {
+                                    <span class="status-btn success-btn">Customer</span>
                                 }
                             </td>
                             <td>

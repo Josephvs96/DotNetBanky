@@ -36,8 +36,8 @@ namespace DotNetBanky.DAL.Context
 
             if (!userManager.Users.Any())
             {
-                var adminUser = new User { FullName = "Stefan Admin", UserName = "Stefan Admin", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
-                var cashierUser = new User { FullName = "Stefan Cashier", UserName = "Stefan Cashier", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
+                var adminUser = new User { FullName = "Stefan Admin", DisplayName = "Stefan Admin", UserName = "stefan.holmberg@systementor.se", Email = "stefan.holmberg@systementor.se", EmailConfirmed = true };
+                var cashierUser = new User { FullName = "Stefan Cashier", DisplayName = "Stefan Cashier", UserName = "stefan.holmberg@nackademin.se", Email = "stefan.holmberg@nackademin.se", EmailConfirmed = true };
 
                 await userManager.CreateAsync(adminUser, "Hejsan123#");
                 await userManager.CreateAsync(cashierUser, "Hejsan123#");
