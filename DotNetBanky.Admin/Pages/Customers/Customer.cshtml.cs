@@ -33,7 +33,5 @@ namespace DotNetBanky.Admin.Pages.Customers
             }
             return RedirectToPage("/Customers/Index");
         }
-
-
     }
 }
