@@ -8,6 +8,7 @@ using DotNetBanky.DAL.Repositories;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -67,10 +68,9 @@ namespace DotNetBanky.Common.DIContainer
             services.AddAutoMapper(typeof(AutoMapperProfile));
         }
 
-        public static void AddBankyIdentity(this IServiceCollection services)
+        public static void AddBankyIdentity(this IServiceCollection services, params string[] roles)
         {
             services.AddDefaultIdentity<User>()
-
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -80,6 +80,7 @@ namespace DotNetBanky.Common.DIContainer
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
             });
 
             services.Configure<IdentityOptions>(options =>
@@ -100,6 +101,15 @@ namespace DotNetBanky.Common.DIContainer
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
                 options.User.RequireUniqueEmail = true;
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                                .RequireRole(roles)
+                                .RequireAuthenticatedUser()
+                                .Build();
+            });
+
         }
 
         public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
