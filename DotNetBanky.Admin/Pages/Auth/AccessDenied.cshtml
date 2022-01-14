@@ -1,0 +1,52 @@
+﻿@page
+@model DotNetBanky.Admin.Pages.Auth.AccessDeniedModel
+@{
+    Layout = "_PublicLayout";
+    ViewData["Title"] = "Login page";
+}
+
+<div class="row g-0 auth-row">
+    <div class="d-none col-lg-6 d-lg-block">
+        <div class="auth-cover-wrapper bg-primary-100">
+            <div class="auth-cover">
+                <div class="title text-center">
+                    <h1 class="text-danger mb-10">Access Denied!</h1>
+                </div>
+                <div class="cover-image">
+                    <img src="~/images/auth/access_denied.svg" alt="" />
+                </div>
+                <div class="shape-image">
+                    <img src="~/images/auth/shape.svg" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+    <div class="col-lg-6">
+        <div class="signin-wrapper">
+            <div class="form-wrapper">
+                <h2 class="text-danger mb-30">Access Denied!</h2>
+                <p class="mb-10">It seems that you are trying to access a resource that you don't have access to.</p>
+                You will be redirected to the login page in <span id="timeToRedirect">5</span>
+                <a asp-page="/Auth/Login">Take me there now!</a>
+                <hr />
+                <p class="text-sm">If you should be able to access this resource please contact the website administrator</p>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+</div>
+
+@section Scripts{
+<script>
+    let timeLeft = 4;
+    setInterval(()=>{
+        $("#timeToRedirect").text(timeLeft);
+        timeLeft ===1 ? timeLeft = '...' : timeLeft--;
+    },1000);
+
+    setTimeout(()=>{
+        window.location.href = "/Auth/Login"
+    },5000);
+</script>
+}

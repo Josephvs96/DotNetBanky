@@ -1,6 +1,6 @@
 using DotNetBanky.Common.AutomatedMigrations;
 using DotNetBanky.Common.DIContainer;
-using Microsoft.AspNetCore.Authorization;
+using DotNetBanky.Core.Constants;
 using NToastNotify;
 using SmartBreadcrumbs.Extensions;
 using System.Globalization;
@@ -21,7 +21,7 @@ builder.Services.AddAzureSearch(builder.Configuration);
 
 builder.Services.RegisterAutoMapper();
 
-builder.Services.AddBankyIdentity();
+builder.Services.AddBankyIdentity(RoleConstants.Admin, RoleConstants.Cahsier);
 
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
 
@@ -35,11 +35,6 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
     ProgressBar = true,
     CloseButton = true,
     ShowDuration = 4
-});
-
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 
 builder.Services.AddResponseCaching();
