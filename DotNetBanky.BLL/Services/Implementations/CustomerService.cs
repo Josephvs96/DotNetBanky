@@ -110,7 +110,7 @@ namespace DotNetBanky.BLL.Services.Implementations
             }
             catch (Exception)
             {
-                throw new NotFoundException("Customer could not bet found");
+                throw new NotFoundException("Customer could not be found");
             }
 
         }

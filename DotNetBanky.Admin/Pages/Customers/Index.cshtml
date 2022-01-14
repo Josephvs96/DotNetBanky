@@ -13,7 +13,7 @@
                     <h4 class="text-bold mb-10">Search for customers</h4>
                 </div>
                 <div class="header-search d-flex justify-content-center">
-                    <form asp-page="/Search/SearchResults" method="post" asp-antiforgery="false">
+                    <form asp-page="/Search/SearchResults" method="post">
                         <input type="text" name="searchWord" placeholder="Search..." />
                         <button type="submit"><i class="fas fa-search fa-l"></i></button>
                     </form>
@@ -27,8 +27,8 @@
                     <h4 class="text-bold mb-10">Get customer information</h4>
                 </div>
                 <div class="header-search d-flex justify-content-center">
-                    <form asp-page="/Customer" method="post" asp-antiforgery="false">
-                        <input type="number" name="customer-Id" placeholder="Customer Id..." />
+                    <form asp-page="/Customers/Index" method="post">
+                        <input type="number" name="customerId" placeholder="Customer Id..." />
                         <button type="submit"><i class="fas fa-search fa-l"></i></button>
                     </form>
                 </div>
