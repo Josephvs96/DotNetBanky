@@ -7,7 +7,7 @@ namespace DotNetBanky.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(RoleConstants.CashierAndAbove)]
+    [Authorize(Roles = RoleConstants.CashierAndAbove)]
     public class AccountsController : ControllerBase
     {
         private readonly IAccountService _accountService;

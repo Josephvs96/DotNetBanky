@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddBankyDatabase(builder.Configuration);
 builder.Services.AddBankyRepositories();
 
-builder.Services.AddBankyIdentity(RoleConstants.Admin, RoleConstants.Customer, RoleConstants.CashierAndAbove);
+builder.Services.AddBankyIdentity(RoleConstants.Admin, RoleConstants.Customer, RoleConstants.Cahsier);
 builder.Services.AddJwt(builder.Configuration);
 
 builder.Services.AddBankyServices(builder.Configuration);
