@@ -37,7 +37,7 @@ namespace DotNetBanky.Core.Identity
             }
 
             newIdentity.AddClaim(new Claim("DisplayName", user.DisplayName));
-
+            newIdentity.AddClaim(new Claim("CustomerId", user.CustomerId.ToString()));
             return clone;
         }
     }

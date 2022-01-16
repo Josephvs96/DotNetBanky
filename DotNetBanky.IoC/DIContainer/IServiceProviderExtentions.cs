@@ -51,7 +51,6 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ISearchService, AzureSearchService>();
             services.AddScoped<IClaimsTransformation, AddDisplayNameClaimsTransformation>();
         }
 
@@ -144,6 +143,8 @@ namespace DotNetBanky.Common.DIContainer
                 builder.AddSearchIndexClient(configuration.GetSection("AzureSearch"));
                 builder.AddSearchClient(configuration.GetSection("AzureSearch"));
             });
+
+            services.AddScoped<ISearchService, AzureSearchService>();
         }
 
     }
