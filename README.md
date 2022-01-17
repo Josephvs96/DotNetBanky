@@ -4,6 +4,12 @@ Bank managment system
 
 [Project Requierments](https://github.com/Josephvs96/DotNetBanky/blob/main/Krav%20st%C3%A4llningen.md)
 
+## Demo site on Azure
+[DotNetBanky](https://dotnetbanky.azurewebsites.net/Admin/Users/UsersList)
+Login: 
+Email: demo@dotnetbanky.se
+Password: HejDemo!123
+
 ## Uses the N-Tier architecture as folowes:
 ### Diagram
 <p align="center">
