@@ -24,9 +24,9 @@ Bank managment system
   - Uses JWT tokens in for authenticating users in the web API project.
   - Three diffrent roles with diffrent level of access all managed.
 -  Search Service:
-  - Uses Azure Cognitive Search to create a search engine for the users for effective searching.
-  - Index is created once by the console application.
-  - Continuous updates for the index when adding new customers or editing customers.
+    - Uses Azure Cognitive Search to create a search engine for the users for effective searching.
+    - Index is created once by the console application.
+    - Continuous updates for the index when adding new customers or editing customers.
 - Database structure:
   - Entity Framework Core to manage the database relations between entities 
   - The database was created by a database first approach but was converted into a code first approach to use migrations with the database
