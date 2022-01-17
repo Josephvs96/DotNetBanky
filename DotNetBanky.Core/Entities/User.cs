@@ -7,6 +7,6 @@ namespace DotNetBanky.Core.Entities
         public string? FullName { get; set; }
         public string DisplayName { get; set; } = null!;
         public Customer? Customer { get; set; }
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
     }
 }

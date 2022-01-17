@@ -9,7 +9,7 @@ namespace DotNetBanky.Core.Identity
 {
     public static class JwtHelper
     {
-        public static string GenerateToken(User user, IConfiguration configuration)
+        public static string GenerateToken(User user, IConfiguration configuration, IEnumerable<string> roles)
         {
             var secretKey = configuration.GetValue<string>("JwtConfiguration:SecretKey");
 
@@ -27,6 +27,12 @@ namespace DotNetBanky.Core.Identity
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+
+            // Adding the user roles as we don't want to expose the roles in the public token sent to the user
+            foreach (var role in roles)
+            {
+                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

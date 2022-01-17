@@ -44,7 +44,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasKey("AccountId");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.Card", b =>
@@ -91,7 +91,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasIndex("DispositionId");
 
-                    b.ToTable("Cards");
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.Customer", b =>
@@ -163,7 +163,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.Disposition", b =>
@@ -191,7 +191,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Dispositions");
+                    b.ToTable("Dispositions", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.Loan", b =>
@@ -228,7 +228,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Loans");
+                    b.ToTable("Loans", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.PermenentOrder", b =>
@@ -265,7 +265,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("PermenentOrders");
+                    b.ToTable("PermenentOrders", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.Transaction", b =>
@@ -316,7 +316,7 @@ namespace DotNetBanky.DAL.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("DotNetBanky.Core.Entities.User", b =>

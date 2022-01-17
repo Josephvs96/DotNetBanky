@@ -67,7 +67,9 @@ namespace DotNetBanky.BLL.Services
 
             // Add roles as multiple claims
 
-            var token = JwtHelper.GenerateToken(user, _configuration);
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var token = JwtHelper.GenerateToken(user, _configuration, userRoles);
 
             return token.ToString();
         }

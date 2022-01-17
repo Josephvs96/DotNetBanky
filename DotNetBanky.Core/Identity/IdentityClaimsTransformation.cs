@@ -40,12 +40,6 @@ namespace DotNetBanky.Core.Identity
             newIdentity.AddClaim(new Claim("DisplayName", user.DisplayName));
             newIdentity.AddClaim(new Claim("CustomerId", user.CustomerId.ToString()));
 
-            // Adding the user roles as we don't want to expose the roles in the public token sent to the user
-            foreach (var role in await _userManager.GetRolesAsync(user))
-            {
-                newIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
-            }
-
             return clone;
         }
     }
