@@ -12,6 +12,27 @@ Bank managment system
 - Email: demo@dotnetbanky.se
 - Password: HejDemo!123
 
+## Areas
+- Admin Dashboard made with Asp.net Razor Pages that is used to manage the customers, accounts and make transactions between accounts.
+- API made with Asp.net Web API for customers to use when using the mobile app (Not included in this project).
+- Console App that is used to create a search index in azure cognitive search.
+- Console App that is used to check for suspicious transactions in a fictional scenario.    
+
+## Featuers
+- Microsoft Identity for managing the users and their roles:
+  - Uses Cookie Authentication for authenticating users in the web based Razor pages project.
+  - Uses JWT tokens in for authenticating users in the web API project.
+  - Three diffrent roles with diffrent level of access all managed.
+-  Search Service:
+  - Uses Azure Cognitive Search to create a search engine for the users for effective searching.
+  - Index is created once by the console application.
+  - Continuous updates for the index when adding new customers or editing customers.
+- Database structure:
+  - Entity Framework Core to manage the database relations between entities 
+  - The database was created by a database first approach but was converted into a code first approach to use migrations with the database
+  - The database is an Azure SQL database hosted in an Azure SQL Server 
+  
+
 ## Uses the N-Tier architecture as folowes:
 ### Diagram
 <p align="center">
