@@ -6,9 +6,11 @@ Bank managment system
 
 ## Demo site on Azure
 [DotNetBanky](https://dotnetbanky.azurewebsites.net/Admin/Users/UsersList)
+
 Login: 
-Email: demo@dotnetbanky.se
-Password: HejDemo!123
+
+-Email: demo@dotnetbanky.se
+-Password: HejDemo!123
 
 ## Uses the N-Tier architecture as folowes:
 ### Diagram
