@@ -9,8 +9,8 @@ Bank managment system
 
 Login: 
 
--Email: demo@dotnetbanky.se
--Password: HejDemo!123
+- Email: demo@dotnetbanky.se
+- Password: HejDemo!123
 
 ## Uses the N-Tier architecture as folowes:
 ### Diagram
