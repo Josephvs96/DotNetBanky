@@ -72,7 +72,7 @@ app.Run();
 
 void ConfigureCulture()
 {
-    var cultureInfo = new CultureInfo(CultureInfo.CurrentCulture.Name);
+    var cultureInfo = new CultureInfo("sv-SE");
     cultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
     cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
     cultureInfo.NumberFormat.NumberGroupSeparator = ",";
