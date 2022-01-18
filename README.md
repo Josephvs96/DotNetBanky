@@ -21,8 +21,8 @@ Bank managment system
 ## Featuers
 - Microsoft Identity for managing the users and their roles:
   - Uses Cookie Authentication for authenticating users in the web based Razor pages project.
-  - Uses JWT tokens in for authenticating users in the web API project.
-  - Three diffrent roles with diffrent level of access all managed.
+  - Uses JWT tokens for authenticating users in the web API project.
+  - Three diffrent roles with diffrent level of access all managed by microsoft identity.
 -  Search Service:
     - Uses Azure Cognitive Search to create a search engine for the users for effective searching.
     - Index is created once by the console application.
@@ -46,5 +46,18 @@ Bank managment system
 - DotNetBanky.API : The second presentation layer, A Web API that will be used to comunicate with the Mobile app for Banky (Not included in this projcet)
 - DotNetBanky.Core : The data entites and the transfare objects that will be used to trasfare data between the presntation layer and business layer
 - DotNetBanky.Common : The dependency injection layer that will configure the DI container to be used in diffrent applications
-- DotNetBanky.Tests : Xunit project to run tests with MOQ to moq the reposiroties 
+- DotNetBanky.Tests : Xunit project to run tests with MOQ to mock the reposiroties 
+
+## Deployment & Development
+### Hosting
+The Demo Application is hosted in Azure in a windows app container, uses Azure Configuration to provied the sensitve on start app settings like the database connection string and the Azure search API keys.
+
+### Deployment
+The app is auto deployed by github actions to Azure on pullrequest merge or push to Main branch.
+
+### Devemopment
+The dev branch is where the development will be done and this branch will alwyas be more updated and has more features than main.
+
+#### Dev workflow
+When starting new feature branch start always from Dev branch and never merge directly into main, make a pull request to merge with dev instead. 
 
