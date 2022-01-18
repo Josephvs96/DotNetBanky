@@ -65,7 +65,11 @@ namespace DotNetBanky.BLL.Services
             if (!signInResult.Succeeded)
                 throw new BadRequestException("Username or password is incorrect");
 
-            var token = JwtHelper.GenerateToken(user, _configuration);
+            // Add roles as multiple claims
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var token = JwtHelper.GenerateToken(user, _configuration, userRoles);
 
             return token.ToString();
         }

@@ -51,8 +51,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ISearchService, AzureSearchService>();
-            services.AddScoped<IClaimsTransformation, AddDisplayNameClaimsTransformation>();
+            services.AddScoped<IClaimsTransformation, IdentityClaimsTransformation>();
         }
 
         public static void AddBankyRepositories(this IServiceCollection services)
@@ -125,14 +124,14 @@ namespace DotNetBanky.Common.DIContainer
             })
             .AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
+                x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
                 };
             });
         }
@@ -144,6 +143,8 @@ namespace DotNetBanky.Common.DIContainer
                 builder.AddSearchIndexClient(configuration.GetSection("AzureSearch"));
                 builder.AddSearchClient(configuration.GetSection("AzureSearch"));
             });
+
+            services.AddScoped<ISearchService, AzureSearchService>();
         }
 
     }

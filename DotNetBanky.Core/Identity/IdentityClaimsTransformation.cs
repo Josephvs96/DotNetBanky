@@ -5,12 +5,12 @@ using System.Security.Claims;
 
 namespace DotNetBanky.Core.Identity
 {
-    public class AddDisplayNameClaimsTransformation : IClaimsTransformation
+    public class IdentityClaimsTransformation : IClaimsTransformation
     {
 
         private readonly UserManager<User> _userManager;
 
-        public AddDisplayNameClaimsTransformation(UserManager<User> userManager)
+        public IdentityClaimsTransformation(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
@@ -36,7 +36,9 @@ namespace DotNetBanky.Core.Identity
                 return principal;
             }
 
+            // Added the display name and the customer id for the claims list
             newIdentity.AddClaim(new Claim("DisplayName", user.DisplayName));
+            newIdentity.AddClaim(new Claim("CustomerId", user.CustomerId.ToString()));
 
             return clone;
         }

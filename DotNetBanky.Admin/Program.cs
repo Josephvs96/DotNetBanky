@@ -15,13 +15,13 @@ builder.Services.AddBankyDatabase(builder.Configuration);
 
 builder.Services.AddBankyRepositories();
 
+builder.Services.AddBankyIdentity(RoleConstants.Admin, RoleConstants.Cahsier);
+
 builder.Services.AddBankyServices(builder.Configuration);
 
 builder.Services.AddAzureSearch(builder.Configuration);
 
 builder.Services.RegisterAutoMapper();
-
-builder.Services.AddBankyIdentity(RoleConstants.Admin, RoleConstants.Cahsier);
 
 builder.Services.AddBreadcrumbs(Assembly.GetExecutingAssembly());
 
