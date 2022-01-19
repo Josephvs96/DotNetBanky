@@ -25,7 +25,7 @@ namespace DotNetBanky.Admin.Pages.Search
         public async Task<IActionResult> OnGetAsync(
             string searchWord,
             int pageNumber = 1,
-            int pageSize = 50,
+            int pageSize = 5,
             SearchSortColumn sortColumn = SearchSortColumn.Relevance,
             SortDirection sortDirection = SortDirection.None)
         {

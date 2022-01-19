@@ -71,17 +71,6 @@
                     <!-- end table row-->
                 </thead>
                 <tbody>
-                    @foreach (var transaction in Model.InputModel.PagedTransactions.Results)
-                    {
-                        <tr>
-                            <td class="min-width"><p>@transaction.TransactionId</p></td>
-                            <td class="min-width"><p>@transaction.Symbol</p></td>
-                            <td class="min-width"><p>@transaction.Type</p></td>
-                            <td class="min-width"><p>@transaction.Operation</p></td>
-                            <td class="min-width"><p>@transaction.Amount.ToStringFormated()</p></td>
-                            <td class="min-width"><p>@transaction.Date.ToShortDateString()</p></td>
-                        </tr>
-                    }
                 </tbody>
             </table>
             <!-- end table -->
@@ -98,5 +87,5 @@
 
 @section Scripts{
 
-<partial name="_transactionsAjaxReqPartial" />
+    <partial name="_transactionsAjaxReqPartial" />
 }
