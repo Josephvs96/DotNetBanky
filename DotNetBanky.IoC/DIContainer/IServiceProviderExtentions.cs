@@ -1,6 +1,7 @@
 ﻿using DotNetBanky.BLL.Services;
 using DotNetBanky.BLL.Services.Implementations;
 using DotNetBanky.Common.ConfigModels;
+using DotNetBanky.Core.AutoMapperProfiles;
 using DotNetBanky.Core.Entities;
 using DotNetBanky.Core.Identity;
 using DotNetBanky.DAL.Context;
@@ -16,8 +17,8 @@ using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
-using static DotNetBanky.Core.AutoMapperProfiles.AutoMapperProfiles;
 
 namespace DotNetBanky.Common.DIContainer
 {
@@ -64,7 +65,7 @@ namespace DotNetBanky.Common.DIContainer
 
         public static void RegisterAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapperProfiles)));
         }
 
         public static void AddBankyIdentity(this IServiceCollection services, params string[] roles)
