@@ -38,7 +38,11 @@ namespace DotNetBanky.DAL.Repositories
         public async Task<decimal> GetTotalAccountsBalanceByCustomerId(int id)
         {
             return await _db.Customers.Where(c => c.CustomerId == id).Select(c => c.Dispositions.Sum(d => d.Account.Balance)).FirstAsync();
+        }
 
+        public Task<List<string>> GetAllCountries()
+        {
+            return Task.FromResult(_db.Customers.Select(c => c.Country).Distinct().ToList());
         }
     }
 }

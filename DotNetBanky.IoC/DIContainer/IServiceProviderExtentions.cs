@@ -52,6 +52,7 @@ namespace DotNetBanky.Common.DIContainer
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IFraudService, FraudService>();
             services.AddScoped<IClaimsTransformation, IdentityClaimsTransformation>();
         }
 
