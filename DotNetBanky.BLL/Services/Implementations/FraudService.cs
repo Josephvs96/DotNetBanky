@@ -76,7 +76,7 @@ namespace DotNetBanky.BLL.Services.Implementations
                 }
             }
 
-            if (fraudList.Count == 0)
+            if (fraudList.Count > 0)
             {
                 SendListToCountryMail(country, fraudList);
             }
