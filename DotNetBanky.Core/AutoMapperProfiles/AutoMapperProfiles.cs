@@ -13,14 +13,20 @@ namespace DotNetBanky.Core.AutoMapperProfiles
 {
     public static class AutoMapperProfiles
     {
-        public class AutoMapperProfile : Profile
+        public class UserProfile : Profile
         {
-            public AutoMapperProfile()
+            public UserProfile()
             {
                 // User Mappings
                 CreateMap<UserCreateModel, User>().ForMember(usr => usr.UserName, opt => opt.MapFrom(dto => dto.Email)).ReverseMap();
                 CreateMap<UserDTOModel, User>().ForMember(usr => usr.UserName, opt => opt.MapFrom(dto => dto.Email)).ReverseMap();
+            }
+        }
 
+        public class CustomerProfile : Profile
+        {
+            public CustomerProfile()
+            {
                 // Customer Mappings
                 CreateMap<Customer, CustomerCreateModel>().ReverseMap();
                 CreateMap<Customer, CustomerEditModel>().ReverseMap();
@@ -40,14 +46,26 @@ namespace DotNetBanky.Core.AutoMapperProfiles
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerSearch>>().ReverseMap();
                 CreateMap<PagedResult<Customer>, PagedResult<CustomerSearchDTO>>().ReverseMap();
                 CreateMap<PagedResult<CustomerSearch>, PagedResult<CustomerSearchDTO>>().ReverseMap();
+            }
+        }
 
+        public class AccountProfile : Profile
+        {
+            public AccountProfile()
+            {
                 // Account Mappings
                 CreateMap<Account, AccountSummeryDTO>().ForMember(
                     dto => dto.AccountType,
                     opt => opt.MapFrom(src => src.Dispositions.First().Type)).ReverseMap();
                 CreateMap<Account, AccountDetailsDTO>().ReverseMap();
                 CreateMap<Account, AccountCreateModel>().ReverseMap();
+            }
+        }
 
+        public class TransactionProfile : Profile
+        {
+            public TransactionProfile()
+            {
                 // Transaction
                 CreateMap<Transaction, TransactionDTO>().ReverseMap();
                 CreateMap<PagedResult<Transaction>, PagedResult<TransactionDTO>>().ReverseMap();
