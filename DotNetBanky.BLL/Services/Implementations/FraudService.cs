@@ -4,7 +4,7 @@ using DotNetBanky.Core.Entities;
 using DotNetBanky.DAL.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNetBanky.BLL.Services
+namespace DotNetBanky.BLL.Services.Implementations
 {
     public class FraudService : IFraudService
     {
