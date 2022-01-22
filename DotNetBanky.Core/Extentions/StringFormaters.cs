@@ -10,6 +10,16 @@
         {
             return string.Format("{0:C}", value);
         }
+
+        public static string ToStringCurrencyFormated(this decimal value)
+        {
+            return string.Format("{0} mkr", Math.Ceiling((double)value / 1000000));
+        }
+        public static string ToStringCurrencyFormated(this decimal? value)
+        {
+            return string.Format("{0} mkr", Math.Ceiling((double)value / 1000000));
+        }
+
         public static string ToStringFormated(this int value)
         {
             return string.Format("{0:0,0}", value);

@@ -39,7 +39,7 @@
             </div>
             <div class="content">
                 <h6 class="mb-10">Sum of accounts</h6>
-                <h3 class="text-bold mb-10">@Model.DashboardModel.TotalSumOfAllAccounts.ToStringFormated()</h3>
+                <h3 class="text-bold mb-10">@Model.DashboardModel.TotalSumOfAllAccounts.ToStringCurrencyFormated()</h3>
             </div>
         </div>
         <!-- End Icon Cart -->
@@ -49,6 +49,6 @@
 <div class="row">
     @foreach (var country in Model.DashboardCountryList)
     {
-        @await Component.InvokeAsync("CountryCard", new {countryData = country})
+        @await Component.InvokeAsync("CountryCard", new { countryData = country })
     }
 </div>
