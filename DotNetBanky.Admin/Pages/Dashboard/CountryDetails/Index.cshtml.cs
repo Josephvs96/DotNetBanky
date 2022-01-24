@@ -7,7 +7,7 @@ using SmartBreadcrumbs.Attributes;
 namespace DotNetBanky.Admin.Pages.Dashboard.CountryDetails
 {
     [Breadcrumb("Country Details")]
-    [ResponseCache(Duration = 60, VaryByHeader = "Country-Details", Location = ResponseCacheLocation.Any, NoStore = false)]
+    [ResponseCache(Duration = 60, VaryByQueryKeys = new[] { "countryName" }, Location = ResponseCacheLocation.Any, NoStore = false)]
     public class IndexModel : PageModel
     {
         private readonly IDashboardService _dashboardService;
