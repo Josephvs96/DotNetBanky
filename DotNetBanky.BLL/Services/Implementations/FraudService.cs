@@ -28,7 +28,6 @@ namespace DotNetBanky.BLL.Services.Implementations
 
             foreach (var country in countries)
             {
-                //await ProccessCountry(country, lastScannedDate);
                 await ProccessCountryInBatches(country, lastScannedDate);
             }
         }
@@ -105,62 +104,11 @@ namespace DotNetBanky.BLL.Services.Implementations
             }
         }
 
-        private async Task ProccessCountry(string country, DateTime lastScannedDate)
-        {
-            var fraudList = new List<FraudDTO>();
-
-            var customersInCountry = await _customerRepository.GetListAsync(
-                filter: c => c.Country == country,
-                include: q => q.Include(c => c.Dispositions).ThenInclude(d => d.Account).ThenInclude(a => a.Transactions));
-
-            foreach (var customer in customersInCountry)
-            {
-                foreach (var account in customer.Dispositions)
-                {
-                    var accountTransactions = account.Account.Transactions
-                       .Where(t => t.AccountNavigation.AccountId == account.Account.AccountId && t.Date > lastScannedDate)
-                       .OrderBy(t => t.Date);
-
-                    foreach (var transaction in accountTransactions)
-                    {
-                        var transactionsNextThreeDays = accountTransactions.Where(
-                                t => t.Date >= transaction.Date &&
-                                t.Date <= transaction.Date.AddHours(72));
-
-                        if (IsFraudTransaction(fraudList, transactionsNextThreeDays))
-                        {
-                            fraudList.AddRange(transactionsNextThreeDays.Select(t => new FraudDTO
-                            {
-                                AccountId = account.Account.AccountId,
-                                CustomerId = customer.CustomerId,
-                                TransactionId = t.TransactionId
-                            }));
-                        }
-
-                        if (IsFraudTransaction(fraudList, transaction))
-                        {
-                            fraudList.Add(new FraudDTO
-                            {
-                                TransactionId = transaction.TransactionId,
-                                CustomerId = customer.CustomerId,
-                                AccountId = account.Account.AccountId,
-                            });
-                        }
-                    }
-                }
-            }
-
-            if (fraudList.Count > 0)
-            {
-                SendListToCountryMail(country, fraudList);
-            }
-        }
-
         private static void SendListToCountryMail(string country, List<FraudDTO> fraudList)
         {
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine($"Sending a mail to {country} with {fraudList.Count} fraud objects");
+            Console.WriteLine($"Sending a mail to {country}@testbanken.se with {fraudList.Count} fraud objects");
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = default;
         }

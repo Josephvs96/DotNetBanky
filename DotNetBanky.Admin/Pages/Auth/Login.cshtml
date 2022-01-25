@@ -30,10 +30,6 @@
         <div class="signin-wrapper">
             <div class="form-wrapper">
                 <h6 class="mb-15">Sign In Form</h6>
-                <p class="text-sm mb-25">
-                    Start creating the best possible user experience for you
-                    customers.
-                </p>
                 <form asp-route-returnUrl="@Model.ReturnUrl" asp-action="post">
                     <div class="row">
                         <div class="col-12">
@@ -105,5 +101,5 @@
 </div>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
