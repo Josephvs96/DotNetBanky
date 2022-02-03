@@ -78,18 +78,27 @@ namespace DotNetBanky.BLL.Services.Implementations
             int pageNumber = 1,
             int pageSize = 50)
         {
-            SearchOptions options = new SearchOptions();
-            options.IncludeTotalCount = true;
-            options.QueryType = SearchQueryType.Full;
-            options.Size = pageSize;
-            options.Skip = (pageNumber - 1) * pageSize;
+            SearchOptions options = new SearchOptions
+            {
+                IncludeTotalCount = true,
+                QueryType = SearchQueryType.Full,
+                Size = pageSize,
+                Skip = (pageNumber - 1) * pageSize,
+                SearchMode = SearchMode.All
+            };
+
             if (!string.IsNullOrEmpty(sortColumn.GetValueAsString()))
                 options.OrderBy.Add($"{sortColumn.GetValueAsString()} {sortDirection.GetValueAsString()}");
-            options.SearchMode = SearchMode.All;
 
             SearchResults<CustomerSearch> results;
             results = await _searchClient.SearchAsync<CustomerSearch>(searchTerm + "~1", options);
+
+            var resultsIds = results.GetResults().Select(r => int.Parse(r.Document.CustomerId)).ToList();
+            var resultListFromDb = await _customerRepository.GetListAsync(c => resultsIds.Contains(c.CustomerId));
+
             var pagedResults = _mapper.Map<PagedResult<CustomerSearchDTO>>(results.GetPaged(pageNumber, pageSize));
+            pagedResults.Results = _mapper.Map<List<CustomerSearchDTO>>(resultListFromDb);
+
             return pagedResults;
         }
     }

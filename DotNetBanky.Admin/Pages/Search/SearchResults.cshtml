@@ -1,6 +1,7 @@
 ﻿@page "/SearchResults"
 @model DotNetBanky.Admin.Pages.Search.SearchResultsModel
 @{
+    ViewData["Title"] = "Search results - " + Model.SearchWord;
 }
 <div class="col-lg-12">
     <div class="card-style mb-30 d-flex justify-content-around">
